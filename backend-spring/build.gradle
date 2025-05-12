@@ -1,0 +1,65 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+  // Spring Boot Web (3.2.5)
+  implementation("org.springframework.boot:spring-boot-starter-web:3.2.5")
+
+  // Spring Data JPA
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.5")
+
+  // PostgreSQL Driver
+  runtimeOnly("org.postgresql:postgresql:42.7.3")
+
+  // Flyway for DB migrations
+  implementation("org.flywaydb:flyway-core:9.22.3")
+
+  // Spring Security
+  implementation("org.springframework.boot:spring-boot-starter-security:3.2.5")
+
+  // JWT - JSON Web Token (io.jsonwebtoken)
+  implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+  runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+  runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+  
+  // Validation (JSR 380)
+  implementation("org.springframework.boot:spring-boot-starter-validation:3.2.5")
+
+  // Lombok
+  compileOnly("org.projectlombok:lombok:1.18.30")
+  annotationProcessor("org.projectlombok:lombok:1.18.30")
+
+  // Dotenv (.env support)
+  implementation("me.paulschwarz:spring-dotenv:3.0.0")
+
+  // Testing
+  testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.5")
+  testImplementation("org.springframework.security:spring-security-test:6.2.3")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
