@@ -57,7 +57,14 @@ dependencies {
   // Testing
   testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.5")
   testImplementation("org.springframework.security:spring-security-test:6.2.3")
+  testImplementation("org.testcontainers:postgresql:1.21.0")
+  testImplementation("org.testcontainers:junit-jupiter:1.21.0")
+  testImplementation("io.rest-assured:rest-assured:5.4.0")
+  testImplementation("io.rest-assured:json-path:5.4.0")
+  testImplementation("io.rest-assured:json-schema-validator:5.4.0")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
+
+  
 }
 
 tasks.named('test') {
