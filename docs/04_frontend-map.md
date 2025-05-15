@@ -1,4 +1,4 @@
-# Angular Frontend Map
+# React Frontend Map
 
 ## Pages & Components
 

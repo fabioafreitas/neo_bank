@@ -12,7 +12,7 @@
 
 ## Frontend
 
-- [ ] Create base Angular project with routing
+- [ ] Create base React project with routing
 - [ ] Implement registration and login screens
 - [ ] Store and inject JWT token via interceptor
 - [ ] Create dashboard view with account + cashback
