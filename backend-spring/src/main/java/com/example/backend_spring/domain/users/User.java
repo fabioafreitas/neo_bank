@@ -31,6 +31,7 @@ public class User implements UserDetails{
     @Setter private String password;
     
     @Setter @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "user_role")
     private UserRole role;
 
     public User(String username, String password, UserRole role){
@@ -51,5 +52,9 @@ public class User implements UserDetails{
         return List.of(
             new SimpleGrantedAuthority("ROLE_USER")
         );
+    }
+
+    public boolean isAdmin() {
+        return this.role == UserRole.ADMIN;
     }
 }

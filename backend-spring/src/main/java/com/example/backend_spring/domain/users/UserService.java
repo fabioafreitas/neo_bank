@@ -1,5 +1,6 @@
 package com.example.backend_spring.domain.users;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.backend_spring.domain.accounts.AccountService;
+import com.example.backend_spring.domain.accounts.AccountStatus;
+import com.example.backend_spring.domain.accounts.AccountType;
+import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
 import com.example.backend_spring.domain.users.dto.UserRequestDTO;
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
 
@@ -18,6 +23,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private PepperPasswordEncoder pepperPasswordEncoder;
@@ -47,6 +55,14 @@ public class UserService implements UserDetailsService {
             UserRole.USER
         );
         this.userRepository.save(user);
+
+        // Create an account for the new user
+        accountService.create(new AccountCreationDTO(
+            user, 
+            new BigDecimal(0),
+            AccountStatus.ACTIVE,
+            AccountType.NORMAL
+        ));
     }
 
     public void registerAdmin(UserRequestDTO dto) {
