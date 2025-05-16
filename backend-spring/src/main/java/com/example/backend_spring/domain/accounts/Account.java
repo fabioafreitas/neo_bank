@@ -34,6 +34,10 @@ public class Account {
     private BigDecimal balance;
 
     @Setter
+    @Column(name = "account_number")
+    private String accountNumber;
+
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "account_status")
     private AccountStatus status;
@@ -43,10 +47,11 @@ public class Account {
     @Column(columnDefinition = "account_type")
     private AccountType type;
 
-    public Account(User user, BigDecimal balance, AccountStatus status, AccountType type) {
+    public Account(User user, BigDecimal balance, AccountStatus status, AccountType type, String accountNumber) {
         this.user = user;
         this.balance = balance;
         this.status = status;
         this.type = type;
+        this.accountNumber = accountNumber;
     }
 }

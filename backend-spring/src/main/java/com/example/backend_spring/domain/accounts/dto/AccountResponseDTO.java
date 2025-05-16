@@ -14,6 +14,7 @@ public record AccountResponseDTO(
     @NotBlank UUID accountId,
     @NotBlank BigDecimal balance,
     @NotNull AccountType type,
-    @NotNull AccountStatus status
+    @NotNull AccountStatus status,
+    @NotBlank String accountNumber
 ) {
 }

@@ -46,7 +46,8 @@ public class AccountService {
             dto.user(),
             dto.balance(),
             dto.status(),
-            dto.type()
+            dto.type(),
+            generateUniqueAccountNumber()
         );
         return toDto(accountRepository.save(account));
     }
@@ -81,6 +82,15 @@ public class AccountService {
         accountRepository.save(account);
     }
 
+    private String generateUniqueAccountNumber() {
+        String accountNumber;
+        do {
+            long number = (long) (Math.random() * 9_000_000_000L) + 1_000_000_000L;
+            accountNumber = String.valueOf(number);
+        } while (accountRepository.existsByAccountNumber(accountNumber));
+        return accountNumber;
+    }
+
     private User getContextUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
@@ -91,7 +101,8 @@ public class AccountService {
             account.getId(),
             account.getBalance(),
             account.getType(),
-            account.getStatus()
+            account.getStatus(),
+            account.getAccountNumber()
         );
     }
 }

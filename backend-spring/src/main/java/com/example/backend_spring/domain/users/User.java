@@ -30,8 +30,9 @@ public class User implements UserDetails{
     @Setter private String username; 
     @Setter private String password;
     
-    @Setter @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "user_role")
+    @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private UserRole role;
 
     public User(String username, String password, UserRole role){

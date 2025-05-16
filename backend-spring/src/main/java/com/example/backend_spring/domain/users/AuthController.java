@@ -29,7 +29,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody @Valid UserRequestDTO dto) {
         return userService.authenticate(dto.username(), dto.password())
                 .map(user -> {
-                String token = tokenService.generateToken(user.getUsername(), user.getRole().getRole());
+                String token = tokenService.generateToken(user.getUsername(), user.getRole().name());
                 return ResponseEntity.ok(new UserResponseDTO(token));
             })
             .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());

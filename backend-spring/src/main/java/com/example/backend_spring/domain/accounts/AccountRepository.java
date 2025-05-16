@@ -9,4 +9,5 @@ import com.example.backend_spring.domain.users.User;
 
 public interface AccountRepository extends JpaRepository<Account, UUID> {
     Optional<Account> findByUser(User user);
+    boolean existsByAccountNumber(String accountNumber);
 }
