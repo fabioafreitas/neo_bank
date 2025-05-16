@@ -1,46 +1,48 @@
 package com.example.backend_spring.domain.accounts;
 
-import org.springframework.web.bind.annotation.*;
-
-import com.example.backend_spring.domain.products.dto.ProductCreationDTO;
-import com.example.backend_spring.domain.products.dto.ProductResponseDTO;
-import com.example.backend_spring.domain.products.dto.ProductUpdateDTO;
-
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
+import com.example.backend_spring.domain.accounts.dto.AccountUpdateDTO;
+
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/accounts")
 public class AccountController {
 
-    private final AccountService service;
-
-    public AccountController(AccountService service) {
-        this.service = service;
-    }
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping
-    public List<ProductResponseDTO> getAll() {
-        return service.findAll();
+    public ResponseEntity<List<AccountResponseDTO>> getAll() {
+        return ResponseEntity.ok(accountService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDTO getById(@PathVariable("id") UUID id) {
-        return service.findById(id);
+    public ResponseEntity<AccountResponseDTO> getById(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(accountService.findById(id));
     }
 
-    @PostMapping
-    public ProductResponseDTO create(@RequestBody ProductCreationDTO dto) {
-        return service.create(dto);
+    @GetMapping("/me")
+    public ResponseEntity<AccountResponseDTO> getByJwt() {
+        return ResponseEntity.ok(accountService.findByJwt());
     }
+
+    // Creation of new accounts is not allowed through this endpoint, since the user domain handles it
 
     @PutMapping("/{id}")
-    public ProductResponseDTO update(@PathVariable("id") UUID id, @RequestBody ProductUpdateDTO dto) {
-        return service.update(id, dto);
+    public ResponseEntity<AccountResponseDTO> update(@PathVariable("id") UUID id, @RequestBody AccountUpdateDTO dto) {
+        return ResponseEntity.ok(accountService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") UUID id) {
-        service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
+
+        accountService.deactivateAccount(id);
+        return ResponseEntity.ok("Bank account deleted successfully");
     }
 }

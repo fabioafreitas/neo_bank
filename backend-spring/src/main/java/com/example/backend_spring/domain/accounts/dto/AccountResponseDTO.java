@@ -1,27 +1,19 @@
 package com.example.backend_spring.domain.accounts.dto;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import com.example.backend_spring.domain.products.Product;
+import com.example.backend_spring.domain.accounts.AccountStatus;
+import com.example.backend_spring.domain.accounts.AccountType;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record AccountResponseDTO(
-        UUID id, 
-        String name,
-        String description,
-        BigDecimal price,
-        OffsetDateTime createdAt,
-        OffsetDateTime updatedAt
-    ) {
-    public AccountResponseDTO(Product product){
-        this(
-            product.getId(), 
-            product.getName(), 
-            product.getDescription(),
-            product.getPrice(),
-            product.getCreatedAt(),
-            product.getUpdatedAt()
-        );
-    }
+    @NotBlank UUID userId,
+    @NotBlank UUID accountId,
+    @NotBlank BigDecimal balance,
+    @NotNull AccountType type,
+    @NotNull AccountStatus status
+) {
 }

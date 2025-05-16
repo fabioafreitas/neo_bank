@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.UUID;
+
+import com.example.backend_spring.domain.users.User;
 
 @Table(name = "accounts")
 @Entity(name = "accounts")
@@ -23,14 +24,29 @@ public class Account {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    @Setter private String name;
-    @Setter private String description;
-    @Setter private BigDecimal price;
+    @Setter
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    @Setter private OffsetDateTime createdAt = OffsetDateTime.now();
+    @Setter
+    @Column(columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal balance;
 
-    
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    @Setter private OffsetDateTime updatedAt = OffsetDateTime.now();
+    @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "account_status")
+    private AccountStatus status;
+
+    @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "account_type")
+    private AccountType type;
+
+    public Account(User user, BigDecimal balance, AccountStatus status, AccountType type) {
+        this.user = user;
+        this.balance = balance;
+        this.status = status;
+        this.type = type;
+    }
 }
