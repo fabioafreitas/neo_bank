@@ -2,6 +2,7 @@
 CREATE TYPE user_role AS ENUM ('ADMIN', 'USER');
 CREATE TYPE account_type AS ENUM ('NORMAL', 'CASHBACK');
 CREATE TYPE transaction_type AS ENUM ('NORMAL', 'CASHBACK');
+CREATE TYPE account_status AS ENUM ('ACTIVE', 'SUSPENDED', 'DEACTIVATED');
 
 -- USERS table
 CREATE TABLE users (
@@ -16,6 +17,7 @@ CREATE TABLE accounts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     balance DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
+    status account_status NOT NULL,
     type account_type NOT NULL
 );
 
