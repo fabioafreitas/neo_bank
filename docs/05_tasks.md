@@ -2,12 +2,12 @@
 
 ## Backend
 
-- [ ] Create User, Account, Transaction entities
-- [ ] Set up Flyway migration with constraints and enums
+- [x] Create User, Account, Transaction entities
+- [x] Set up Flyway migration with constraints and enums
 - [x] Implement UserService with secure password + JWT
 - [x] Add role-based route protection (Spring Security)
-- [ ] Cashback logic on purchases
-- [ ] Transfer logic with internal tracking
+- [x] Cashback logic on purchases
+- [x] Transfer logic with internal tracking
 - [ ] Admin user auditing endpoints
 
 ## Frontend
