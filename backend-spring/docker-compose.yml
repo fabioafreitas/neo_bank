@@ -1,8 +1,7 @@
-version: '3.8'
 services:
   postgres:
     image: postgres:16
-    container_name: spring-auth-jwt-postgres-db
+    container_name: bank-postgres-db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -12,6 +11,24 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  bank-api:
+    build: .
+    container_name: bank-spring-api
+    depends_on:
+      postgres:
+        condition: service_healthy # wait for postgres to be healthy
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    restart: unless-stopped
 
 volumes:
   pgdata:
