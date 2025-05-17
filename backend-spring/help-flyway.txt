@@ -1,0 +1,11 @@
+// String db = System.getenv("POSTGRES_DB");
+// String usr = System.getenv("POSTGRES_USER");
+// String psk = System.getenv("POSTGRES_PASSWORD");
+// String port = System.getenv("POSTGRES_PORT");
+// String url = System.getenv("POSTGRES_HOST");
+// Flyway flyway = Flyway.configure()
+// 	.dataSource("jdbc:postgresql://"+url+":"+port+"/"+db, usr, psk)
+// 	.cleanDisabled(false)
+// 	.load();
+// flyway.clean();
+// flyway.migrate();

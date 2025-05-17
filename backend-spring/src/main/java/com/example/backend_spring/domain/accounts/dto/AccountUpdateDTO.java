@@ -5,12 +5,9 @@ import java.math.BigDecimal;
 import com.example.backend_spring.domain.accounts.AccountStatus;
 import com.example.backend_spring.domain.accounts.AccountType;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 public record AccountUpdateDTO(
-    @NotBlank BigDecimal balance,
-    @NotNull AccountType type,
-    @NotNull AccountStatus status
+    BigDecimal balance,
+    AccountType type,
+    AccountStatus status
 ) {
 }

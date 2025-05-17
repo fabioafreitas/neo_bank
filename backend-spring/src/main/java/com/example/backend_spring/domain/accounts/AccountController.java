@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.backend_spring.domain.accounts.dto.AccountDeactivatedDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountUpdateDTO;
 
@@ -22,9 +23,9 @@ public class AccountController {
         return ResponseEntity.ok(accountService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AccountResponseDTO> getById(@PathVariable("id") UUID id) {
-        return ResponseEntity.ok(accountService.findById(id));
+    @GetMapping("/{accountNumber}")
+    public ResponseEntity<AccountResponseDTO> getByAccountNumber(@PathVariable("accountNumber") String accountNumber) {
+        return ResponseEntity.ok(accountService.findAccountDtoByAccountNumber(accountNumber));
     }
 
     @GetMapping("/me")
@@ -34,15 +35,14 @@ public class AccountController {
 
     // Creation of new accounts is not allowed through this endpoint, since the user domain handles it
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AccountResponseDTO> update(@PathVariable("id") UUID id, @RequestBody AccountUpdateDTO dto) {
-        return ResponseEntity.ok(accountService.update(id, dto));
+    @PutMapping("/{accountNumber}")
+    public ResponseEntity<AccountResponseDTO> update(@PathVariable("accountNumber") String accountNumber, @RequestBody AccountUpdateDTO dto) {
+        return ResponseEntity.ok(accountService.update(accountNumber, dto));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
-
-        accountService.deactivateAccount(id);
-        return ResponseEntity.ok("Bank account deleted successfully");
+    @DeleteMapping("/{accountNumber}")
+    public ResponseEntity<AccountDeactivatedDTO> delete(@PathVariable("accountNumber") String accountNumber) {
+        accountService.deactivateAccount(accountNumber);
+        return ResponseEntity.ok(new AccountDeactivatedDTO("Account deleted successfully"));
     }
 }

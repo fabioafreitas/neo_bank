@@ -1,7 +1,6 @@
 package com.example.backend_spring.domain.users;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +14,18 @@ import com.example.backend_spring.domain.accounts.AccountService;
 import com.example.backend_spring.domain.accounts.AccountStatus;
 import com.example.backend_spring.domain.accounts.AccountType;
 import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
+import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserCreationDTO;
 import com.example.backend_spring.domain.users.dto.UserRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserResponseDTO;
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
+import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    @Autowired
+    private JwtTokenProviderService tokenService;
 
     @Autowired
     private UserRepository userRepository;
@@ -35,16 +41,24 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).get();
     }
 
-    public Optional<User> authenticate(String username, String password) {
+    public UserResponseDTO authenticate(String username, String password) {
         return userRepository.findByUsername(username)
-                .filter(user -> pepperPasswordEncoder.matches(password, user.getPassword()));
+                .filter(user -> pepperPasswordEncoder.matches(password, user.getPassword()))
+                .map(user -> {
+                    String token = tokenService.generateToken(user.getUsername(), user.getRole().name());
+                    return new UserResponseDTO(token);
+                })
+                .orElseThrow(() -> new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Invalid credentials"
+                ));
+                
     }
 
     public long countAdmins() {
         return userRepository.countByRole(UserRole.ADMIN);
     }
 
-    public void registerUser(UserRequestDTO dto) {
+    public UserCreationDTO registerUser(UserRequestDTO dto) {
         if(this.userRepository.findByUsername(dto.username()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
@@ -57,12 +71,16 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(user);
 
         // Create an account for the new user
-        accountService.create(new AccountCreationDTO(
+        AccountCreationDTO accountCreationDTO = new AccountCreationDTO(
             user, 
             new BigDecimal(0),
             AccountStatus.ACTIVE,
             AccountType.NORMAL
-        ));
+        );
+        AccountResponseDTO accountResponseDTO = accountService.create(accountCreationDTO);
+        return new UserCreationDTO(
+            accountResponseDTO
+        );
     }
 
     public void registerAdmin(UserRequestDTO dto) {
@@ -77,5 +95,5 @@ public class UserService implements UserDetailsService {
         );
         userRepository.save(user);
     }
-    
+
 }

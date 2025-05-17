@@ -21,7 +21,7 @@ import com.example.backend_spring.domain.users.User;
 public class Account {
     @Id
     @GeneratedValue
-    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    @Column(name = "id", columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
     @Setter
@@ -29,22 +29,21 @@ public class Account {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @Setter
-    @Column(columnDefinition = "DECIMAL(15, 2)")
-    private BigDecimal balance;
-
-    @Setter
     @Column(name = "account_number")
     private String accountNumber;
 
     @Setter
+    @Column(name = "balance", columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal balance;
+
+    @Setter
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "account_status")
+    @Column(name = "status", columnDefinition = "TEXT")
     private AccountStatus status;
 
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "account_type")
+    @Column(name = "type", columnDefinition = "TEXT")
     private AccountType type;
 
     public Account(User user, BigDecimal balance, AccountStatus status, AccountType type, String accountNumber) {

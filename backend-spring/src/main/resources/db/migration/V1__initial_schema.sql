@@ -9,8 +9,9 @@ CREATE TABLE users (
 -- ACCOUNTS table
 CREATE TABLE accounts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id),
     balance DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
+    account_number TEXT NOT NULL,
     status TEXT NOT NULL,
     type TEXT NOT NULL
 );
@@ -21,16 +22,19 @@ CREATE INDEX idx_accounts_user_id ON accounts(user_id);
 -- TRANSACTIONS table
 CREATE TABLE transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    transaction_number VARCHAR(50) NOT NULL UNIQUE,
+    transaction_number UUID DEFAULT gen_random_uuid() UNIQUE,
     account_id UUID NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
-    is_deposit BOOLEAN NOT NULL,
     type TEXT NOT NULL,
+    description TEXT NOT NULL,
+    failure_message TEXT,
     is_success BOOLEAN NOT NULL,
     amount DECIMAL(15, 2) NOT NULL,
-    charge DECIMAL(15, 2) DEFAULT 0.00,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_failure_message_only_on_failure CHECK (
+        (is_success = false AND failure_message IS NOT NULL)
+        OR (is_success = true AND failure_message IS NULL)
+    )
 );
 
 -- Index for account lookup
 CREATE INDEX idx_transactions_account_id ON transactions(account_id);
-

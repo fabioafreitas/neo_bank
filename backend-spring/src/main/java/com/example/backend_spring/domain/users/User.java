@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -24,15 +23,17 @@ import lombok.Setter;
 public class User implements UserDetails{
     @Id
     @GeneratedValue
-    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    @Column(name = "id", columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
     
-    @Setter private String username; 
-    @Setter private String password;
+    @Column(name = "username", nullable = false, unique = true)
+    private String username; 
+
+    @Column(name = "password", nullable = false)
+    private String password;
     
-    @Setter
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "role", nullable = false, columnDefinition = "TEXT")
     private UserRole role;
 
     public User(String username, String password, UserRole role){
