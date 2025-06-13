@@ -1,0 +1,22 @@
+{
+  "welcome": {
+    "en": "Welcome",
+    "es": "Bienvenido",
+    "pt": "Bem-vindo"
+  },
+  "logout": {
+    "en": "Leave",
+    "es": "Salir",
+    "pt": "Sair"
+  },
+  "createAccount": {
+    "en": "Create account",
+    "es": "Crear cuenta",
+    "pt": "Criar conta"
+  },
+  "accessBank": {
+    "en": "Access account",
+    "es": "Acceder a cuenta",
+    "pt": "Acessar conta"
+  }
+}
