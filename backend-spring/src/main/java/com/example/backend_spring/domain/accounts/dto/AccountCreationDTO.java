@@ -13,6 +13,7 @@ public record AccountCreationDTO(
     @NotNull User user,
     @NotBlank BigDecimal balance,
     @NotNull AccountStatus status,
-    @NotNull AccountType type
+    @NotNull AccountType type,
+    @NotBlank String transactionPassword
 ) {
 }

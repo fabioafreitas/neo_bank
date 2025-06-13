@@ -2,6 +2,7 @@ package com.example.backend_spring.domain.users;
 
 import java.math.BigDecimal;
 
+import com.example.backend_spring.domain.users.dto.UserAdminCreationRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,9 @@ import com.example.backend_spring.domain.accounts.AccountStatus;
 import com.example.backend_spring.domain.accounts.AccountType;
 import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserCreationDTO;
-import com.example.backend_spring.domain.users.dto.UserRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserClientCreationResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserClientCreationRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
 import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 
@@ -41,12 +42,12 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).get();
     }
 
-    public UserResponseDTO authenticate(String username, String password) {
+    public UserLoginResponseDTO authenticate(String username, String password) {
         return userRepository.findByUsername(username)
                 .filter(user -> pepperPasswordEncoder.matches(password, user.getPassword()))
                 .map(user -> {
                     String token = tokenService.generateToken(user.getUsername(), user.getRole().name());
-                    return new UserResponseDTO(token);
+                    return new UserLoginResponseDTO(token);
                 })
                 .orElseThrow(() -> new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED, "Invalid credentials"
@@ -58,38 +59,38 @@ public class UserService implements UserDetailsService {
         return userRepository.countByRole(UserRole.ADMIN);
     }
 
-    public UserCreationDTO registerUser(UserRequestDTO dto) {
-        if(this.userRepository.findByUsername(dto.username()).isPresent()) {
+    public UserClientCreationResponseDTO registerUser(UserClientCreationRequestDTO dto) {
+        if(this.userRepository.findByUsername(dto.accessUsername()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
-        String encryptedPassword = pepperPasswordEncoder.encode(dto.password());
+        String encryptedAccessPassword = pepperPasswordEncoder.encode(dto.accessPassword());
         User user = new User(
-            dto.username(),
-            encryptedPassword,
-            UserRole.USER
+            dto.accessUsername(),
+            encryptedAccessPassword,
+            UserRole.CLIENT
         );
         this.userRepository.save(user);
 
-        // Create an account for the new user
         AccountCreationDTO accountCreationDTO = new AccountCreationDTO(
-            user, 
+            user,
             new BigDecimal(0),
             AccountStatus.ACTIVE,
-            AccountType.NORMAL
+            AccountType.DEFAULT,
+            dto.transactionPassword()
         );
         AccountResponseDTO accountResponseDTO = accountService.create(accountCreationDTO);
-        return new UserCreationDTO(
+        return new UserClientCreationResponseDTO(
             accountResponseDTO
         );
     }
 
-    public void registerAdmin(UserRequestDTO dto) {
-        if (userRepository.findByUsername(dto.username()).isPresent()) {
+    public void registerAdmin(UserAdminCreationRequestDTO dto) {
+        if (userRepository.findByUsername(dto.accessUsername()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
-        String encryptedPassword = pepperPasswordEncoder.encode(dto.password());
+        String encryptedPassword = pepperPasswordEncoder.encode(dto.accessPassword());
         User user = new User(
-            dto.username(),
+            dto.accessUsername(),
             encryptedPassword,
             UserRole.ADMIN
         );

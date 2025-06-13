@@ -3,7 +3,7 @@
 **Actors**: New User  
 **Flow**:
 - User registers with username/password  
-- System creates a default `NORMAL` account with balance = `0.00`  
+- System creates a default `DEFAULT` account with balance = `0.00`  
 - Admin can later upgrade to a `CASHBACK` account  
 
 📌 *Incentive-based onboarding: “Sign up and get 5.00 bonus”*

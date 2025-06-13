@@ -29,12 +29,16 @@ public class Account {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    @Setter
+    @Column(name = "balance", columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal balance;
+
     @Column(name = "account_number")
     private String accountNumber;
 
     @Setter
-    @Column(name = "balance", columnDefinition = "DECIMAL(15, 2)")
-    private BigDecimal balance;
+    @Column(name = "transaction_password")
+    private String transactionPassword;
 
     @Setter
     @Enumerated(EnumType.STRING)
@@ -46,11 +50,12 @@ public class Account {
     @Column(name = "type", columnDefinition = "TEXT")
     private AccountType type;
 
-    public Account(User user, BigDecimal balance, AccountStatus status, AccountType type, String accountNumber) {
+    public Account(User user, BigDecimal balance, AccountStatus status, AccountType type, String accountNumber, String transactionPassword) {
         this.user = user;
         this.balance = balance;
         this.status = status;
         this.type = type;
         this.accountNumber = accountNumber;
+        this.transactionPassword = transactionPassword;
     }
 }

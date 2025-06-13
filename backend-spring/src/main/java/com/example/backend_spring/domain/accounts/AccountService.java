@@ -1,5 +1,6 @@
 package com.example.backend_spring.domain.accounts;
 
+import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,9 @@ public class AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
-    
+
+    @Autowired
+    private PepperPasswordEncoder pepperPasswordEncoder;
 
     AccountService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -66,12 +69,15 @@ public class AccountService {
     } 
 
     public AccountResponseDTO create(AccountCreationDTO dto) {
+        String encryptedTransactionPassword = pepperPasswordEncoder.encode(dto.transactionPassword());
+
         Account account = new Account(
             dto.user(),
             dto.balance(),
             dto.status(),
             dto.type(),
-            generateUniqueAccountNumber()
+            generateUniqueAccountNumber(),
+            encryptedTransactionPassword
         );
         return toDto(accountRepository.save(account));
     }

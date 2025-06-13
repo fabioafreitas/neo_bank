@@ -1,14 +1,15 @@
 package com.example.backend_spring.domain.users;
 
+import com.example.backend_spring.domain.users.dto.UserLoginRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend_spring.domain.users.dto.UserCreationDTO;
-import com.example.backend_spring.domain.users.dto.UserRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserClientCreationResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserClientCreationRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +23,27 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/login")    
-    public ResponseEntity<UserResponseDTO> login(@RequestBody @Valid UserRequestDTO dto) {
-        return ResponseEntity.ok(userService.authenticate(dto.username(), dto.password()));
+    public ResponseEntity<UserLoginResponseDTO> login(@RequestBody @Valid UserLoginRequestDTO dto) {
+        return ResponseEntity.ok(userService.authenticate(dto.accessUsername(), dto.accessPassword()));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserCreationDTO> register(@RequestBody @Valid UserRequestDTO dto) {
+    public ResponseEntity<UserClientCreationResponseDTO> register(@RequestBody @Valid UserClientCreationRequestDTO dto) {
         return ResponseEntity.ok(userService.registerUser(dto));
     }
-    
+
+    @PostMapping("/recover-username")
+    public ResponseEntity<?> recoverUsername(@RequestBody @Valid UserClientCreationRequestDTO dto) {
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/request-password-reset")
+    public ResponseEntity<?> requestPasswordReset(@RequestBody @Valid UserClientCreationRequestDTO dto) {
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody @Valid UserClientCreationRequestDTO dto) {
+        return ResponseEntity.ok().build();
+    }
 }

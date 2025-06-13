@@ -47,16 +47,31 @@ public class User implements UserDetails{
         if(this.role == UserRole.ADMIN) {
             return List.of(
                 new SimpleGrantedAuthority("ROLE_ADMIN"),
-                new SimpleGrantedAuthority("ROLE_USER")
+                new SimpleGrantedAuthority("ROLE_CLIENT"),
+                new SimpleGrantedAuthority("ROLE_MERCHANT")
             );
         }
-        // UserRole.USER
+        else if(this.role == UserRole.CLIENT) {
+            return List.of(
+                new SimpleGrantedAuthority("ROLE_CLIENT")
+            );
+        }
+
+        // UserRole.MERCHANT
         return List.of(
-            new SimpleGrantedAuthority("ROLE_USER")
+            new SimpleGrantedAuthority("ROLE_MERCHANT")
         );
     }
 
     public boolean isAdmin() {
         return this.role == UserRole.ADMIN;
+    }
+
+    public boolean isMerchant() {
+        return this.role == UserRole.MERCHANT;
+    }
+
+    public boolean isClient() {
+        return this.role == UserRole.CLIENT;
     }
 }

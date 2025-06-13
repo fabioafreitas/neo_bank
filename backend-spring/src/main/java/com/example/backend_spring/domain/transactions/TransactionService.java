@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
+    /**
+     * TODO - check before transaction if account is deactivated or suspended and inform the trasaction failling reasons as current description problem
+     */
+
     private enum OperationType {
         SUBTRACTION,
         ADDITION
