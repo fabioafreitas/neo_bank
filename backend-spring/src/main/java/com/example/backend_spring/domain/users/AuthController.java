@@ -22,6 +22,9 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/login")    
     public ResponseEntity<UserLoginResponseDTO> login(@RequestBody @Valid UserLoginRequestDTO dto) {
         return ResponseEntity.ok(userService.authenticate(dto.accessUsername(), dto.accessPassword()));
@@ -32,8 +35,13 @@ public class AuthController {
         return ResponseEntity.ok(userService.registerUserClient(dto));
     }
 
-    @PostMapping("/recoverUsername")
-    public ResponseEntity<?> recoverUsername(@RequestBody @Valid UserClientCreationRequestDTO dto) {
+    @PostMapping("/remindUsername")
+    public ResponseEntity<?> remindUsername(@RequestBody @Valid UserClientCreationRequestDTO dto) {
+        emailService.sendSimpleEmail(
+                "fbio.alves095@gmail.com",
+                "My subject",
+                "My body with a bunch of non sense text"
+        );
         return ResponseEntity.ok().build();
     }
 

@@ -55,6 +55,8 @@ public class UserService implements UserDetailsService {
                 
     }
 
+
+
     public long countAdmins() {
         return userRepository.countByRole(UserRole.ADMIN);
     }
