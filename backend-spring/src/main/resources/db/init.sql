@@ -1,11 +1,26 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     role TEXT NOT NULL CHECK (role IN ('CLIENT', 'ADMIN', 'MERCHANT'))
 );
 
-CREATE TABLE accounts (
+CREATE TABLE IF NOT EXISTS user_profile (
+    id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    phone TEXT,
+    address_line1 TEXT,
+    address_line2 TEXT,
+    city TEXT,
+    province TEXT,
+    postal_code TEXT,
+    country TEXT,
+    profile_picture_url TEXT
+);
+
+CREATE TABLE IF NOT EXISTS accounts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES users(id),
     balance DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
@@ -14,12 +29,12 @@ CREATE TABLE accounts (
     status TEXT NOT NULL CHECK (status IN ('ACTIVE', 'SUSPENDED', 'DEACTIVATED')),
     type TEXT NOT NULL CHECK (type IN ('DEFAULT', 'CASHBACK'))
 );
-CREATE INDEX idx_accounts_user_id ON accounts(user_id);
+CREATE INDEX IF NOT EXISTS idx_accounts_user_id ON accounts(user_id);
 
 -- Categorias básicas pensadas até o momento.
 -- Para facilitar a didática, apenas admins podem criar categorias.
 -- Pré-população das categorias disponíveis
-CREATE TABLE transaction_categories (
+CREATE TABLE IF NOT EXISTS transaction_categories (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL UNIQUE
 );
@@ -46,7 +61,7 @@ VALUES
 -- se `status=pending`, então está aguardando aprovação do ADMIN do sistema
 -- senão se `status=rejected`, informar `failure_message`
 -- senão se `status=approved`, transação foi bem sucedida
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     transaction_number UUID DEFAULT gen_random_uuid() UNIQUE,
     account_id UUID NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
@@ -64,21 +79,21 @@ CREATE TABLE transactions (
         )
 );
 
-CREATE INDEX idx_transactions_account_id ON transactions(account_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_account_id ON transactions(account_id);
 
 CREATE VIEW rejected_transactions AS SELECT * FROM transactions WHERE status = 'REJECTED';
 CREATE VIEW approved_transactions AS SELECT * FROM transactions WHERE status = 'APPROVED';
 CREATE VIEW pending_transactions AS SELECT * FROM transactions WHERE status = 'PENDING';
 
 -- The unique at the FK to `users` table constraints the reference to be 1x1
-CREATE TABLE merchants (
+CREATE TABLE IF NOT EXISTS merchants (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES users(id) UNIQUE,
     store_name TEXT NOT NULL,
     description TEXT NOT NULL
 );
 
-CREATE TABLE merchant_products (
+CREATE TABLE IF NOT EXISTS merchant_products (
        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
        merchant_id UUID REFERENCES merchants(id) ON DELETE CASCADE,
        name TEXT NOT NULL,
@@ -95,7 +110,7 @@ CREATE TABLE merchant_products (
 -- contendo o `token` deve ser acessado para autenticar a página de atualização de senha
 -- Registro só é válido se `is_used=false` e `expires_at` for maior que datetime.now()
 -- Se registro for autenticado e senha for trocada com sucesso, substituir `is_used=true`
-CREATE TABLE password_reset_requests (
+CREATE TABLE IF NOT EXISTS password_reset_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
     token TEXT NOT NULL UNIQUE,

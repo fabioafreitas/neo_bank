@@ -27,22 +27,22 @@ public class AuthController {
         return ResponseEntity.ok(userService.authenticate(dto.accessUsername(), dto.accessPassword()));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registerClient")
     public ResponseEntity<UserClientCreationResponseDTO> register(@RequestBody @Valid UserClientCreationRequestDTO dto) {
-        return ResponseEntity.ok(userService.registerUser(dto));
+        return ResponseEntity.ok(userService.registerUserClient(dto));
     }
 
-    @PostMapping("/recover-username")
+    @PostMapping("/recoverUsername")
     public ResponseEntity<?> recoverUsername(@RequestBody @Valid UserClientCreationRequestDTO dto) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/request-password-reset")
+    @PostMapping("/requestPasswordReset")
     public ResponseEntity<?> requestPasswordReset(@RequestBody @Valid UserClientCreationRequestDTO dto) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/reset-password")
+    @PostMapping("/resetPassword")
     public ResponseEntity<?> resetPassword(@RequestBody @Valid UserClientCreationRequestDTO dto) {
         return ResponseEntity.ok().build();
     }

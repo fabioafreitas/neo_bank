@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
         return userRepository.countByRole(UserRole.ADMIN);
     }
 
-    public UserClientCreationResponseDTO registerUser(UserClientCreationRequestDTO dto) {
+    public UserClientCreationResponseDTO registerUserClient(UserClientCreationRequestDTO dto) {
         if(this.userRepository.findByUsername(dto.accessUsername()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
