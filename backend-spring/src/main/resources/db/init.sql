@@ -113,11 +113,11 @@ CREATE TABLE IF NOT EXISTS merchant_products (
 CREATE TABLE IF NOT EXISTS password_reset_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    token TEXT NOT NULL UNIQUE,
+    token UUID NOT NULL DEFAULT gen_random_uuid(),
     type TEXT NOT NULL CHECK (type IN ('LOGIN_PASSWORD', 'TRANSACTION_PASSWORD')),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     expires_at TIMESTAMP GENERATED ALWAYS AS (created_at + interval '30 minutes') STORED NOT NULL,
-    is_used BOOLEAN DEFAULT FALSE
+    is_used BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 INSERT INTO public.users

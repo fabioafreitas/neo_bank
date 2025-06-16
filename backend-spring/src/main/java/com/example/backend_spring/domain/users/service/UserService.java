@@ -1,6 +1,8 @@
 package com.example.backend_spring.domain.users.service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,15 @@ import com.example.backend_spring.domain.accounts.AccountType;
 import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
 import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
+import com.example.backend_spring.domain.users.model.PasswordResetRequest;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.domain.users.model.UserProfile;
+import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
 import com.example.backend_spring.domain.users.utils.UserRole;
+import com.example.backend_spring.domain.users.repository.PasswordResetRequestRepository;
 import com.example.backend_spring.domain.users.repository.UserProfileRepository;
 import com.example.backend_spring.domain.users.repository.UserRepository;
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
@@ -38,10 +44,14 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    
+    @Autowired
+    private PasswordResetRequestRepository passwordResetRequestRepository;
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private PepperPasswordEncoder pepperPasswordEncoder;
@@ -66,10 +76,7 @@ public class UserService implements UserDetailsService {
 
 
 
-    public long countAdmins() {
-        return userRepository.countByRole(UserRole.ADMIN);
-    }
-
+    
 
     public UserCreationResponseDTO registerUserClient(UserCreationRequestDTO dto) {
         return registerUser(dto, UserRole.CLIENT);
@@ -132,5 +139,20 @@ public class UserService implements UserDetailsService {
         return new UserCreationResponseDTO(
             accountResponseDTO
         );
+    }
+
+
+    public UserGeneralMessageResponseDTO requestAccessPasswordReset(String destinationEmail, PasswordResetRequestType type) {
+        Optional<UserProfile> userProfile = userProfileRepository.findByEmail(destinationEmail);
+        if (userProfile.isPresent()) {
+            PasswordResetRequest request = new PasswordResetRequest(
+                userProfile.get().getUser(),
+                type
+            );
+            passwordResetRequestRepository.save(request);
+            UUID token = request.getToken();
+            emailService.sendAccessPasswordResetUrl(destinationEmail, token.toString());
+        }
+        return new UserGeneralMessageResponseDTO("If email ("+destinationEmail+") is correct, a recover link will arrive shrotly");
     }
 }

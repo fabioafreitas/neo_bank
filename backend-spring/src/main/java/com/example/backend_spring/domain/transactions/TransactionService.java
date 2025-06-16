@@ -14,6 +14,7 @@ import com.example.backend_spring.domain.transactions.dto.TransactionPurchaseCas
 import com.example.backend_spring.domain.transactions.dto.TransactionRequestDTO;
 import com.example.backend_spring.domain.transactions.dto.TransactionResponseDTO;
 import com.example.backend_spring.domain.users.model.User;
+import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -43,10 +44,13 @@ public class TransactionService {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private JwtTokenProviderService jwtTokenProviderService;
+
     public List<TransactionResponseDTO> findAll() {
         List<TransactionResponseDTO> transactions;
 
-        User currentUser = getContextUser();
+        User currentUser = jwtTokenProviderService.getContextUser();
         
         if (currentUser.isAdmin()) {
             transactions = transactionRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
@@ -60,7 +64,7 @@ public class TransactionService {
     }
 
     public TransactionResponseDTO findByTransactionNumber(UUID transactionNumber) {
-        User currentUser = getContextUser();
+        User currentUser = jwtTokenProviderService.getContextUser();
 
         if (currentUser.isAdmin()) {
             return transactionRepository.findByTransactionNumber(transactionNumber).map(this::toDto)
@@ -200,7 +204,7 @@ public class TransactionService {
     }
 
     private Account getClientAccount() {
-        User currentUser = this.getContextUser();
+        User currentUser = jwtTokenProviderService.getContextUser();;
         if (currentUser.isAdmin()) {
             throw new ResponseStatusException(
                 HttpStatus.FORBIDDEN, "Admin cannot create transactions"
@@ -209,9 +213,7 @@ public class TransactionService {
         return accountService.findAccountByUser(currentUser);
     }
 
-    private User getContextUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+    
     
     private TransactionResponseDTO toDto(Transaction transaction) {
         return new TransactionResponseDTO(

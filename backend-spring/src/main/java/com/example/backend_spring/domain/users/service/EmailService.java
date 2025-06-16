@@ -3,12 +3,9 @@ package com.example.backend_spring.domain.users.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.model.UserProfile;
 import com.example.backend_spring.domain.users.repository.UserProfileRepository;
 
@@ -16,25 +13,13 @@ import com.example.backend_spring.domain.users.repository.UserProfileRepository;
 public class EmailService {
 
     @Autowired
-    private JavaMailSender mailSender;
+    private EmailAsyncService emailAsyncService;
 
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    @Value("${spring.mail.username}")
-    private String fromAddress;
 
-    @Async
-    public void sendSimpleEmail(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(fromAddress);
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        mailSender.send(message);
-    }
-
-    public void sendUsernameReminder(String destinationEmail) {
+    public UserGeneralMessageResponseDTO sendUsernameReminder(String destinationEmail) {
         Optional<UserProfile> userProfileOpt = userProfileRepository.findByEmail(destinationEmail);
 
         if (userProfileOpt.isPresent()) {
@@ -44,7 +29,22 @@ public class EmailService {
                     "Greetings dear client!\n\nYour username is: %s\n\nIf you didn't request this, please ignore this email.",
                     username
             );
-            this.sendSimpleEmail(destinationEmail, subject, body);
+            emailAsyncService.sendSimpleEmail(destinationEmail, subject, body);
         }
+
+        return new UserGeneralMessageResponseDTO("Username reminder sent to " + destinationEmail);
     }
+
+    public void sendAccessPasswordResetUrl(String destinationEmail, String token) {
+        String subject = "Simple Bank: Access Password Reset";
+        String body = """
+            Greetings dear client!
+
+            Access this url to recover you access password: https://myurl.com/auth/recoverAccessPassword/%s
+
+            This link will expire in 30 minutes.
+            If you did not request this, please ignore this email.
+            """.formatted(token);
+        emailAsyncService.sendSimpleEmail(destinationEmail, subject, body);
+    } 
 }

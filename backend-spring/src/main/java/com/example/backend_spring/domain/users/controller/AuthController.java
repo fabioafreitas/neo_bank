@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponse;
+import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
 import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserReminderUsernameRequest;
+import com.example.backend_spring.domain.users.dto.UserRecoverCredentialsRequestDTO;
+import com.example.backend_spring.domain.users.model.PasswordResetRequest;
 import com.example.backend_spring.domain.users.service.EmailService;
 import com.example.backend_spring.domain.users.service.UserService;
+import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,24 +42,29 @@ public class AuthController {
     }
 
     @PostMapping("/remindUsername")
-    public ResponseEntity<UserGeneralMessageResponse> remindUsername(@RequestBody @Valid UserReminderUsernameRequest dto) {
-        // emailService.sendSimpleEmail(
-        //         "fbio.alves095@gmail.com",
-        //         "My subject",
-        //         "My body with a bunch of non sense text"
-        // );
-        emailService.sendUsernameReminder(dto.email());
+    public ResponseEntity<UserGeneralMessageResponseDTO> remindUsername(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
         return ResponseEntity.ok(
-            new UserGeneralMessageResponse("Username reminder sent to " + dto.email())
+            emailService.sendUsernameReminder(dto.email())
         );
     }
 
-    @PostMapping("/requestPasswordReset")
-    public ResponseEntity<?> requestPasswordReset(@RequestBody @Valid UserCreationRequestDTO dto) {
+    @PostMapping("/requestAccessPasswordReset")
+    public ResponseEntity<UserGeneralMessageResponseDTO> requestAccessPasswordReset(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
+        return ResponseEntity.ok(
+            userService.requestAccessPasswordReset(
+                dto.email(), 
+                PasswordResetRequestType.LOGIN_PASSWORD
+            )
+        );
+    }
+
+    //TODO add jwt requirement for this route
+    @PostMapping("/requestTransactionPasswordReset")
+    public ResponseEntity<?> requestTransactionPasswordReset(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/resetPassword")
+    @PostMapping("/resetAccessPassword")
     public ResponseEntity<?> resetPassword(@RequestBody @Valid UserCreationRequestDTO dto) {
         return ResponseEntity.ok().build();
     }
