@@ -1,4 +1,4 @@
-package com.example.backend_spring.domain.users;
+package com.example.backend_spring.domain.users.utils;
 
 public enum UserRole {
     ADMIN,

@@ -13,7 +13,7 @@ import com.example.backend_spring.domain.accounts.AccountType;
 import com.example.backend_spring.domain.transactions.dto.TransactionPurchaseCashbackDTO;
 import com.example.backend_spring.domain.transactions.dto.TransactionRequestDTO;
 import com.example.backend_spring.domain.transactions.dto.TransactionResponseDTO;
-import com.example.backend_spring.domain.users.User;
+import com.example.backend_spring.domain.users.model.User;
 
 import java.math.BigDecimal;
 import java.util.List;

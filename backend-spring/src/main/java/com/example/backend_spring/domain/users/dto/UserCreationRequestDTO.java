@@ -2,9 +2,12 @@ package com.example.backend_spring.domain.users.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record UserClientCreationRequestDTO(
+public record UserCreationRequestDTO(
+    @NotBlank String firstName,
+    @NotBlank String lastName,
+    @NotBlank String email,
     @NotBlank String accessUsername,
     @NotBlank String accessPassword,
-    @NotBlank String transactionPassword
+    String transactionPassword
     ) {
 }

@@ -1,10 +1,12 @@
 package com.example.backend_spring.integration_test;
 
-import com.example.backend_spring.domain.users.User;
-import com.example.backend_spring.domain.users.UserRepository;
-import com.example.backend_spring.domain.users.UserService;
-import com.example.backend_spring.domain.users.dto.UserClientCreationRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserClientCreationResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
+import com.example.backend_spring.domain.users.model.User;
+import com.example.backend_spring.domain.users.repository.UserRepository;
+import com.example.backend_spring.domain.users.service.UserService;
+import com.example.backend_spring.domain.users.utils.UserRole;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,18 +28,24 @@ public class UserServiceTest extends DbConfigUnitTestBase {
     @Test
     void shouldRegisterUserSuccessfullyAndPersistToDB() {
         // GIVEN
+        String testEmail = "test@email.com";
+        String testFirstName = "Fulano";
+        String testLastName = "de Tal";
         String testUsername = "myusr_test_" + System.currentTimeMillis(); // Use unique username
         String testPassword = "mypsk";
         String testTransactionPassword = "123456";
 
-        UserClientCreationRequestDTO requestDTO = new UserClientCreationRequestDTO(
+        UserCreationRequestDTO requestDTO = new UserCreationRequestDTO(
+                testEmail,
+                testFirstName,
+                testLastName,
                 testUsername,
                 testPassword,
                 testTransactionPassword
         );
 
         // WHEN
-        UserClientCreationResponseDTO responseDTO = userService.registerUserClient(requestDTO);
+        UserCreationResponseDTO responseDTO = userService.registerUserClient(requestDTO);
 
         // THEN - Part 1: Assert the returned DTO's content
         assertNotNull(

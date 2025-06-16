@@ -10,8 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountUpdateDTO;
-import com.example.backend_spring.domain.users.User;
-import com.example.backend_spring.domain.users.UserRepository;
+import com.example.backend_spring.domain.users.model.User;
+import com.example.backend_spring.domain.users.repository.UserRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -154,5 +154,9 @@ public class AccountService {
             account.getStatus(),
             account.getAccountNumber()
         );
+    }
+
+    public boolean isValidTransactionPassword(String transactionPassword) {
+        return transactionPassword != null && transactionPassword.matches("\\d{6}");
     }
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import com.example.backend_spring.domain.users.User;
+import com.example.backend_spring.domain.users.model.User;
 
 @Table(name = "accounts")
 @Entity(name = "accounts")

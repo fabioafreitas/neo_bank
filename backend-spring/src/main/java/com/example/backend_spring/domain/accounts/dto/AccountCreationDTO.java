@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.example.backend_spring.domain.accounts.AccountStatus;
 import com.example.backend_spring.domain.accounts.AccountType;
-import com.example.backend_spring.domain.users.User;
+import com.example.backend_spring.domain.users.model.User;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

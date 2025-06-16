@@ -1,6 +1,5 @@
-package com.example.backend_spring.domain.users;
+package com.example.backend_spring.domain.users.model;
 
-import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -9,11 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.backend_spring.domain.users.utils.UserRole;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -36,6 +38,10 @@ public class User implements UserDetails{
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, columnDefinition = "TEXT")
     private UserRole role;
+
+    @Setter
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private UserProfile userProfile;
 
     public User(String username, String password, UserRole role){
         this.username = username;
