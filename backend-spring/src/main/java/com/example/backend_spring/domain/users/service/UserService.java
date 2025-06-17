@@ -51,6 +51,9 @@ public class UserService implements UserDetailsService {
     private AccountService accountService;
 
     @Autowired
+    private JwtTokenProviderService tokenProviderService;
+
+    @Autowired
     private EmailService emailService;
 
     @Autowired
@@ -143,6 +146,14 @@ public class UserService implements UserDetailsService {
 
 
     public UserGeneralMessageResponseDTO requestAccessPasswordReset(String destinationEmail, PasswordResetRequestType type) {
+        //TODO invalidate all previous requests of the same type for the user
+        if(PasswordResetRequestType.TRANSACTION_PASSWORD == type) {
+            User contextUser = tokenProviderService.getContextUser();
+            String contextEmail = contextUser.getUserProfile().getEmail();
+            if(!contextEmail.equals(destinationEmail)) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Transaction password reset is only allowed for the authenticated user");
+            }
+        }
         Optional<UserProfile> userProfile = userProfileRepository.findByEmail(destinationEmail);
         if (userProfile.isPresent()) {
             PasswordResetRequest request = new PasswordResetRequest(
@@ -151,7 +162,7 @@ public class UserService implements UserDetailsService {
             );
             passwordResetRequestRepository.save(request);
             UUID token = request.getToken();
-            emailService.sendAccessPasswordResetUrl(destinationEmail, token.toString());
+            emailService.sendPasswordResetUrl(destinationEmail, token.toString(), type);
         }
         return new UserGeneralMessageResponseDTO("If email ("+destinationEmail+") is correct, a recover link will arrive shrotly");
     }

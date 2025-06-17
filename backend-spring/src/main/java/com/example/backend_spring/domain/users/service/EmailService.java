@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.model.UserProfile;
 import com.example.backend_spring.domain.users.repository.UserProfileRepository;
+import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
 
 @Service
 public class EmailService {
@@ -35,16 +36,17 @@ public class EmailService {
         return new UserGeneralMessageResponseDTO("Username reminder sent to " + destinationEmail);
     }
 
-    public void sendAccessPasswordResetUrl(String destinationEmail, String token) {
-        String subject = "Simple Bank: Access Password Reset";
+    public void sendPasswordResetUrl(String destinationEmail, String token, PasswordResetRequestType type) {
+        String passwordType = type == PasswordResetRequestType.LOGIN_PASSWORD ? "Access" : "Transcation";
+        String subject = "Simple Bank: %s Password Reset".formatted(passwordType);
         String body = """
             Greetings dear client!
 
-            Access this url to recover you access password: https://myurl.com/auth/recoverAccessPassword/%s
+            Use this link to recover you %s assword: https://myurl.com/auth/recoverAccessPassword/%s
 
-            This link will expire in 30 minutes.
+            The link will expire in 30 minutes.
             If you did not request this, please ignore this email.
-            """.formatted(token);
+            """.formatted(passwordType.toLowerCase(), token);
         emailAsyncService.sendSimpleEmail(destinationEmail, subject, body);
     } 
 }

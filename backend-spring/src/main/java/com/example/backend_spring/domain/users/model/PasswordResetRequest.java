@@ -38,7 +38,7 @@ public class PasswordResetRequest {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "token", insertable = false, updatable = false)
+    @Column(name = "token", nullable = false)
     private UUID token;
 
     @Enumerated(EnumType.STRING)

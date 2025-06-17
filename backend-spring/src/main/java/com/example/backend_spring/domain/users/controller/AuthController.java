@@ -3,6 +3,7 @@ package com.example.backend_spring.domain.users.controller;
 import com.example.backend_spring.domain.users.dto.UserLoginRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,10 +59,16 @@ public class AuthController {
         );
     }
 
-    //TODO add jwt requirement for this route
+    // Only auth clients can access this endpoint
+    @PreAuthorize("hasRole('CLIENT')")
     @PostMapping("/requestTransactionPasswordReset")
     public ResponseEntity<?> requestTransactionPasswordReset(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(
+            userService.requestAccessPasswordReset(
+                dto.email(), 
+                PasswordResetRequestType.TRANSACTION_PASSWORD
+            )
+        );
     }
 
     @PostMapping("/resetAccessPassword")
