@@ -86,7 +86,8 @@ public class AccountService {
         AccountUpdateDTO dto = new AccountUpdateDTO(
             account.getBalance(),
             account.getType(),
-            account.getStatus()
+            account.getStatus(),
+            account.getTransactionPassword()
         );
         return this.update(account.getAccountNumber(), dto);
     }
@@ -103,6 +104,9 @@ public class AccountService {
         }
         if(dto.status() != null) {
             account.setStatus(dto.status());
+        }
+        if(dto.transactionPassword() != null) {
+            account.setTransactionPassword(dto.transactionPassword());
         }
         
         return toDto(accountRepository.save(account));
@@ -158,5 +162,9 @@ public class AccountService {
 
     public boolean isValidTransactionPassword(String transactionPassword) {
         return transactionPassword != null && transactionPassword.matches("\\d{6}");
+    }
+
+    public boolean isValidAccessPassword(String accessPassword) {
+        return accessPassword != null && accessPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{8,}$");
     }
 }

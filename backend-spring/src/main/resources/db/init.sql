@@ -116,8 +116,7 @@ CREATE TABLE IF NOT EXISTS password_reset_requests (
     token UUID NOT NULL,
     type TEXT NOT NULL CHECK (type IN ('LOGIN_PASSWORD', 'TRANSACTION_PASSWORD')),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP GENERATED ALWAYS AS (created_at + interval '30 minutes') STORED NOT NULL,
-    is_used BOOLEAN NOT NULL DEFAULT FALSE
+    expires_at TIMESTAMP GENERATED ALWAYS AS (created_at + interval '30 minutes') STORED NOT NULL
 );
 
 INSERT INTO public.users

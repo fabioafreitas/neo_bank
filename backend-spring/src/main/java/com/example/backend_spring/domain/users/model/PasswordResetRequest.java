@@ -53,13 +53,8 @@ public class PasswordResetRequest {
     @Column(name = "expires_at", insertable = false, updatable = false)
     private OffsetDateTime expiresAt;
 
-    @Setter
-    @Column(name = "is_used", nullable = false)
-    private boolean isUsed;
-
     public PasswordResetRequest(User user, PasswordResetRequestType type) {
         this.token = UUID.randomUUID();
-        this.isUsed = false;
         this.user = user;
         this.type = type;
         this.createdAt = OffsetDateTime.now();

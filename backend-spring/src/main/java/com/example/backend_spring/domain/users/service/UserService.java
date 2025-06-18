@@ -1,6 +1,7 @@
 package com.example.backend_spring.domain.users.service;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.backend_spring.domain.accounts.Account;
 import com.example.backend_spring.domain.accounts.AccountService;
 import com.example.backend_spring.domain.accounts.AccountStatus;
 import com.example.backend_spring.domain.accounts.AccountType;
@@ -21,6 +23,8 @@ import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
 import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
+import com.example.backend_spring.domain.users.dto.UserResetAccessPasswordRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserResetTransactionPasswordRequestDTO;
 import com.example.backend_spring.domain.users.model.PasswordResetRequest;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.domain.users.model.UserProfile;
@@ -76,11 +80,7 @@ public class UserService implements UserDetailsService {
                 ));
                 
     }
-
-
-
     
-
     public UserCreationResponseDTO registerUserClient(UserCreationRequestDTO dto) {
         return registerUser(dto, UserRole.CLIENT);
     }
@@ -94,10 +94,11 @@ public class UserService implements UserDetailsService {
     }
 
     private UserCreationResponseDTO registerUser(UserCreationRequestDTO dto, UserRole role) {
-        if(
-            UserRole.CLIENT == role &&
-            !accountService.isValidTransactionPassword(dto.transactionPassword())
-        ) {
+        if(!accountService.isValidAccessPassword(dto.accessPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid access password, must have at leas 8 digits, one uppercase letter, one lowercase letter, one special character and one number");
+        }
+        if( UserRole.CLIENT == role &&
+            !accountService.isValidTransactionPassword(dto.transactionPassword()) ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction password, must be 6 numeric digits");
         }
         if(this.userRepository.findByUsername(dto.accessUsername()).isPresent()) {
@@ -144,9 +145,7 @@ public class UserService implements UserDetailsService {
         );
     }
 
-
-    public UserGeneralMessageResponseDTO requestAccessPasswordReset(String destinationEmail, PasswordResetRequestType type) {
-        //TODO invalidate all previous requests of the same type for the user
+    public UserGeneralMessageResponseDTO requestPasswordReset(String destinationEmail, PasswordResetRequestType type) {
         if(PasswordResetRequestType.TRANSACTION_PASSWORD == type) {
             User contextUser = tokenProviderService.getContextUser();
             String contextEmail = contextUser.getUserProfile().getEmail();
@@ -155,15 +154,71 @@ public class UserService implements UserDetailsService {
             }
         }
         Optional<UserProfile> userProfile = userProfileRepository.findByEmail(destinationEmail);
-        if (userProfile.isPresent()) {
-            PasswordResetRequest request = new PasswordResetRequest(
-                userProfile.get().getUser(),
-                type
-            );
+        if (userProfile.isPresent()) { 
+            User user = userProfile.get().getUser();
+            passwordResetRequestRepository.deleteByUserIdAndType(user.getId(), type);
+            PasswordResetRequest request = new PasswordResetRequest(user, type);
             passwordResetRequestRepository.save(request);
             UUID token = request.getToken();
             emailService.sendPasswordResetUrl(destinationEmail, token.toString(), type);
         }
         return new UserGeneralMessageResponseDTO("If email ("+destinationEmail+") is correct, a recover link will arrive shrotly");
+    }
+
+    public UserGeneralMessageResponseDTO resetAccessPassword(UserResetAccessPasswordRequestDTO dto) {
+        if(!accountService.isValidAccessPassword(dto.newAccessPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid access password, must have at leas 8 digits, one uppercase letter, one lowercase letter, one special character and one number");
+        }
+        PasswordResetRequest resetRequest = passwordResetRequestRepository.findByToken(dto.resetRequestToken())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Password reset request not found"));
+        
+        if(!resetRequest.getType().equals(PasswordResetRequestType.LOGIN_PASSWORD)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid password reset request type");
+        }
+
+        // Check if the reset request has expired
+        if(resetRequest.getExpiresAt().isBefore(OffsetDateTime.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password reset request has expired");
+        }
+        
+        User user = resetRequest.getUser();
+        String encryptedAccessPassword = pepperPasswordEncoder.encode(dto.newAccessPassword());
+        user.setPassword(encryptedAccessPassword);
+        userRepository.save(user);
+        passwordResetRequestRepository.delete(resetRequest);
+        return new UserGeneralMessageResponseDTO("Access password successfully reset");
+    }
+
+    public UserGeneralMessageResponseDTO resetTransactionPassword(UserResetTransactionPasswordRequestDTO dto) {
+        if(!accountService.isValidTransactionPassword(dto.newTransactionPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction password, must have at leas 8 digits, one uppercase letter, one lowercase letter, one special character and one number");
+        }
+        PasswordResetRequest resetRequest = passwordResetRequestRepository.findByToken(dto.resetRequestToken())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Password reset request not found"));
+        
+        if(!resetRequest.getType().equals(PasswordResetRequestType.TRANSACTION_PASSWORD)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid password reset request type");
+        }
+        
+        // Check if the reset request has expired
+        if(resetRequest.getExpiresAt().isBefore(OffsetDateTime.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password reset request has expired");
+        }
+
+        User user = resetRequest.getUser();
+        String dbEncryptedAccessPassword = user.getPassword();
+        if(!pepperPasswordEncoder.matches(dto.accessPassword(), dbEncryptedAccessPassword)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Access password does not match the one in the database");
+        }
+        if(!accountService.isValidTransactionPassword(dto.newTransactionPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction password, must be 6 numeric digits");
+        }
+
+        Account account = accountService.findAccountByUser(user);
+        String encryptedTransactionPassword = pepperPasswordEncoder.encode(dto.newTransactionPassword());
+        account.setTransactionPassword(encryptedTransactionPassword);
+        accountService.update(account);
+        passwordResetRequestRepository.delete(resetRequest);
+        return new UserGeneralMessageResponseDTO("Transaction password successfully reset");
     }
 }

@@ -8,6 +8,7 @@ import com.example.backend_spring.domain.accounts.AccountType;
 public record AccountUpdateDTO(
     BigDecimal balance,
     AccountType type,
-    AccountStatus status
+    AccountStatus status,
+    String transactionPassword
 ) {
 }

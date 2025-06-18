@@ -13,7 +13,8 @@ import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO
 import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
 import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserRecoverCredentialsRequestDTO;
-import com.example.backend_spring.domain.users.model.PasswordResetRequest;
+import com.example.backend_spring.domain.users.dto.UserResetAccessPasswordRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserResetTransactionPasswordRequestDTO;
 import com.example.backend_spring.domain.users.service.EmailService;
 import com.example.backend_spring.domain.users.service.UserService;
 import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
@@ -52,7 +53,7 @@ public class AuthController {
     @PostMapping("/requestAccessPasswordReset")
     public ResponseEntity<UserGeneralMessageResponseDTO> requestAccessPasswordReset(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
         return ResponseEntity.ok(
-            userService.requestAccessPasswordReset(
+            userService.requestPasswordReset(
                 dto.email(), 
                 PasswordResetRequestType.LOGIN_PASSWORD
             )
@@ -62,9 +63,9 @@ public class AuthController {
     // Only auth clients can access this endpoint
     @PreAuthorize("hasRole('CLIENT')")
     @PostMapping("/requestTransactionPasswordReset")
-    public ResponseEntity<?> requestTransactionPasswordReset(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
+    public ResponseEntity<UserGeneralMessageResponseDTO> requestTransactionPasswordReset(@RequestBody @Valid UserRecoverCredentialsRequestDTO dto) {
         return ResponseEntity.ok(
-            userService.requestAccessPasswordReset(
+            userService.requestPasswordReset(
                 dto.email(), 
                 PasswordResetRequestType.TRANSACTION_PASSWORD
             )
@@ -72,7 +73,14 @@ public class AuthController {
     }
 
     @PostMapping("/resetAccessPassword")
-    public ResponseEntity<?> resetPassword(@RequestBody @Valid UserCreationRequestDTO dto) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserGeneralMessageResponseDTO> resetAccessPassword(@RequestBody @Valid UserResetAccessPasswordRequestDTO dto) {
+        return ResponseEntity.ok(userService.resetAccessPassword(dto));
+    }
+
+    // Only auth clients can access this endpoint
+    @PreAuthorize("hasRole('CLIENT')")
+    @PostMapping("/resetTransactionPassword")
+    public ResponseEntity<UserGeneralMessageResponseDTO> resetTransactionPassword(@RequestBody @Valid UserResetTransactionPasswordRequestDTO dto) {
+        return ResponseEntity.ok(userService.resetTransactionPassword(dto));
     }
 }
