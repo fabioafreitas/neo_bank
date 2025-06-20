@@ -1,0 +1,53 @@
+====== lado da organização financeira ========
+
+account
+    PK  id
+    - ...
+
+#categorias padrão de orçamento
+budget_categories
+    PK  id
+    - name (nome da categoria de orçamento)
+
+#armazenamento da organização financeira de cada conta
+account_budget_allocations
+    PK  id
+    FK  account_id UUID NOT NULL ON DELETE CASCADE
+    FK  budget_category_id UUID NOT NULL ON DELETE CASCADE
+    - balance (saldo da categoria de orçamento para a conta)
+    - last_updated (data da última atualização do saldo)
+
+
+====== lado das transações de pagamento ========
+
+transactions
+    PK  id
+
+transfer_transactions
+    PK   id
+    FK   source_transaction_id UUID NOT NULL transactions(id) ON DELETE CASCADE
+    FK   destination_transaction_id UUID NOT NULL transactions(id) ON DELETE CASCADE
+    
+purchased_products
+    PK  id
+    FK  transaction_id
+    FK  merchant_product_id
+    - purchase_price
+
+======= lado do comerciante e dos produtos ============
+
+merchants
+    PK   id
+
+merchant_products
+    PK   id
+    FK   merchant_id
+
+
+
+
+
+======
+
+
+como modelar as tranferências (2x transações, origem -> destino e destino -> origem)

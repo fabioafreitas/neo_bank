@@ -1,12 +1,17 @@
 # API Specification (Overview)
 
+The ones marked are the implemented methods
+
 ## Auth
 
-- [x] `POST /api/auth/register` → Register new user (USER role)
-- [x] `POST /api/auth/login` → Authenticate and return JWT
-- [ ] `POST /api/auth/recover-username` → Sends an e-mail message containing the related username with this e-mail address if exists. I doesn't return anything, as a security feature, to prevent this route to be used as brute force to check is e-mails are stored.
-- [ ] `POST /api/auth/request-password-reset` → Generates an registry in the password_reset_requests table
-- [ ] `POST /api/auth/reset-password` → receives the data from a password_reset_requests row, to auth if the request is valid and of type `LOGIN_PASSWORD`. If so, performs the password reset by sending to server the new password of the user.
+- [x] `POST /api/auth/registerClient` → Register new client
+- [ ] `POST /api/auth/registerMerchant` → Register new merchant
+- [x] `POST /api/auth/login` → Authenticate user and return JWT
+- [x] `POST /api/auth/remindUsername` → Receives e-mail and sends username associated to given address if exists in it exists
+- [x] `POST /api/auth/requestAccessPasswordReset` → Records a access password reset request in DB
+- [x] `POST /api/auth/requestTransactionPasswordReset` → `CLIENT ROLE` Records a transaction password reset request in DB
+- [x] `POST /api/auth/resetAccessPassword` → Receives new access password and token of access password reset record
+- [x] `POST /api/auth/resetTransactionPassword` → `CLIENT ROLE` Receives current access password, new transaction password and token of transaction password reset record
 
 ## User Profile
 
@@ -15,19 +20,17 @@
 
 ## Accounts
 
-- [x] `GET /api/accounts/me` → Get current user’s account
-- [x] `GET /api/accounts/{accountNumber}` → Admin only, get user account
-- [x] `PUT /api/accounts/{accountNumber}` → Admin only, update user account
-- [x] `DELETE /api/accounts/{accountNumber}` → Admin only, deactivate user account
-- [ ] `PUT /api/accounts/change-transaction-password` → receives the data from a password_reset_requests row, to auth if the request is valid and of type `TRANSACTION_PASSWORD`. If so, performs the password reset by sending to server the new password of the user.
-- [ ] `PUT /api/accounts/change-login-password` → changes password while user is authenticated, request the old password, new password and confirm new password.
+- [ ] `GET /api/accounts/me` → `CLIENT ROLE` Get current user’s account
+- [ ] `GET /api/accounts` → `ADMIN ROLE` Get all user accounts
+- [ ] `GET /api/accounts/{accountNumber}` → `ADMIN ROLE` Get user account by number
+- [ ] `DELETE /api/accounts/{accountNumber}` → `ADMIN ROLE` Deactivate user account
 
 ## Transactions
 
-- [x] `POST /api/transactions/withdraw` → Withdraw money
-- [x] `POST /api/transactions/deposit` → Deposit money
-- [x] `POST /api/transactions/purchase` → Make purchase. If account is cashback and purchase if above threshold, gets cashback
-- [x] `POST /api/transactions/transfer` → Transfer to another account
+- [ ] `POST /api/transactions/withdraw` → Withdraw money
+- [ ] `POST /api/transactions/deposit` → Deposit money
+- [ ] `POST /api/transactions/purchase` → Make purchase. If account is cashback and purchase if above threshold, gets cashback
+- [ ] `POST /api/transactions/transfer` → Transfer to another account
 - [ ] `GET /api/transactions` → List transactions (filtered by user) (TODO - add filters with start/end date, transaction types, transaction categories)
 - [ ] `GET /api/transactions/cashback` → List cashback transactions
 

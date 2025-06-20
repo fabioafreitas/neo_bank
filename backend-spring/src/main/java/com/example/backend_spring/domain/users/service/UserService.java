@@ -136,7 +136,7 @@ public class UserService implements UserDetailsService {
             user,
             new BigDecimal(0),
             AccountStatus.ACTIVE,
-            AccountType.DEFAULT,
+            AccountType.CASHBACK,
             dto.transactionPassword()
         );
         AccountResponseDTO accountResponseDTO = accountService.create(accountCreationDTO);
