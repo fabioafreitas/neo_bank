@@ -1,4 +1,4 @@
-package com.example.backend_spring.domain.accounts;
+package com.example.backend_spring.domain.accounts.controller;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.backend_spring.domain.accounts.dto.AccountDeactivatedDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
+import com.example.backend_spring.domain.accounts.service.AccountService;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -41,7 +42,7 @@ public class AccountController {
     // TODO review
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{accountNumber}")
-    public ResponseEntity<AccountDeactivatedDTO> delete(@PathVariable("accountNumber") String accountNumber) {
+    public ResponseEntity<AccountDeactivatedDTO> deactivateAccount(@PathVariable("accountNumber") String accountNumber) {
         accountService.deactivateAccount(accountNumber);
         return ResponseEntity.ok(new AccountDeactivatedDTO("Account deleted successfully"));
     }

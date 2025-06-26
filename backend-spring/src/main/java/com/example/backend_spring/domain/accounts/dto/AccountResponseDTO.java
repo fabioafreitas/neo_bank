@@ -3,8 +3,8 @@ package com.example.backend_spring.domain.accounts.dto;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import com.example.backend_spring.domain.accounts.AccountStatus;
-import com.example.backend_spring.domain.accounts.AccountType;
+import com.example.backend_spring.domain.accounts.utils.AccountStatus;
+import com.example.backend_spring.domain.accounts.utils.AccountType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.validation.constraints.NotBlank;

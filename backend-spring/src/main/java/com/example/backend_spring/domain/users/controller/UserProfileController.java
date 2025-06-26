@@ -13,16 +13,16 @@ import com.example.backend_spring.domain.users.dto.UserLoginRequestDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/users/")
+@RequestMapping("/api/users")
 public class UserProfileController {
-    // TODO
+    // TODO: implement method
     @PreAuthorize("hasRole('CLIENT')")
     @GetMapping("/me/profile")    
     public ResponseEntity<?> getPurrentUserProfile(@RequestBody @Valid UserLoginRequestDTO dto) {
         return ResponseEntity.ok().build();
     }
 
-    // TODO
+    // TODO: implement method
     @PreAuthorize("hasRole('CLIENT')")
     @PutMapping("/me/profile")    
     public ResponseEntity<?> updatePurrentUserProfile(@RequestBody @Valid UserLoginRequestDTO dto) {

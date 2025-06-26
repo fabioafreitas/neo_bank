@@ -51,3 +51,5 @@ merchant_products
 
 
 como modelar as tranferências (2x transações, origem -> destino e destino -> origem)
+
+como linkar uma transferência de compra, com o buget allocation e com o purchased product?

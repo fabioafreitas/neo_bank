@@ -1,4 +1,4 @@
-package com.example.backend_spring.domain.accounts;
+package com.example.backend_spring.domain.accounts.service;
 
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountUpdateDTO;
+import com.example.backend_spring.domain.accounts.model.Account;
+import com.example.backend_spring.domain.accounts.repository.AccountRepository;
+import com.example.backend_spring.domain.accounts.utils.AccountStatus;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.domain.users.repository.UserRepository;
 

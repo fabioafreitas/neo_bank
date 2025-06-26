@@ -1,4 +1,4 @@
-package com.example.backend_spring.domain.accounts;
+package com.example.backend_spring.domain.accounts.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.example.backend_spring.domain.accounts.utils.AccountStatus;
+import com.example.backend_spring.domain.accounts.utils.AccountType;
 import com.example.backend_spring.domain.users.model.User;
 
 @Table(name = "accounts")

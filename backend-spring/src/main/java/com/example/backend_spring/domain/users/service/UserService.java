@@ -13,12 +13,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.backend_spring.domain.accounts.Account;
-import com.example.backend_spring.domain.accounts.AccountService;
-import com.example.backend_spring.domain.accounts.AccountStatus;
-import com.example.backend_spring.domain.accounts.AccountType;
 import com.example.backend_spring.domain.accounts.dto.AccountCreationDTO;
 import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
+import com.example.backend_spring.domain.accounts.model.Account;
+import com.example.backend_spring.domain.accounts.service.AccountService;
+import com.example.backend_spring.domain.accounts.utils.AccountStatus;
+import com.example.backend_spring.domain.accounts.utils.AccountType;
 import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;

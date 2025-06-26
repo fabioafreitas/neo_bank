@@ -1,4 +1,4 @@
-package com.example.backend_spring.domain.transactions;
+package com.example.backend_spring.domain.transactions.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,8 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.backend_spring.domain.accounts.Account;
+import com.example.backend_spring.domain.accounts.model.Account;
+import com.example.backend_spring.domain.transactions.model.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
     Optional<Transaction> findByTransactionNumber(UUID transactionNumber);

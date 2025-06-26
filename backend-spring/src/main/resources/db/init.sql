@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS account_budget_allocations (
     account_id UUID NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
     budget_category_id UUID NOT NULL REFERENCES budget_categories(id),
     allocation_value DECIMAL(15, 2) NOT NULL CHECK (allocation_value >= 0),
-    UNIQUE (account_id, category_id) -- Ensure unique allocation per account and category
+    UNIQUE (account_id, budget_category_id) -- Ensure unique allocation per account and category
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS transactions (
 
 CREATE TABLE IF NOT EXISTS transfer_transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    source_transaction_id UUID NOT NULL transactions(id) ON DELETE CASCADE,
-    destination_transaction_id UUID NOT NULL transactions(id) ON DELETE CASCADE,
+    source_transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE,
+    destination_transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS transaction_requests (
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS transaction_requests (
     reviewed_by UUID REFERENCES users(id) ON DELETE SET NULL,
     reviewed_at TIMESTAMP,
     status TEXT NOT NULL DEFAULT 'PENDING' CHECK (
-        status IN ('PENDING', 'APPROVED', 'REJECTED')),
+        status IN ('PENDING', 'APPROVED', 'REJECTED'))
 );
 
 CREATE TABLE IF NOT EXISTS merchants (
@@ -102,16 +102,16 @@ CREATE TABLE IF NOT EXISTS merchants (
 
 CREATE TABLE IF NOT EXISTS merchant_products (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    merchant_id UUID REFERENCES merchants(id) ON DELETE CASCADE,
+    merchant_id UUID NOT NULL REFERENCES merchants(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
-    description TEXT,
+    description TEXT NOT NULL,
     original_price DECIMAL(15, 2) NOT NULL,
     cashback_rate DECIMAL(5, 4) NOT NULL DEFAULT 0 CHECK (
         cashback_rate >= 0 AND cashback_rate <= 1),
     discount_rate DECIMAL(5, 4) NOT NULL DEFAULT 0 CHECK (
         discount_rate >= 0 AND discount_rate <= 1),
     image_urls TEXT[] NOT NULL, -- array of URLs
-    features JSONB NOT NULL, -- key/value + description
+    features JSONB NOT NULL -- key/value + description
 );
 
 
@@ -199,9 +199,9 @@ GROUP BY bc.id, bc.name;
 
 
 
----------------------------------------
---              Iserts               --
----------------------------------------
+----------------------------------------
+--              Inserts               --
+----------------------------------------
 
 INSERT INTO budget_categories (name)
 VALUES

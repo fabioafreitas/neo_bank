@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import com.example.backend_spring.domain.transactions.TransactionType;
+import com.example.backend_spring.domain.transactions.utils.TransactionType;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
