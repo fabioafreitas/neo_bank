@@ -24,10 +24,26 @@ The ones marked are the implemented methods
 
 ### Account Management
 
-- [ ] `GET /api/accounts/me` → `CLIENT ROLE` Get current user's account
-- [ ] `GET /api/accounts` → `ADMIN ROLE` Get all user accounts
-- [ ] `GET /api/accounts/{accountNumber}` → `ADMIN ROLE` Get user account by number
-- [ ] `DELETE /api/accounts/{accountNumber}` → `ADMIN ROLE` Deactivate user account
+- [x] `GET /api/accounts/me` → `CLIENT ROLE` Get current user's account
+- [x] `GET /api/accounts` → `ADMIN ROLE` Get all user accounts
+
+  - Parameters:
+
+    - Required (pagination):
+
+      - `page` (integer): Page number (starting from 0 or 1, as per convention)
+      - `size` (integer): Number of items per page
+      - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
+
+    - Optional (filters):
+      - `status` (string): Filter by transaction status (e.g. `ACTIVE`, `SUSPENDED`, `DEACTIVATED`)
+      - `minValue` (decimal): Filter accounts with balance greater than or equal to this amount
+      - `maxValue` (decimal): Filter accounts with balance less than or equal to this amount
+
+- [x] `GET /api/accounts/{accountNumber}` → `ADMIN ROLE` Get user account by number
+- [x] `PUT /api/accounts/activate/{accountNumber}` → `ADMIN ROLE` Activate user account if isn't deactivated
+- [x] `PUT /api/accounts/suspend/{accountNumber}` → `ADMIN ROLE` Suspend user account if isn't deactivated
+- [x] `DELETE /api/accounts/deactivate/{accountNumber}` → `ADMIN ROLE` Deactivate user account and delete related user
 
 ### Account Budget Management
 
