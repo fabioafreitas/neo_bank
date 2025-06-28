@@ -11,279 +11,780 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "login admin",
-					"event": [
+					"name": "login",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Check if the response status code is 200\r",
-									"if (pm.response.code === 200) {\r",
-									"    try {\r",
-									"        // Parse the JSON response body\r",
-									"        let responseBody = pm.response.json();\r",
-									"        \r",
-									"        // Check if the \"token\" key exists in the response\r",
-									"        if (responseBody.token) {\r",
-									"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
-									"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
-									"            console.log(\"JWT set to:\", responseBody.token);\r",
-									"        } else {\r",
-									"            console.log(\"Access token not found in the response.\");\r",
-									"        }\r",
-									"    } catch (e) {\r",
-									"        console.error(\"Error parsing JSON response:\", e);\r",
-									"    }\r",
-									"} else {\r",
-									"    console.log(\"Response code is not 200:\", pm.response.code);\r",
-									"}\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "login admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    try {\r",
+											"        // Parse the JSON response body\r",
+											"        let responseBody = pm.response.json();\r",
+											"        \r",
+											"        // Check if the \"token\" key exists in the response\r",
+											"        if (responseBody.token) {\r",
+											"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+											"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+											"            console.log(\"JWT set to:\", responseBody.token);\r",
+											"        } else {\r",
+											"            console.log(\"Access token not found in the response.\");\r",
+											"        }\r",
+											"    } catch (e) {\r",
+											"        console.error(\"Error parsing JSON response:\", e);\r",
+											"    }\r",
+											"} else {\r",
+											"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/login",
-							"host": [
-								"{{base_url}}"
 							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accessUsername\": \"fabioalves\",\r\n    \"accessPassword\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login duda",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    try {\r",
+											"        // Parse the JSON response body\r",
+											"        let responseBody = pm.response.json();\r",
+											"        \r",
+											"        // Check if the \"token\" key exists in the response\r",
+											"        if (responseBody.token) {\r",
+											"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+											"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+											"            console.log(\"JWT set to:\", responseBody.token);\r",
+											"        } else {\r",
+											"            console.log(\"Access token not found in the response.\");\r",
+											"        }\r",
+											"    } catch (e) {\r",
+											"        console.error(\"Error parsing JSON response:\", e);\r",
+											"    }\r",
+											"} else {\r",
+											"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accessUsername\": \"dudaelvira\",\r\n    \"accessPassword\": \"aa#$FFa2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login pepe",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    try {\r",
+											"        // Parse the JSON response body\r",
+											"        let responseBody = pm.response.json();\r",
+											"        \r",
+											"        // Check if the \"token\" key exists in the response\r",
+											"        if (responseBody.token) {\r",
+											"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+											"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+											"            console.log(\"JWT set to:\", responseBody.token);\r",
+											"        } else {\r",
+											"            console.log(\"Access token not found in the response.\");\r",
+											"        }\r",
+											"    } catch (e) {\r",
+											"        console.error(\"Error parsing JSON response:\", e);\r",
+											"    }\r",
+											"} else {\r",
+											"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accessUsername\": \"fabioafreitas\",\r\n    \"accessPassword\": \"$MgNC53W\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login joselito",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    try {\r",
+											"        // Parse the JSON response body\r",
+											"        let responseBody = pm.response.json();\r",
+											"        \r",
+											"        // Check if the \"token\" key exists in the response\r",
+											"        if (responseBody.token) {\r",
+											"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+											"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+											"            console.log(\"JWT set to:\", responseBody.token);\r",
+											"        } else {\r",
+											"            console.log(\"Access token not found in the response.\");\r",
+											"        }\r",
+											"    } catch (e) {\r",
+											"        console.error(\"Error parsing JSON response:\", e);\r",
+											"    }\r",
+											"} else {\r",
+											"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accessUsername\": \"joselito\",\r\n    \"accessPassword\": \"11111111aA#\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "login duda",
-					"event": [
+					"name": "register",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Check if the response status code is 200\r",
-									"if (pm.response.code === 200) {\r",
-									"    try {\r",
-									"        // Parse the JSON response body\r",
-									"        let responseBody = pm.response.json();\r",
-									"        \r",
-									"        // Check if the \"token\" key exists in the response\r",
-									"        if (responseBody.token) {\r",
-									"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
-									"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
-									"            console.log(\"JWT set to:\", responseBody.token);\r",
-									"        } else {\r",
-									"            console.log(\"Access token not found in the response.\");\r",
-									"        }\r",
-									"    } catch (e) {\r",
-									"        console.error(\"Error parsing JSON response:\", e);\r",
-									"    }\r",
-									"} else {\r",
-									"    console.log(\"Response code is not 200:\", pm.response.code);\r",
-									"}\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"duda\",\r\n    \"password\": \"duda\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "register client fulano",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/login",
-							"host": [
-								"{{base_url}}"
 							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Fulano\",\r\n    \"lastName\":\"Cicrano\",\r\n    \"email\":\"fabio.estudos.01.2025@gmail.com\",\r\n    \"accessUsername\": \"fulanocicrano\",\r\n    \"accessPassword\": \"11111aA#\",\r\n    \"transactionPassword\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/registerClient",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"registerClient"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register client pepe",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Fábio\",\r\n    \"lastName\":\"Alves\",\r\n    \"email\":\"fbio.alves095@gmail.com\",\r\n    \"accessUsername\": \"fabioafreitas\",\r\n    \"accessPassword\": \"$MgNC53W\",\r\n    \"transactionPassword\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/registerClient",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"registerClient"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register client joselito",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Joselito\",\r\n    \"lastName\":\"Alves\",\r\n    \"email\":\"lito.alves65@gmail.com\",\r\n    \"accessUsername\": \"joselito\",\r\n    \"accessPassword\": \"$MgNC53W\",\r\n    \"transactionPassword\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/registerClient",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"registerClient"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register client duda",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Eduarda\",\r\n    \"lastName\":\"Elvira\",\r\n    \"email\":\"eduardaelvira2002@gmail.com\",\r\n    \"accessUsername\": \"dudaelvira\",\r\n    \"accessPassword\": \"aa#$FFa2\",\r\n    \"transactionPassword\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/auth/registerClient",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"auth",
+										"registerClient"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "login pepe",
-					"event": [
+					"name": "recover",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Check if the response status code is 200\r",
-									"if (pm.response.code === 200) {\r",
-									"    try {\r",
-									"        // Parse the JSON response body\r",
-									"        let responseBody = pm.response.json();\r",
-									"        \r",
-									"        // Check if the \"token\" key exists in the response\r",
-									"        if (responseBody.token) {\r",
-									"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
-									"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
-									"            console.log(\"JWT set to:\", responseBody.token);\r",
-									"        } else {\r",
-									"            console.log(\"Access token not found in the response.\");\r",
-									"        }\r",
-									"    } catch (e) {\r",
-									"        console.error(\"Error parsing JSON response:\", e);\r",
-									"    }\r",
-									"} else {\r",
-									"    console.log(\"Response code is not 200:\", pm.response.code);\r",
-									"}\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"pepe\",\r\n    \"password\": \"pepe\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "username",
+							"item": [
+								{
+									"name": "remind my username",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Check if the response status code is 200\r",
+													"if (pm.response.code === 200) {\r",
+													"    try {\r",
+													"        // Parse the JSON response body\r",
+													"        let responseBody = pm.response.json();\r",
+													"        \r",
+													"        // Check if the \"token\" key exists in the response\r",
+													"        if (responseBody.token) {\r",
+													"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+													"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+													"            console.log(\"JWT set to:\", responseBody.token);\r",
+													"        } else {\r",
+													"            console.log(\"Access token not found in the response.\");\r",
+													"        }\r",
+													"    } catch (e) {\r",
+													"        console.error(\"Error parsing JSON response:\", e);\r",
+													"    }\r",
+													"} else {\r",
+													"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"fbio.alves095@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/remindUsername",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"remindUsername"
+											]
+										}
+									},
+									"response": []
 								}
-							}
+							]
 						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"login"
+						{
+							"name": "recover access password",
+							"item": [
+								{
+									"name": "request access password reset",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Check if the response status code is 200\r",
+													"if (pm.response.code === 200) {\r",
+													"    try {\r",
+													"        // Parse the JSON response body\r",
+													"        let responseBody = pm.response.json();\r",
+													"        \r",
+													"        // Check if the \"token\" key exists in the response\r",
+													"        if (responseBody.token) {\r",
+													"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+													"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+													"            console.log(\"JWT set to:\", responseBody.token);\r",
+													"        } else {\r",
+													"            console.log(\"Access token not found in the response.\");\r",
+													"        }\r",
+													"    } catch (e) {\r",
+													"        console.error(\"Error parsing JSON response:\", e);\r",
+													"    }\r",
+													"} else {\r",
+													"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"fbio.alves095@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/requestAccessPasswordReset",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"requestAccessPasswordReset"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "reset  access password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Check if the response status code is 200\r",
+													"if (pm.response.code === 200) {\r",
+													"    try {\r",
+													"        // Parse the JSON response body\r",
+													"        let responseBody = pm.response.json();\r",
+													"        \r",
+													"        // Check if the \"token\" key exists in the response\r",
+													"        if (responseBody.token) {\r",
+													"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+													"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+													"            console.log(\"JWT set to:\", responseBody.token);\r",
+													"        } else {\r",
+													"            console.log(\"Access token not found in the response.\");\r",
+													"        }\r",
+													"    } catch (e) {\r",
+													"        console.error(\"Error parsing JSON response:\", e);\r",
+													"    }\r",
+													"} else {\r",
+													"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"newAccessPassword\":\"11111aA#\",\r\n    \"resetRequestToken\":\"af6ff15b-9cb4-42be-b177-1868ecb9d940\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/resetAccessPassword",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"resetAccessPassword"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "recover transaction password",
+							"item": [
+								{
+									"name": "request transaction password reset",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Check if the response status code is 200\r",
+													"if (pm.response.code === 200) {\r",
+													"    try {\r",
+													"        // Parse the JSON response body\r",
+													"        let responseBody = pm.response.json();\r",
+													"        \r",
+													"        // Check if the \"token\" key exists in the response\r",
+													"        if (responseBody.token) {\r",
+													"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+													"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+													"            console.log(\"JWT set to:\", responseBody.token);\r",
+													"        } else {\r",
+													"            console.log(\"Access token not found in the response.\");\r",
+													"        }\r",
+													"    } catch (e) {\r",
+													"        console.error(\"Error parsing JSON response:\", e);\r",
+													"    }\r",
+													"} else {\r",
+													"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"fbio.alves095@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/requestTransactionPasswordReset",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"requestTransactionPasswordReset"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "reset  transaction password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Check if the response status code is 200\r",
+													"if (pm.response.code === 200) {\r",
+													"    try {\r",
+													"        // Parse the JSON response body\r",
+													"        let responseBody = pm.response.json();\r",
+													"        \r",
+													"        // Check if the \"token\" key exists in the response\r",
+													"        if (responseBody.token) {\r",
+													"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+													"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+													"            console.log(\"JWT set to:\", responseBody.token);\r",
+													"        } else {\r",
+													"            console.log(\"Access token not found in the response.\");\r",
+													"        }\r",
+													"    } catch (e) {\r",
+													"        console.error(\"Error parsing JSON response:\", e);\r",
+													"    }\r",
+													"} else {\r",
+													"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"accessPassword\":\"$MgNC53W\",\r\n    \"newTransactionPassword\":\"123456\",\r\n    \"resetRequestToken\":\"a0be15f0-51f4-44c7-98d1-8e67e6327439\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/resetTransactionPassword",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"resetTransactionPassword"
+											]
+										}
+									},
+									"response": []
+								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "register pepe",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"pepe\",\r\n    \"password\": \"pepe\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/register",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "register duda",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"duda\",\r\n    \"password\": \"duda\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/register",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -431,7 +932,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\":2000,\r\n    \"description\":\"test deposit\"\r\n}",
+							"raw": "{\r\n    \"amount\":1,\r\n    \"description\":\"test deposit\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -517,7 +1018,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\":500,\r\n    \"description\":\"toma dinheiros ai dudis\",\r\n    \"transferAccountNumber\":5332820779\r\n}",
+							"raw": "{\r\n    \"amount\":500,\r\n    \"description\":\"toma dinheiros ai dudis\",\r\n    \"transferAccountNumber\":6884716648\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -616,13 +1117,27 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/accounts",
+									"raw": "{{base_url}}/api/accounts?page=0&size=3&sort=balance,asc",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"accounts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "3"
+										},
+										{
+											"key": "sort",
+											"value": "balance,asc"
+										}
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -649,14 +1164,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/accounts/3249133276",
+									"raw": "{{base_url}}/api/accounts/6607146849",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"accounts",
-										"3249133276"
+										"6607146849"
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -664,14 +1179,14 @@
 							"response": []
 						},
 						{
-							"name": "update account",
+							"name": "suspend account",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Successful PUT request\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+											"pm.test(\"Successful DELETE request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
 											"});",
 											""
 										],
@@ -685,7 +1200,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"balance\":0,\n    \"type\":\"CASHBACK\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -693,17 +1208,63 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/accounts/5181334929",
+									"raw": "{{base_url}}/api/accounts/suspend/6299284879",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"accounts",
-										"5181334929"
+										"suspend",
+										"6299284879"
 									]
 								},
-								"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "activate account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful DELETE request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/accounts/activate/6299284879",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"activate",
+										"6299284879"
+									]
+								},
+								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
 							},
 							"response": []
 						},
@@ -737,14 +1298,60 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/accounts/3603597440",
+									"raw": "{{base_url}}/api/accounts/deactivate/6607146849",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"accounts",
-										"3603597440"
+										"deactivate",
+										"6607146849"
+									]
+								},
+								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "delete account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful DELETE request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/accounts/deactivate/6607146849",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"deactivate",
+										"6607146849"
 									]
 								},
 								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -754,6 +1361,10 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "merchants",
+			"item": []
 		}
 	],
 	"auth": {

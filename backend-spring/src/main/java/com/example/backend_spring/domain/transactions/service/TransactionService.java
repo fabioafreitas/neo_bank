@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.backend_spring.domain.accounts.model.Account;
 import com.example.backend_spring.domain.accounts.service.AccountService;
-import com.example.backend_spring.domain.accounts.utils.AccountType;
 import com.example.backend_spring.domain.transactions.dto.TransactionPurchaseCashbackDTO;
 import com.example.backend_spring.domain.transactions.dto.TransactionRequestDTO;
 import com.example.backend_spring.domain.transactions.dto.TransactionResponseDTO;

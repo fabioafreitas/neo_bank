@@ -41,7 +41,7 @@ public class User implements UserDetails{
     private UserRole role;
 
     @Setter
-    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private UserProfile userProfile;
 
     public User(String username, String password, UserRole role){

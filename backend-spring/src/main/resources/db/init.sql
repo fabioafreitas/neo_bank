@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS budget_categories (
     name TEXT NOT NULL UNIQUE
 );
 
+-- FK (null and without on delete cascade) is on porpose
+-- to allow deletion of users without deleting accounts 
 CREATE TABLE IF NOT EXISTS accounts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES users(id),

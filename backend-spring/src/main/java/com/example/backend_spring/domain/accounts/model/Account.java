@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.backend_spring.domain.accounts.utils.AccountStatus;
-import com.example.backend_spring.domain.accounts.utils.AccountType;
 import com.example.backend_spring.domain.users.model.User;
 
 @Table(name = "accounts")
@@ -28,18 +27,18 @@ public class Account {
 
     @Setter
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Setter
     @Column(name = "balance", columnDefinition = "DECIMAL(15, 2)")
     private BigDecimal balance;
 
-    @Column(name = "account_number")
+    @Column(name = "account_number", nullable = false, unique = true)
     private String accountNumber;
 
     @Setter
-    @Column(name = "transaction_password")
+    @Column(name = "transaction_password", nullable = false)
     private String transactionPassword;
 
     @Setter
@@ -47,16 +46,10 @@ public class Account {
     @Column(name = "status", columnDefinition = "TEXT")
     private AccountStatus status;
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", columnDefinition = "TEXT")
-    private AccountType type;
-
-    public Account(User user, BigDecimal balance, AccountStatus status, AccountType type, String accountNumber, String transactionPassword) {
+    public Account(User user, BigDecimal balance, AccountStatus status, String accountNumber, String transactionPassword) {
         this.user = user;
         this.balance = balance;
         this.status = status;
-        this.type = type;
         this.accountNumber = accountNumber;
         this.transactionPassword = transactionPassword;
     }

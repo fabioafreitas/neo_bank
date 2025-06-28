@@ -18,7 +18,6 @@ import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
 import com.example.backend_spring.domain.accounts.model.Account;
 import com.example.backend_spring.domain.accounts.service.AccountService;
 import com.example.backend_spring.domain.accounts.utils.AccountStatus;
-import com.example.backend_spring.domain.accounts.utils.AccountType;
 import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
 import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
@@ -136,7 +135,6 @@ public class UserService implements UserDetailsService {
             user,
             new BigDecimal(0),
             AccountStatus.ACTIVE,
-            AccountType.CASHBACK,
             dto.transactionPassword()
         );
         AccountResponseDTO accountResponseDTO = accountService.create(accountCreationDTO);
