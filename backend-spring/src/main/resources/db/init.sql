@@ -216,7 +216,7 @@ VALUES
 INSERT INTO public.users (id, username, "password", "role")
 VALUES(
     '2c6b0fba-006a-4512-b546-1ba2b3ea65a3'::uuid,
-    'fabioalves',
-    '$2a$10$hgykf5Gp9IjiX2vN3s0cLO28jmYqVXVCy/y.Y.tIY.WQFCAQc4EE6',
+    'sysadmin',
+    '$2a$10$HMJ478j6zDUab79TG8SSVe8iqV3yZNf3CfA3hwsICbppJ4tKl6yo6',
     'ADMIN'
 );

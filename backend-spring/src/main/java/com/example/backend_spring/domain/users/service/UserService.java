@@ -84,8 +84,9 @@ public class UserService implements UserDetailsService {
         return registerUser(dto, UserRole.CLIENT);
     }
 
-    public void registerUserMerchant(UserCreationRequestDTO dto) {
-       registerUser(dto, UserRole.MERCHANT);
+    public UserGeneralMessageResponseDTO registerUserMerchant(UserCreationRequestDTO dto) {
+        registerUser(dto, UserRole.MERCHANT);
+        return new UserGeneralMessageResponseDTO("Merchant user registered successfully");
     }
 
     public void registerUserAdmin(UserCreationRequestDTO dto) {

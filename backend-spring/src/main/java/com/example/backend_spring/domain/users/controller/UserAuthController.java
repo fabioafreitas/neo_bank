@@ -39,8 +39,13 @@ public class UserAuthController {
     }
 
     @PostMapping("/registerClient")
-    public ResponseEntity<UserCreationResponseDTO> register(@RequestBody @Valid UserCreationRequestDTO dto) {
+    public ResponseEntity<UserCreationResponseDTO> registerClient(@RequestBody @Valid UserCreationRequestDTO dto) {
         return ResponseEntity.ok(userService.registerUserClient(dto));
+    }
+
+    @PostMapping("/registerMerchant")
+    public ResponseEntity<UserGeneralMessageResponseDTO> registerMerchant(@RequestBody @Valid UserCreationRequestDTO dto) {
+        return ResponseEntity.ok(userService.registerUserMerchant(dto));
     }
 
     @PostMapping("/remindUsername")
