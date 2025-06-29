@@ -47,10 +47,9 @@ The ones marked are the implemented methods
 
 ### Account Budget Management
 
+- [x] `GET /api/accounts/budgetAllocations` → `CLIENT ROLE` Get all budget allocations
 - [ ] `GET /api/accounts/me/budget` → `CLIENT ROLE` Get current user's budget allocations
-- [ ] `POST /api/accounts/me/budget` → `CLIENT ROLE` Create budget allocation for category
-- [ ] `PUT /api/accounts/me/budget/{categoryId}` → `CLIENT ROLE` Update budget allocation
-- [ ] `DELETE /api/accounts/me/budget/{categoryId}` → `CLIENT ROLE` Remove budget allocation
+- [ ] `PUT /api/accounts/me/budget` → `CLIENT ROLE` Update budget allocations
 - [ ] `GET /api/accounts/{accountNumber}/budget` → `ADMIN ROLE` Get account budget allocations
 
 ## Transactions
