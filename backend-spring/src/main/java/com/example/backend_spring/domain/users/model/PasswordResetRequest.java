@@ -4,7 +4,6 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
-import com.example.backend_spring.domain.users.utils.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name = "password_reset_requests")
 @Table(name = "password_reset_requests")
