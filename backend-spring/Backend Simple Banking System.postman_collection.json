@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "auth",
+			"name": "user",
 			"item": [
 				{
 					"name": "login",
@@ -1090,6 +1090,430 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "profile",
+					"item": [
+						{
+							"name": "get my user profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    try {\r",
+											"        // Parse the JSON response body\r",
+											"        let responseBody = pm.response.json();\r",
+											"        \r",
+											"        // Check if the \"token\" key exists in the response\r",
+											"        if (responseBody.token) {\r",
+											"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+											"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+											"            console.log(\"JWT set to:\", responseBody.token);\r",
+											"        } else {\r",
+											"            console.log(\"Access token not found in the response.\");\r",
+											"        }\r",
+											"    } catch (e) {\r",
+											"        console.error(\"Error parsing JSON response:\", e);\r",
+											"    }\r",
+											"} else {\r",
+											"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/profile/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"profile",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update my user profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check if the response status code is 200\r",
+											"if (pm.response.code === 200) {\r",
+											"    try {\r",
+											"        // Parse the JSON response body\r",
+											"        let responseBody = pm.response.json();\r",
+											"        \r",
+											"        // Check if the \"token\" key exists in the response\r",
+											"        if (responseBody.token) {\r",
+											"            // Set the \"token\" token as a collection variable named {{jwt}}\r",
+											"            pm.collectionVariables.set(\"jwt\", responseBody.token);\r",
+											"            console.log(\"JWT set to:\", responseBody.token);\r",
+											"        } else {\r",
+											"            console.log(\"Access token not found in the response.\");\r",
+											"        }\r",
+											"    } catch (e) {\r",
+											"        console.error(\"Error parsing JSON response:\", e);\r",
+											"    }\r",
+											"} else {\r",
+											"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phone\":\"+55 (81) 91234-1234\",\r\n    \"addressLine1\":\"Rua dos testes, 123, Ap-3\",\r\n    \"addressLine2\":\"Prédio\",\r\n    \"city\":\"São bernardo dos campos\",\r\n    \"province\":\"São Paulo\",\r\n    \"postalCode\":\"04063-002\",\r\n    \"country\":\"Brasil\",\r\n    \"profilePictureUrl\":\"https://umbraco.com/media/y21lwhsb/niels.webp?rmode=pad&width=680&v=1dad76ab846bdc0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/profile/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"profile",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "get my account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"me"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "get budget categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts/budgetCategories",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"budgetCategories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get all accounts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts?page=0&size=10&sort=balance,asc",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "balance,asc"
+										}
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "get account by account number",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts/6607146849",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"6607146849"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						},
+						{
+							"name": "suspend account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful DELETE request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/accounts/suspend/6299284879",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"suspend",
+										"6299284879"
+									]
+								},
+								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "activate account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful DELETE request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/accounts/activate/6299284879",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"activate",
+										"6299284879"
+									]
+								},
+								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "delete account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful DELETE request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/accounts/deactivate/6607146849",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"deactivate",
+										"6607146849"
+									]
+								},
+								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -1344,326 +1768,6 @@
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "accounts",
-			"item": [
-				{
-					"name": "user",
-					"item": [
-						{
-							"name": "get my account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/accounts/me",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"me"
-									]
-								},
-								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "admin",
-					"item": [
-						{
-							"name": "get all accounts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/accounts?page=0&size=10&sort=balance,asc",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts"
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "0"
-										},
-										{
-											"key": "size",
-											"value": "10"
-										},
-										{
-											"key": "sort",
-											"value": "balance,asc"
-										}
-									]
-								},
-								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-							},
-							"response": []
-						},
-						{
-							"name": "get account by account number",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/accounts/6607146849",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"6607146849"
-									]
-								},
-								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-							},
-							"response": []
-						},
-						{
-							"name": "suspend account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Successful DELETE request\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/accounts/suspend/6299284879",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"suspend",
-										"6299284879"
-									]
-								},
-								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-							},
-							"response": []
-						},
-						{
-							"name": "activate account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Successful DELETE request\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/accounts/activate/6299284879",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"activate",
-										"6299284879"
-									]
-								},
-								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-							},
-							"response": []
-						},
-						{
-							"name": "delete account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Successful DELETE request\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/accounts/deactivate/6607146849",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"deactivate",
-										"6607146849"
-									]
-								},
-								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-							},
-							"response": []
-						},
-						{
-							"name": "delete account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Successful DELETE request\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/accounts/deactivate/6607146849",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"deactivate",
-										"6607146849"
-									]
-								},
-								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-							},
-							"response": []
-						}
-					]
 				}
 			]
 		},

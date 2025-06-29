@@ -216,6 +216,9 @@ public class AccountService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
         }
         return new AccountResponseDTO(
+            account.getUser().getUserProfile().getFirstName(),
+            account.getUser().getUserProfile().getLastName(),
+            account.getUser().getUserProfile().getEmail(),
             account.getBalance(),
             account.getStatus(),
             account.getAccountNumber()
