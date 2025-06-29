@@ -1,6 +1,7 @@
 package com.example.backend_spring.domain.accounts.service;
 
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
+import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 
 import jakarta.persistence.criteria.Predicate;
 
@@ -11,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,6 +35,9 @@ public class AccountService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtTokenProviderService jwtTokenProviderService;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -102,7 +105,7 @@ public class AccountService {
     }
 
     public AccountResponseDTO findByJwt() {
-        User user = this.getContextUser();
+        User user = jwtTokenProviderService.getContextUser();
         return accountRepository.findByUser(user).map(this::toDto)
             .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Account not found"
@@ -206,9 +209,7 @@ public class AccountService {
         return accountNumber;
     }
 
-    private User getContextUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+    
     
     private AccountResponseDTO toDto(Account account) {
         if (account == null) {

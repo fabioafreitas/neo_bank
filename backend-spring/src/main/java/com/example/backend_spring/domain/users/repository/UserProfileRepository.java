@@ -9,4 +9,5 @@ import com.example.backend_spring.domain.users.model.UserProfile;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, UUID> {
     Optional<UserProfile> findByEmail(String email);
+    Optional<UserProfile> findByUserId(UUID userId);
 }

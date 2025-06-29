@@ -1,5 +1,6 @@
 package com.example.backend_spring.domain.users.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,24 +9,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend_spring.domain.users.dto.UserLoginRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserProfileRequestDTO;
+import com.example.backend_spring.domain.users.dto.UserProfileResponseDTO;
+import com.example.backend_spring.domain.users.service.UserProfileService;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users/profile")
 public class UserProfileController {
-    // TODO: implement method
+
+    @Autowired
+    private UserProfileService userProfileService;
+
     @PreAuthorize("hasRole('CLIENT')")
-    @GetMapping("/me")    
-    public ResponseEntity<?> getPurrentUserProfile(@RequestBody @Valid UserLoginRequestDTO dto) {
-        return ResponseEntity.ok().build();
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileResponseDTO> getCurrentUserProfile() {
+        return ResponseEntity.ok(userProfileService.getCurrentProfile());
     }
 
-    // TODO: implement method
     @PreAuthorize("hasRole('CLIENT')")
     @PutMapping("/me")    
-    public ResponseEntity<?> updatePurrentUserProfile(@RequestBody @Valid UserLoginRequestDTO dto) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserProfileResponseDTO> updateCurrentUserProfile(@RequestBody @Valid UserProfileRequestDTO dto) {
+        return ResponseEntity.ok(userProfileService.updateCurrentProfile(dto));
     }
 }

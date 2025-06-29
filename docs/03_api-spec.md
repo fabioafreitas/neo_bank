@@ -7,7 +7,7 @@ The ones marked are the implemented methods
 ### User Auth
 
 - [x] `POST /api/users/auth/registerClient` → Register new client
-- [ ] `POST /api/users/auth/registerMerchant` → Register new merchant
+- [x] `POST /api/users/auth/registerMerchant` → Register new merchant
 - [x] `POST /api/users/auth/login` → Authenticate user and return JWT
 - [x] `POST /api/users/auth/remindUsername` → Receives e-mail and sends username associated to given address if exists in it exists
 - [x] `POST /api/users/auth/requestAccessPasswordReset` → Records a access password reset request in DB
@@ -17,8 +17,8 @@ The ones marked are the implemented methods
 
 ### User Profile
 
-- [ ] `GET /api/users/me/profile`
-- [ ] `PUT /api/users/me/profile`
+- [x] `GET /api/users/profile/me`
+- [x] `PUT /api/users/profile/me`
 
 ## Accounts
 
