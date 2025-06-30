@@ -23,6 +23,7 @@ import com.example.backend_spring.domain.accounts.repository.AccountRepository;
 import com.example.backend_spring.domain.accounts.utils.AccountStatus;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.domain.users.repository.UserRepository;
+import com.example.backend_spring.domain.users.utils.UserRole;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -105,6 +106,9 @@ public class AccountService {
 
     public AccountResponseDTO findByJwt() {
         User user = jwtTokenProviderService.getContextUser();
+        if (user.getRole() != UserRole.CLIENT) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
+        }
         return accountRepository.findByUser(user).map(this::toDto)
             .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Account not found"

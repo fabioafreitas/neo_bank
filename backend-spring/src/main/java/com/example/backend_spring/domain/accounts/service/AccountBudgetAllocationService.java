@@ -19,6 +19,7 @@ import com.example.backend_spring.domain.accounts.model.BudgetCategory;
 import com.example.backend_spring.domain.accounts.repository.AccountBudgetAllocationRepository;
 import com.example.backend_spring.domain.accounts.repository.AccountRepository;
 import com.example.backend_spring.domain.users.model.User;
+import com.example.backend_spring.domain.users.utils.UserRole;
 import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 
 @Service
@@ -65,6 +66,10 @@ public class AccountBudgetAllocationService {
     }
 
     public List<AccountBudgetAllocationDTO> findAccountBudgetAllocationsDtoByJwt() {
+        User user = jwtTokenProviderService.getContextUser();
+        if (user.getRole() != UserRole.CLIENT) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
+        }
         return findAccountBudgetAllocationsByJwt().stream()
             .map(this::toDto)
             .collect(Collectors.toList());
@@ -86,6 +91,10 @@ public class AccountBudgetAllocationService {
     }
 
     public List<AccountBudgetAllocationDTO> update(AccountBudgetAllocationUpdateRequestDTO dto) {
+        User user = jwtTokenProviderService.getContextUser();
+        if (user.getRole() != UserRole.CLIENT) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
+        }
         // check if there isn't repeated IDs in the request
         List<AccountBudgetAllocationDTO> updateAllocations = dto.allocations();
         List<UUID> updateAllocationIds = dto.allocations().stream()

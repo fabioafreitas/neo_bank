@@ -1230,7 +1230,7 @@
 					"name": "user",
 					"item": [
 						{
-							"name": "get my account",
+							"name": "get my account info",
 							"event": [
 								{
 									"listen": "test",
@@ -1264,7 +1264,7 @@
 							"response": []
 						},
 						{
-							"name": "get budget categories",
+							"name": "get avaliable budget categories",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -1277,6 +1277,55 @@
 										"api",
 										"accounts",
 										"budgetCategories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get my account budget allocations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts/me/budget",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"me",
+										"budget"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update my account budget allocations",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"2e33d230-93df-4f60-aa9c-1daa50639278\",\r\n            \"allocationValue\": 250\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"b31ca6a2-ff5c-4c7d-8fb1-e7f8dbec5b27\",\r\n            \"allocationValue\": 350\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"e1129bbc-f4b4-43e7-a415-de25d049e492\",\r\n            \"allocationValue\": 300\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/accounts/me/budget",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"me",
+										"budget"
 									]
 								}
 							},
@@ -1510,6 +1559,46 @@
 									]
 								},
 								"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+							},
+							"response": []
+						},
+						{
+							"name": "get account budget allocations by accountNumber",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts/3771215989/budget",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"3771215989",
+										"budget"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get account budget allocations by accountNumber",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/accounts/3771215989/budget",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"accounts",
+										"3771215989",
+										"budget"
+									]
+								}
 							},
 							"response": []
 						}
