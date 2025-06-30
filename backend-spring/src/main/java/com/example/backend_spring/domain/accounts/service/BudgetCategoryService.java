@@ -18,9 +18,14 @@ public class BudgetCategoryService {
     @Autowired
     private BudgetCategoryRepository budgetCategoryRepository;
 
+    public List<BudgetCategory> findAllBudgetCategories() {
+        return budgetCategoryRepository.findAll();
+    }
+
     public List<BudgetCategoryDTO> getAllBudgetCategories() {
-        return budgetCategoryRepository.findAll().stream()
-            .map(this::toDto).collect(Collectors.toList());
+        return findAllBudgetCategories().stream()
+            .map(this::toDto)
+            .collect(Collectors.toList());
     }
     
     private BudgetCategoryDTO toDto(BudgetCategory budgetCategory) {

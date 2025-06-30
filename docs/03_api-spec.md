@@ -48,9 +48,9 @@ The ones marked are the implemented methods
 ### Account Budget Management
 
 - [x] `GET /api/accounts/budgetAllocations` → `CLIENT ROLE` Get all budget allocations
-- [ ] `GET /api/accounts/me/budget` → `CLIENT ROLE` Get current user's budget allocations
-- [ ] `PUT /api/accounts/me/budget` → `CLIENT ROLE` Update budget allocations
-- [ ] `GET /api/accounts/{accountNumber}/budget` → `ADMIN ROLE` Get account budget allocations
+- [x] `GET /api/accounts/me/budget` → `CLIENT ROLE` Get current user's budget allocations
+- [x] `PUT /api/accounts/me/budget` → `CLIENT ROLE` Update budget allocations
+- [x] `GET /api/accounts/{accountNumber}/budget` → `ADMIN ROLE` Get account budget allocations
 
 ## Transactions
 

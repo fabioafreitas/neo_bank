@@ -45,9 +45,8 @@ public class AccountService {
     @Autowired
     private PepperPasswordEncoder pepperPasswordEncoder;
 
-    AccountService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private AccountBudgetAllocationService accountBudgetAllocationService;
 
     public List<AccountResponseDTO> findAll() {
         return accountRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
@@ -122,7 +121,14 @@ public class AccountService {
             generateUniqueAccountNumber(),
             encryptedTransactionPassword
         );
-        return toDto(accountRepository.save(account));
+
+        // save account in DB
+        Account savedAccount = accountRepository.save(account);
+        
+        // create account budget allocations of new account
+        accountBudgetAllocationService.create(account);
+
+        return toDto(savedAccount);
     }
 
     public AccountResponseDTO update(Account account) {
