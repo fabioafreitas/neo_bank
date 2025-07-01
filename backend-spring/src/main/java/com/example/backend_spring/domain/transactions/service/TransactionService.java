@@ -1,22 +1,30 @@
 package com.example.backend_spring.domain.transactions.service;
 
+import com.example.backend_spring.domain.accounts.dto.BudgetCategoryDTO;
+import com.example.backend_spring.domain.accounts.model.BudgetCategory;
+import com.example.backend_spring.domain.accounts.repository.BudgetCategoryRepository;
+import com.example.backend_spring.domain.accounts.utils.AccountStatus;
+import com.example.backend_spring.domain.transactions.dto.*;
+import com.example.backend_spring.domain.transactions.model.TransactionRequest;
+import com.example.backend_spring.domain.transactions.model.TransferTransaction;
+import com.example.backend_spring.domain.transactions.repository.TransactionRequestRepository;
+import com.example.backend_spring.domain.transactions.repository.TransferTransactionRepository;
+import com.example.backend_spring.domain.transactions.utils.TransactionOperationType;
+import com.example.backend_spring.domain.transactions.utils.TransactionStatus;
+import com.example.backend_spring.domain.users.utils.UserRole;
+import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.backend_spring.domain.accounts.model.Account;
 import com.example.backend_spring.domain.accounts.service.AccountService;
-import com.example.backend_spring.domain.transactions.dto.TransactionPurchaseCashbackDTO;
-import com.example.backend_spring.domain.transactions.dto.TransactionRequestDTO;
-import com.example.backend_spring.domain.transactions.dto.TransactionResponseDTO;
 import com.example.backend_spring.domain.transactions.model.Transaction;
 import com.example.backend_spring.domain.transactions.repository.TransactionRepository;
-import com.example.backend_spring.domain.transactions.utils.TransactionType;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.security.jwt.JwtTokenProviderService;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,21 +33,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
-    /**
-     * TODO - check before transaction if account is deactivated or suspended and inform the trasaction failling reasons as current description problem
-     */
-
-    private enum OperationType {
-        SUBTRACTION,
-        ADDITION
-    }
-
-    @Value("${cashback.percentage}")
-    private BigDecimal cashbackPercentage;
-
-    @Value("${cashback.minimum-amount}")
-    private BigDecimal cashbackMinimumAmount;
-
     @Autowired
     private TransactionRepository transactionRepository;
 
@@ -48,6 +41,18 @@ public class TransactionService {
 
     @Autowired
     private JwtTokenProviderService jwtTokenProviderService;
+
+    @Autowired
+    private PepperPasswordEncoder pepperPasswordEncoder;
+
+    @Autowired
+    private BudgetCategoryRepository budgetCategoryRepository;
+
+    @Autowired
+    private TransactionRequestRepository transactionRequestRepository;
+
+    @Autowired
+	private TransferTransactionRepository transferTransactionRepository;
 
     public List<TransactionResponseDTO> findAll() {
         List<TransactionResponseDTO> transactions;
@@ -68,146 +73,194 @@ public class TransactionService {
     public TransactionResponseDTO findByTransactionNumber(UUID transactionNumber) {
         User currentUser = jwtTokenProviderService.getContextUser();
 
-        if (currentUser.isAdmin()) {
+        if (currentUser.getRole() == UserRole.ADMIN) {
             return transactionRepository.findByTransactionNumber(transactionNumber).map(this::toDto)
-                .orElseThrow(() -> new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Transaction not found"
-                ));
+                    .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Transaction not found"
+                    ));
+        }
+        else if(currentUser.getRole() == UserRole.CLIENT) {
+            Account currentUserAccount = accountService.findAccountByUser(currentUser);
+            return transactionRepository.findByTransactionNumberAndAccount(
+                        transactionNumber,
+                            currentUserAccount
+                    ).map(this::toDto)
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Transaction not found"
+                    ));
+        }
+        throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN, "Only admins and clients can view transactions"
+        );
+    }
+
+    private boolean isDebitOperation(TransactionOperationType operationType) {
+        return operationType == TransactionOperationType.DEBIT ||
+                operationType == TransactionOperationType.TRANSFER_DEBIT ||
+                operationType == TransactionOperationType.PURCHASE;
+    }
+
+    private User validadeAndRetreiveContextUser() {
+        User user = jwtTokenProviderService.getContextUser();
+        if(user.getRole() != UserRole.CLIENT) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Only clients can perform transactions"
+            );
+        }
+        return user;
+    }
+
+    private void validateAccountIsActive(Account account) {
+        if (account.getStatus() != AccountStatus.ACTIVE) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN, "Account is not active"
+            );
+        }
+    }
+
+    private void validateTransactionPassword(Account account, String transactionPassword) {
+        String dbEncryptedTransactionPassword = account.getTransactionPassword();
+        if (!pepperPasswordEncoder.matches(transactionPassword, dbEncryptedTransactionPassword)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Transaction password did not match");
+        }
+    }
+
+    private void validateAccountFunds(Account account, BigDecimal amount, TransactionOperationType operationType) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amount must be greater than zero");
         }
 
-        Account currentUserAccount = accountService.findAccountByUser(currentUser);
-        return transactionRepository.findByTransactionNumberAndAccount(transactionNumber, currentUserAccount).map(this::toDto)
+        if (this.isDebitOperation(operationType) &&
+                account.getBalance().compareTo(amount) < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient funds for debit operation");
+        }
+    }
+
+    private Account validateSourceAccount(TransactionRequestDTO dto, TransactionOperationType operationType) {
+        User contextUser = this.validadeAndRetreiveContextUser();
+        Account account = accountService.findAccountByUser(contextUser);
+
+        validateAccountIsActive(account);
+        validateTransactionPassword(account, dto.transactionPassword());
+        validateAccountFunds(account, dto.amount(), operationType);
+
+        return account;
+    }
+
+    private Account validateDestinationAccount(TransactionRequestDTO dto, TransactionOperationType operationType, String accountNumber) {
+        Account account = accountService.findAccountByAccountNumber(accountNumber);
+        validateAccountIsActive(account);
+        return account;
+    }
+
+    private BudgetCategory getBudgetCategory(UUID budgetCategoryId) {
+        return budgetCategoryRepository.findById(budgetCategoryId)
             .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Transaction not found"
+                HttpStatus.NOT_FOUND, "Budget category not found"
             ));
     }
 
-    private TransactionResponseDTO evaluateOperation(
-            Account sourceAccount,
-            TransactionRequestDTO dto, 
-            TransactionType transactionType,
-            OperationType operationType,
-            String failureMessage
-        ) {
-        
-        // Transaction transaction = new Transaction(
-        //     UUID.randomUUID(),
-        //     sourceAccount,
-        //     transactionType,
-        //     dto.description(),
-        //     dto.amount(),
-        //     true
-        // );
-        
-        // // Less verbose way of cheching if the operation is valid, since amount is always positive
-        // boolean isOperationValid;
-        // if(operationType == OperationType.SUBTRACTION) {
-        //     isOperationValid = sourceAccount.getBalance().compareTo(dto.amount()) > 0;
-        // } else {
-        //     isOperationValid = sourceAccount.getBalance().add(dto.amount()).compareTo(BigDecimal.ZERO) > 0;
-        // }
-        
-        // if (!isOperationValid) {
-        //     transaction.setSuccess(false);
-        //     transaction.setFailureMessage(failureMessage);
-        //     transactionRepository.save(transaction);
-        //     throw new ResponseStatusException(
-        //         HttpStatus.BAD_REQUEST, failureMessage
-        //     );
-        // }
-        
-        // sourceAccount.setBalance(
-        //     operationType == OperationType.SUBTRACTION
-        //         ? sourceAccount.getBalance().subtract(dto.amount())
-        //         : sourceAccount.getBalance().add(dto.amount())
-        // );
-        // accountService.update(sourceAccount);
-        // transactionRepository.save(transaction);
-        
-        // return toDto(transaction);
-        return null; // TODO: fix logic
-    }
-
     public TransactionResponseDTO withdraw(TransactionRequestDTO dto) {
-        // Account sourceAccount = this.getClientAccount();
-        // return this.evaluateOperation(
-        //     sourceAccount,
-        //     dto, 
-        //     TransactionType.WITHDRAW,
-        //     OperationType.SUBTRACTION,
-        //     "Insufficient funds for withdrawal"
-        // );
-        return null; // TODO: fix logic
+        TransactionOperationType operationType = TransactionOperationType.DEBIT;
+        Account account = this.validateSourceAccount(dto, operationType);
+        BudgetCategory budgetCategory = this.getBudgetCategory(dto.budgetCategoryId());
+
+        // Transaction is approved, proceed with the operation
+        Transaction transaction = new Transaction(
+                UUID.randomUUID(),
+                account,
+                budgetCategory,
+                operationType,
+                dto.description(),
+                dto.amount(),
+                TransactionStatus.APPROVED
+        );
+        transactionRepository.save(transaction);
+
+        account.setBalance(
+                account.getBalance().subtract(dto.amount())
+        );
+        accountService.update(account);
+        return this.toDto(transaction);
     }
 
-    public TransactionPurchaseCashbackDTO purchase(TransactionRequestDTO dto) {
-        // Account sourceAccount = this.getClientAccount();
-        // TransactionResponseDTO purchaseDTO = this.evaluateOperation(
-        //     sourceAccount,
-        //     dto, 
-        //     TransactionType.PURCHASE,
-        //     OperationType.SUBTRACTION,
-        //     "Insufficient funds for purchase"
-        // );
+    public TransactionResponseDTO depositRequest(TransactionRequestDTO dto) {
+        TransactionOperationType operationType = TransactionOperationType.CREDIT;
+        Account account = this.validateSourceAccount(dto, operationType);
+        BudgetCategory budgetCategory = this.getBudgetCategory(dto.budgetCategoryId());
 
-        // // Using a fixed cashback percentage for the sake of simplicity
-        // // In a real-world scenario, this would be a configurable value
-        // // and would depend on the account type
-        // // Giving cashback of `cashbackPercentage` only if the amount is
-        // // in purchase if equals or greater than `cashbackMinimumAmount`    
+        Transaction transaction = new Transaction(
+                UUID.randomUUID(),
+                account,
+                budgetCategory,
+                operationType,
+                dto.description(),
+                dto.amount(),
+                TransactionStatus.PENDING
+        );
+        transactionRepository.save(transaction);
 
-        // if( sourceAccount.getType() != AccountType.CASHBACK || 
-        //     dto.amount().compareTo(cashbackMinimumAmount) < 0) {
-        //     return new TransactionPurchaseCashbackDTO(purchaseDTO,null);
-        // }
-        // BigDecimal cashback = dto.amount().multiply(cashbackPercentage);
-        // TransactionRequestDTO cashbackRequestDTO = new TransactionRequestDTO(
-        //     cashback,
-        //     String.format("Cashback for purchase %s", purchaseDTO.transactionNumber()),
-        //     null
-        // );
-        // TransactionResponseDTO cashbackResponseDTO = this.evaluateOperation(
-        //     sourceAccount,
-        //     cashbackRequestDTO, 
-        //     TransactionType.CASHBACK,
-        //     OperationType.ADDITION,
-        //     "Insufficient funds for cashback"
-        // );
-        // return new TransactionPurchaseCashbackDTO(purchaseDTO,cashbackResponseDTO);
-        return null; // TODO: fix logic
+        User contextUser = this.validadeAndRetreiveContextUser();
+        TransactionRequest transactionRequest = new TransactionRequest(
+                transaction,
+                contextUser
+        );
+        transactionRequestRepository.save(transactionRequest);
+        return this.toDto(transaction);
     }
 
-    public TransactionResponseDTO deposit(TransactionRequestDTO dto) {
-        // Account sourceAccount = this.getClientAccount();
-        // return this.evaluateOperation(
-        //     sourceAccount,
-        //     dto, 
-        //     TransactionType.DEPOSIT,
-        //     OperationType.ADDITION,
-        //     "Insufficient funds for deposit"
-        // );
-        return null; // TODO: fix logic
-    }
+    public TransactionTransferResponseDTO transfer(TransactionTransferRequestDTO transferDto) {
+        TransactionRequestDTO dto = transferDto.sourceTransaction();
 
-    public TransactionResponseDTO transfer(TransactionRequestDTO dto) {
-        // Account sourceAccount = this.getClientAccount();
-        // Account destinationAccount = accountService.findAccountByAccountNumber(dto.transferAccountNumber());
+        // Validates source account
+        TransactionOperationType sourceOperationType =
+                TransactionOperationType.TRANSFER_DEBIT;
+        Account sourceAccount = this.validateSourceAccount(dto, sourceOperationType);
+        BudgetCategory budgetCategory = this.getBudgetCategory(dto.budgetCategoryId());
 
-        // TransactionResponseDTO transferDTO = this.evaluateOperation(
-        //     sourceAccount,
-        //     dto, 
-        //     TransactionType.TRANSFER,
-        //     OperationType.SUBTRACTION,
-        //     "Insufficient funds for transfer"
-        // );
+        // Validates destination account
+        TransactionOperationType destinationOperationType =
+                TransactionOperationType.TRANSFER_CREDIT;
+        Account destinationAccount = this.validateDestinationAccount(
+                dto, sourceOperationType, transferDto.transferAccountNumber());
 
-        // destinationAccount.setBalance(
-        //     destinationAccount.getBalance().add(dto.amount())
-        // );
-        // accountService.update(destinationAccount);
-        
-        // return transferDTO;
-        return null; // TODO: fix transfer logic
+
+        Transaction sourceTransaction = new Transaction(
+                UUID.randomUUID(),
+                sourceAccount,
+                budgetCategory,
+                sourceOperationType,
+                dto.description(),
+                dto.amount(),
+                TransactionStatus.APPROVED
+        );
+        Transaction destinationTransaction = new Transaction(
+                UUID.randomUUID(),
+                destinationAccount,
+                destinationOperationType,
+                dto.description(),
+                dto.amount(),
+                TransactionStatus.APPROVED
+        );
+        transactionRepository.save(sourceTransaction);
+        transactionRepository.save(destinationTransaction);
+
+        TransferTransaction transferTransaction = new TransferTransaction(
+                sourceTransaction,
+                destinationTransaction
+        );
+        transferTransactionRepository.save(transferTransaction);
+
+        sourceAccount.setBalance(
+                sourceAccount.getBalance().subtract(dto.amount())
+        );
+        destinationAccount.setBalance(
+                destinationAccount.getBalance().add(dto.amount())
+        );
+        accountService.update(sourceAccount);
+        accountService.update(destinationAccount);
+
+        return this.toTransferDto(sourceTransaction, destinationAccount);
     }
 
     private Account getClientAccount() {
@@ -220,16 +273,48 @@ public class TransactionService {
         return accountService.findAccountByUser(currentUser);
     }
 
-    
-    
     private TransactionResponseDTO toDto(Transaction transaction) {
+        BudgetCategory budgetCategory = transaction.getBudgetCategory();
+        if (budgetCategory == null) {
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Budget category not found for transaction"
+            );
+        }
         return new TransactionResponseDTO(
-            transaction.getTransactionNumber(),
-            transaction.getType(),
-            transaction.isSuccess(),
-            transaction.getAmount(),
-            transaction.getCreatedAt(),
-            transaction.getDescription()
+                transaction.getTransactionNumber(),
+                transaction.getCreatedAt(),
+                transaction.getOperationType(),
+                transaction.getStatus(),
+                transaction.getDescription(),
+                transaction.getAmount(),
+                transaction.getRejectionMessage(),
+                new BudgetCategoryDTO(
+                        budgetCategory.getName(),
+                        budgetCategory.getId()
+                )
         );
     }
+
+    private TransactionTransferResponseDTO toTransferDto(Transaction transaction, Account destinationAccount) {
+        if (transaction == null) {
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Transaction not found"
+            );
+        }
+        if (destinationAccount == null) {
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Destination account not found"
+            );
+        }
+        return new TransactionTransferResponseDTO(
+                this.toDto(transaction),
+                new TransferReceiverInfoDTO(
+                        destinationAccount.getAccountNumber(),
+                        destinationAccount.getUser().getUserProfile().getFirstName(),
+                        destinationAccount.getUser().getUserProfile().getLastName()
+
+                )
+        );
+    }
+
 }

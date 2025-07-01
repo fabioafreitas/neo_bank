@@ -54,11 +54,11 @@ The ones marked are the implemented methods
 
 ## Transactions
 
-- [ ] `POST /api/transactions/{transactionNumber}` → `CLIENT ROLE` get a transaction by its reference number. If client isn't owner of transaction or hasn't ADMIN role, return unauthorized.
-- [ ] `POST /api/transactions/withdraw` → `CLIENT ROLE` Money withdraw (DEBIT operation)
-- [ ] `POST /api/transactions/depositRequest` → `CLIENT ROLE` Request a money deposit (CREDIT operation). Request will be send to admin.
-- [ ] `POST /api/transactions/purchase` → `CLIENT ROLE` Purchase of a single `merchant_product`. (PURCHASE operation)
-- [ ] `POST /api/transactions/transfer` → `CLIENT ROLE` Transfer to another account. Register two transactions, one for source account (TRANSFER_DEBIT) and another for debit account (TRANSFER_CREDIT). Also, adds these transactions relation in `transfer_relation` table.
+- [ ] `GET /api/transactions/{transactionNumber}` → `CLIENT ROLE` get a transaction by its reference number. If client isn't owner of transaction or hasn't ADMIN role, return unauthorized.
+- [ ] `POST /api/transactions/operations/withdraw` → `CLIENT ROLE` Money withdraw (DEBIT operation)
+- [ ] `POST /api/transactions/operations/depositRequest` → `CLIENT ROLE` Request a money deposit (CREDIT operation). Request will be send to admin.
+- [ ] `POST /api/transactions/operations/purchase` → `CLIENT ROLE` Purchase of a single `merchant_product`. (PURCHASE operation)
+- [ ] `POST /api/transactions/operations/transfer` → `CLIENT ROLE` Transfer to another account. Register two transactions, one for source account (TRANSFER_DEBIT) and another for debit account (TRANSFER_CREDIT). Also, adds these transactions relation in `transfer_relation` table.
 - [ ] `GET /api/transactions` → `ADMIN ROLE` List transactions based on combination of any of the filters below. If none provided return all:
 
   - Parameters:
@@ -78,7 +78,7 @@ The ones marked are the implemented methods
       - `minValue` (decimal): Filter transactions with value greater than or equal to this amount
       - `maxValue` (decimal): Filter transactions with value less than or equal to this amount
 
-- [ ] `/api/transactions/me` → `CLIENT ROLE` List transactions of current user. Calls `/api/transactions/` giving only related jwt account number at `accountsNumbers` list. All other filters are accepted.
+- [ ] `GET /api/transactions/me` → `CLIENT ROLE` List transactions of current user. Calls `/api/transactions/` giving only related jwt account number at `accountsNumbers` list. All other filters are accepted.
 - [ ] `POST /api/transactions/approve/{transactionNumber}` → `ADMIN ROLE` Approves a pending transaction
 - [ ] `POST /api/transactions/reject/{transactionNumber}` → `ADMIN ROLE` Rejects a pending transaction
 

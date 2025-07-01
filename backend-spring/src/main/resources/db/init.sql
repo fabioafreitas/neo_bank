@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS account_budget_allocations (
 
 CREATE TABLE IF NOT EXISTS transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    transaction_number UUID DEFAULT gen_random_uuid() UNIQUE,
+    transaction_number UUID NOT NULL DEFAULT gen_random_uuid() UNIQUE,
     account_id UUID NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
-    budget_category_id UUID NOT NULL REFERENCES budget_categories(id),
+    budget_category_id UUID REFERENCES budget_categories(id),
     operation_type TEXT NOT NULL CHECK (
         operation_type IN (
             'TRANSFER_DEBIT', 'TRANSFER_CREDIT', 
@@ -82,7 +82,9 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE TABLE IF NOT EXISTS transfer_transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     source_transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE,
-    destination_transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE
+    destination_transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE,
+    CONSTRAINT uq_source_transaction UNIQUE (source_transaction_id),
+    CONSTRAINT uq_destination_transaction UNIQUE (destination_transaction_id)
 );
 
 CREATE TABLE IF NOT EXISTS transaction_requests (
@@ -160,6 +162,7 @@ CREATE VIEW approved_transactions AS SELECT * FROM transactions WHERE status = '
 CREATE VIEW pending_transactions AS SELECT * FROM transactions WHERE status = 'PENDING';
 
 -- Budget Category Summary per Account
+-- TODO test view
 CREATE VIEW account_budget_category_summary AS
 SELECT
     a.id AS account_id,
@@ -174,6 +177,7 @@ JOIN budget_categories bc ON t.budget_category_id = bc.id
 GROUP BY a.id, bc.id, bc.name;
 
 -- All Budget Allocations and Transactions for an Account
+-- TODO test view
 CREATE VIEW account_budget_overview AS
 SELECT
     a.id AS account_id,
@@ -188,6 +192,7 @@ LEFT JOIN transactions t ON t.account_id = a.id AND t.budget_category_id = bc.id
 GROUP BY a.id, bc.id, bc.name, aba.allocation_value;
 
 -- Transaction Summary by Budget Category
+-- TODO test view
 CREATE VIEW budget_category_transaction_summary AS
 SELECT
     bc.id AS budget_category_id,
@@ -211,7 +216,7 @@ VALUES
     ('Transporte'),('Moradia'),('Lazer'),
     ('Vestuário'),('Serviços'),('Comunicação'),
     ('Investimentos'),('Dívidas'),('Impostos'),
-    ('Doações');
+    ('Doações'), ('Outros');
 
 INSERT INTO public.users (id, username, "password", "role")
 VALUES(
