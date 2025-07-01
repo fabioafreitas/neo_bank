@@ -1581,26 +1581,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "get account budget allocations by accountNumber",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/accounts/3771215989/budget",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"accounts",
-										"3771215989",
-										"budget"
-									]
-								}
-							},
-							"response": []
 						}
 					]
 				}
@@ -1609,6 +1589,426 @@
 		{
 			"name": "transactions",
 			"item": [
+				{
+					"name": "operations",
+					"item": [
+						{
+							"name": "withdraw",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/operations/withdraw",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"operations",
+										"withdraw"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "withdraw",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/transactions/operations/withdraw",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"operations",
+												"withdraw"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 01 Jul 2025 16:59:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transactionNumber\": \"f9474d26-5adb-42a7-b31e-f33ff2a578cd\",\n    \"createdAt\": \"2025-07-01T13:59:54.5414892-03:00\",\n    \"operationType\": \"DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test withdraw\",\n    \"amount\": 1.35,\n    \"rejectionMessage\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "depositRequest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\":1.17,\r\n    \"description\":\"test depositRequest\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/operations/depositRequest",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"operations",
+										"depositRequest"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "depositRequest",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\":1.17,\r\n    \"description\":\"test depositRequest\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/transactions/operations/depositRequest",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"operations",
+												"depositRequest"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 01 Jul 2025 21:14:06 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n    \"createdAt\": \"2025-07-01T18:14:06.024652-03:00\",\n    \"operationType\": \"CREDIT\",\n    \"status\": \"PENDING\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.17,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "transfer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"5089233861\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/operations/transfer",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"operations",
+										"transfer"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "transfer",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"5089233861\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/transactions/operations/transfer",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"operations",
+												"transfer"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 01 Jul 2025 21:17:05 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transaction\": {\n        \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n        \"createdAt\": \"2025-07-01T18:17:03.9480764-03:00\",\n        \"operationType\": \"TRANSFER_DEBIT\",\n        \"status\": \"APPROVED\",\n        \"description\": \"test depositRequest\",\n        \"amount\": 1.02,\n        \"budgetCategory\": {\n            \"budgetCategoryName\": \"Alimentação\",\n            \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n        }\n    },\n    \"receiverInfo\": {\n        \"accountNumber\": \"5089233861\",\n        \"firstName\": \"Juliano\",\n        \"lastName\": \"Mesquita\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "purchase",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\":1000,\r\n    \"description\":\"compra muito cara\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/purchase",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"purchase"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "get all transactions",
 					"event": [
@@ -1672,186 +2072,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/transactions/ddcbe975-53a6-4fb5-bf4d-48800186e245",
+							"raw": "{{base_url}}/api/transactions/f9474d26-5adb-42a7-b31e-f33ff2a578cd",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"transactions",
-								"ddcbe975-53a6-4fb5-bf4d-48800186e245"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "withdraw",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"amount\":0,\r\n    \"description\":\"test withdraw\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/transactions/withdraw",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transactions",
-								"withdraw"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "deposit",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"amount\":1,\r\n    \"description\":\"test deposit\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/transactions/deposit",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transactions",
-								"deposit"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "purchase",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"amount\":1000,\r\n    \"description\":\"compra muito cara\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/transactions/purchase",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transactions",
-								"purchase"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "transfer",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"amount\":500,\r\n    \"description\":\"toma dinheiros ai dudis\",\r\n    \"transferAccountNumber\":6884716648\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/transactions/transfer",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transactions",
-								"transfer"
+								"f9474d26-5adb-42a7-b31e-f33ff2a578cd"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
