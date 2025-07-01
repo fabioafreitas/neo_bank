@@ -54,11 +54,11 @@ The ones marked are the implemented methods
 
 ## Transactions
 
-- [ ] `GET /api/transactions/{transactionNumber}` → `CLIENT ROLE` get a transaction by its reference number. If client isn't owner of transaction or hasn't ADMIN role, return unauthorized.
-- [ ] `POST /api/transactions/operations/withdraw` → `CLIENT ROLE` Money withdraw (DEBIT operation)
-- [ ] `POST /api/transactions/operations/depositRequest` → `CLIENT ROLE` Request a money deposit (CREDIT operation). Request will be send to admin.
+- [X] `GET /api/transactions/{transactionNumber}` → `CLIENT ROLE` get a transaction by its reference number. If client isn't owner of transaction or hasn't ADMIN role, return unauthorized.
+- [X] `POST /api/transactions/operations/withdraw` → `CLIENT ROLE` Money withdraw (DEBIT operation)
+- [X] `POST /api/transactions/operations/depositRequest` → `CLIENT ROLE` Request a money deposit (CREDIT operation). Request will be send to admin.
 - [ ] `POST /api/transactions/operations/purchase` → `CLIENT ROLE` Purchase of a single `merchant_product`. (PURCHASE operation)
-- [ ] `POST /api/transactions/operations/transfer` → `CLIENT ROLE` Transfer to another account. Register two transactions, one for source account (TRANSFER_DEBIT) and another for debit account (TRANSFER_CREDIT). Also, adds these transactions relation in `transfer_relation` table.
+- [X] `POST /api/transactions/operations/transfer` → `CLIENT ROLE` Transfer to another account. Register two transactions, one for source account (TRANSFER_DEBIT) and another for debit account (TRANSFER_CREDIT). Also, adds these transactions relation in `transfer_relation` table.
 - [ ] `GET /api/transactions` → `ADMIN ROLE` List transactions based on combination of any of the filters below. If none provided return all:
 
   - Parameters:
