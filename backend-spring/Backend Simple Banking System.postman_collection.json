@@ -606,7 +606,87 @@
 											]
 										}
 									},
-									"response": []
+									"response": [
+										{
+											"name": "register client andre-munhoz",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"firstName\":\"Andre\",\r\n    \"lastName\":\"Munhoz\",\r\n    \"email\":\"munhozandre30@gmail.com\",\r\n    \"accessUsername\": \"andremunhoz\",\r\n    \"accessPassword\": \"v37Ws%G!MhV\",\r\n    \"transactionPassword\": \"548269\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/users/auth/registerClient",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"auth",
+														"registerClient"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 02 Jul 2025 14:54:53 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"account\": {\n        \"ownerFirstName\": \"Andre\",\n        \"ownerLastName\": \"Munhoz\",\n        \"ownerEmail\": \"munhozandre30@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"1184473176\",\n        \"createdAt\": \"2025-07-02T11:54:51.1980989-03:00\",\n        \"updatedAt\": \"2025-07-02T11:54:51.1980989-03:00\"\n    }\n}"
+										}
+									]
 								},
 								{
 									"name": "register client petrucio-amorim",
@@ -650,7 +730,87 @@
 											]
 										}
 									},
-									"response": []
+									"response": [
+										{
+											"name": "register client petrucio-amorim",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"firstName\":\"Petrúcio\",\r\n    \"lastName\":\"Amorim\",\r\n    \"email\":\"amorimpetrucio3@gmail.com\",\r\n    \"accessUsername\": \"petrucioamorim\",\r\n    \"accessPassword\": \"$MgNC53W\",\r\n    \"transactionPassword\": \"986336\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/users/auth/registerClient",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"auth",
+														"registerClient"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 02 Jul 2025 14:56:53 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"account\": {\n        \"ownerFirstName\": \"Petrúcio\",\n        \"ownerLastName\": \"Amorim\",\n        \"ownerEmail\": \"amorimpetrucio3@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"3157128317\",\n        \"createdAt\": \"2025-07-02T11:56:51.2876518-03:00\",\n        \"updatedAt\": \"2025-07-02T11:56:51.2876518-03:00\"\n    }\n}"
+										}
+									]
 								},
 								{
 									"name": "register client juliano-mesquita",
@@ -694,7 +854,87 @@
 											]
 										}
 									},
-									"response": []
+									"response": [
+										{
+											"name": "register client juliano-mesquita",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"firstName\":\"Juliano\",\r\n    \"lastName\":\"Mesquita\",\r\n    \"email\":\"juliano.mesquita1991@gmail.com\",\r\n    \"accessUsername\": \"julianomesquita\",\r\n    \"accessPassword\": \"a1N$MgC56P\",\r\n    \"transactionPassword\": \"102589\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/users/auth/registerClient",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"auth",
+														"registerClient"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 02 Jul 2025 14:57:04 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"account\": {\n        \"ownerFirstName\": \"Juliano\",\n        \"ownerLastName\": \"Mesquita\",\n        \"ownerEmail\": \"juliano.mesquita1991@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"6899564294\",\n        \"createdAt\": \"2025-07-02T11:57:02.5086272-03:00\",\n        \"updatedAt\": \"2025-07-02T11:57:02.5086272-03:00\"\n    }\n}"
+										}
+									]
 								}
 							]
 						},
@@ -1208,21 +1448,9 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{base_url}}/api/users/profile/me",
 									"host": [
@@ -1236,7 +1464,78 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "get my user profile",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/users/profile/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"profile",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 15:02:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"firstName\": \"Andre\",\n    \"lastName\": \"Munhoz\",\n    \"email\": \"munhozandre30@gmail.com\",\n    \"phone\": \"+55 (81) 91234-1234\",\n    \"addressLine1\": \"Rua dos testes, 123, Ap-3\",\n    \"addressLine2\": \"Prédio\",\n    \"city\": \"São bernardo dos campos\",\n    \"province\": \"São Paulo\",\n    \"postalCode\": \"04063-002\",\n    \"country\": \"Brasil\",\n    \"profilePictureUrl\": \"https://umbraco.com/media/y21lwhsb/niels.webp?rmode=pad&width=680&v=1dad76ab846bdc0\"\n}"
+								}
+							]
 						},
 						{
 							"name": "update my user profile",
@@ -1297,7 +1596,87 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "update my user profile",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phone\":\"+55 (81) 91234-1234\",\r\n    \"addressLine1\":\"Rua dos testes, 123, Ap-3\",\r\n    \"addressLine2\":\"Prédio\",\r\n    \"city\":\"São bernardo dos campos\",\r\n    \"province\":\"São Paulo\",\r\n    \"postalCode\":\"04063-002\",\r\n    \"country\":\"Brasil\",\r\n    \"profilePictureUrl\":\"https://umbraco.com/media/y21lwhsb/niels.webp?rmode=pad&width=680&v=1dad76ab846bdc0\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/profile/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"profile",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 15:01:37 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"firstName\": \"Andre\",\n    \"lastName\": \"Munhoz\",\n    \"email\": \"munhozandre30@gmail.com\",\n    \"phone\": \"+55 (81) 91234-1234\",\n    \"addressLine1\": \"Rua dos testes, 123, Ap-3\",\n    \"addressLine2\": \"Prédio\",\n    \"city\": \"São bernardo dos campos\",\n    \"province\": \"São Paulo\",\n    \"postalCode\": \"04063-002\",\n    \"country\": \"Brasil\",\n    \"profilePictureUrl\": \"https://umbraco.com/media/y21lwhsb/niels.webp?rmode=pad&width=680&v=1dad76ab846bdc0\"\n}"
+								}
+							]
 						}
 					]
 				}
@@ -1397,7 +1776,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:37:34 GMT"
+											"value": "Wed, 02 Jul 2025 15:02:27 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -1409,7 +1788,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"ownerFirstName\": \"Andre\",\n    \"ownerLastName\": \"Munhoz\",\n    \"ownerEmail\": \"munhozandre30@gmail.com\",\n    \"balance\": 7.63,\n    \"status\": \"ACTIVE\",\n    \"accountNumber\": \"2121459963\"\n}"
+									"body": "{\n    \"ownerFirstName\": \"Andre\",\n    \"ownerLastName\": \"Munhoz\",\n    \"ownerEmail\": \"munhozandre30@gmail.com\",\n    \"balance\": 0,\n    \"status\": \"ACTIVE\",\n    \"accountNumber\": \"1184473176\",\n    \"createdAt\": \"2025-07-02T14:54:51.198099Z\",\n    \"updatedAt\": \"2025-07-02T14:54:51.198099Z\"\n}"
 								}
 							]
 						},
@@ -1600,7 +1979,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"c8ca0e9e-d96a-4892-8950-538eb3770c20\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"2f244527-dae9-45d6-86b3-08d1fdc10c8f\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"39bd8db9-9ac4-44aa-8661-fc5de6e5112b\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1628,7 +2007,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"c8ca0e9e-d96a-4892-8950-538eb3770c20\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"2f244527-dae9-45d6-86b3-08d1fdc10c8f\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"39bd8db9-9ac4-44aa-8661-fc5de6e5112b\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1686,7 +2065,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:38:30 GMT"
+											"value": "Wed, 02 Jul 2025 15:13:43 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -1698,7 +2077,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n    {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\n        \"allocationValue\": 100\n    },\n    {\n        \"budgetCategoryName\": \"Saúde\",\n        \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\n        \"allocationValue\": 200\n    },\n    {\n        \"budgetCategoryName\": \"Educação\",\n        \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\n        \"allocationValue\": 150\n    },\n    {\n        \"budgetCategoryName\": \"Transporte\",\n        \"budgetCategoryId\": \"852fa1de-c9ae-426d-82a4-2856b28bf18f\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Moradia\",\n        \"budgetCategoryId\": \"165a5d4d-065d-4433-ace2-9c6603bc00fa\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Lazer\",\n        \"budgetCategoryId\": \"54fa0fc5-9557-48c5-b016-f7130b7e33e3\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Vestuário\",\n        \"budgetCategoryId\": \"ca226975-076c-4aab-9603-c600a9932c19\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Serviços\",\n        \"budgetCategoryId\": \"670a3b0e-d854-4b40-9e05-ddb15b163e32\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Comunicação\",\n        \"budgetCategoryId\": \"5bd91c82-66b7-40e9-bde9-da0344ad653a\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Investimentos\",\n        \"budgetCategoryId\": \"fbe816ba-ac1d-4f86-9f75-0ade6c396aa9\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Dívidas\",\n        \"budgetCategoryId\": \"37a4a76e-2f9e-4336-9fbb-0c8b63da7bb8\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Impostos\",\n        \"budgetCategoryId\": \"fa154770-38a9-4e55-9200-9c2e959f6b7f\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Doações\",\n        \"budgetCategoryId\": \"39f25a5c-7fdc-45ad-a1dc-bc24d00a9c5d\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Outros\",\n        \"budgetCategoryId\": \"72ceb3ea-9b94-48e4-96f6-1dee79f14acd\",\n        \"allocationValue\": 0\n    }\n]"
+									"body": "[\n    {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"c8ca0e9e-d96a-4892-8950-538eb3770c20\",\n        \"allocationValue\": 100\n    },\n    {\n        \"budgetCategoryName\": \"Saúde\",\n        \"budgetCategoryId\": \"2f244527-dae9-45d6-86b3-08d1fdc10c8f\",\n        \"allocationValue\": 200\n    },\n    {\n        \"budgetCategoryName\": \"Educação\",\n        \"budgetCategoryId\": \"39bd8db9-9ac4-44aa-8661-fc5de6e5112b\",\n        \"allocationValue\": 150\n    },\n    {\n        \"budgetCategoryName\": \"Transporte\",\n        \"budgetCategoryId\": \"38fd3fae-3fff-4bda-88ed-de20a87ab1ea\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Moradia\",\n        \"budgetCategoryId\": \"69708bb4-f60a-4bce-856d-808ddc0aa133\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Lazer\",\n        \"budgetCategoryId\": \"afc75a21-e711-480b-b7e1-14eeb2a1cc93\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Vestuário\",\n        \"budgetCategoryId\": \"7548f8c3-a424-46b1-a248-a6623d950458\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Serviços\",\n        \"budgetCategoryId\": \"148e1814-143b-4e95-8faf-fb30f16dd28d\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Comunicação\",\n        \"budgetCategoryId\": \"c8f5918a-fcf5-4d2f-b81d-8a832b9c5af2\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Investimentos\",\n        \"budgetCategoryId\": \"0d8c37e4-100d-4861-9374-656de5a35934\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Dívidas\",\n        \"budgetCategoryId\": \"c5e5fc06-112e-4d70-a211-1d38aed53112\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Impostos\",\n        \"budgetCategoryId\": \"e6dfc21a-4f44-4742-812e-4020bfd2c4ea\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Doações\",\n        \"budgetCategoryId\": \"2306f473-b30b-4aaf-b436-ef9d544e11c7\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Outros\",\n        \"budgetCategoryId\": \"7259b356-6ea6-4c8f-891f-7da5e533a10c\",\n        \"allocationValue\": 0\n    }\n]"
 								}
 							]
 						}
@@ -1757,6 +2136,41 @@
 										{
 											"key": "sort",
 											"value": "balance,asc"
+										},
+										{
+											"key": "createdAtStartDate",
+											"value": "2025-01-01T00:00:00Z",
+											"disabled": true
+										},
+										{
+											"key": "createdAtEndDate",
+											"value": "2025-12-31T00:00:00Z",
+											"disabled": true
+										},
+										{
+											"key": "updatedAtStartDate",
+											"value": "2025-01-01T00:00:00Z",
+											"disabled": true
+										},
+										{
+											"key": "updatedAtEndDate",
+											"value": "2025-12-31T00:00:00Z",
+											"disabled": true
+										},
+										{
+											"key": "accountStatus",
+											"value": "ACTIVE",
+											"disabled": true
+										},
+										{
+											"key": "minValue",
+											"value": "50",
+											"disabled": true
+										},
+										{
+											"key": "maxValue",
+											"value": "100",
+											"disabled": true
 										}
 									]
 								},
@@ -1789,84 +2203,41 @@
 												{
 													"key": "sort",
 													"value": "balance,asc"
-												}
-											]
-										}
-									},
-									"status": "Internal Server Error",
-									"code": 500,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "X-Content-Type-Options",
-											"value": "nosniff"
-										},
-										{
-											"key": "X-XSS-Protection",
-											"value": "0"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, no-store, max-age=0, must-revalidate"
-										},
-										{
-											"key": "Pragma",
-											"value": "no-cache"
-										},
-										{
-											"key": "Expires",
-											"value": "0"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "DENY"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Transfer-Encoding",
-											"value": "chunked"
-										},
-										{
-											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:36:28 GMT"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"timestamp\": \"2025-07-01T22:36:28.4160323\",\n    \"status\": 500,\n    \"error\": \"Internal Server Error\",\n    \"message\": \"Access Denied\",\n    \"path\": \"/api/accounts\"\n}"
-								},
-								{
-									"name": "get all accounts",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{base_url}}/api/accounts?page=0&size=10&sort=balance,asc",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"accounts"
-											],
-											"query": [
-												{
-													"key": "page",
-													"value": "0"
 												},
 												{
-													"key": "size",
-													"value": "10"
+													"key": "createdAtStartDate",
+													"value": "2025-01-01T00:00:00Z",
+													"disabled": true
 												},
 												{
-													"key": "sort",
-													"value": "balance,asc"
+													"key": "createdAtEndDate",
+													"value": "2025-12-31T00:00:00Z",
+													"disabled": true
+												},
+												{
+													"key": "updatedAtStartDate",
+													"value": "2025-01-01T00:00:00Z",
+													"disabled": true
+												},
+												{
+													"key": "updatedAtEndDate",
+													"value": "2025-12-31T00:00:00Z",
+													"disabled": true
+												},
+												{
+													"key": "accountStatus",
+													"value": "ACTIVE",
+													"disabled": true
+												},
+												{
+													"key": "minValue",
+													"value": "50",
+													"disabled": true
+												},
+												{
+													"key": "maxValue",
+													"value": "100",
+													"disabled": true
 												}
 											]
 										}
@@ -1909,7 +2280,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:37:02 GMT"
+											"value": "Wed, 02 Jul 2025 15:11:01 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -1921,7 +2292,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"content\": [\n        {\n            \"ownerFirstName\": \"Petrúcio\",\n            \"ownerLastName\": \"Amorim\",\n            \"ownerEmail\": \"amorimpetrucio3@gmail.com\",\n            \"balance\": 0,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"9553667860\"\n        },\n        {\n            \"ownerFirstName\": \"Juliano\",\n            \"ownerLastName\": \"Mesquita\",\n            \"ownerEmail\": \"juliano.mesquita1991@gmail.com\",\n            \"balance\": 1.02,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"5089233861\"\n        },\n        {\n            \"ownerFirstName\": \"Andre\",\n            \"ownerLastName\": \"Munhoz\",\n            \"ownerEmail\": \"munhozandre30@gmail.com\",\n            \"balance\": 7.63,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"2121459963\"\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 3,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 3,\n    \"first\": true,\n    \"empty\": false\n}"
+									"body": "{\n    \"content\": [\n        {\n            \"ownerFirstName\": \"Juliano\",\n            \"ownerLastName\": \"Mesquita\",\n            \"ownerEmail\": \"juliano.mesquita1991@gmail.com\",\n            \"balance\": 50,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"6899564294\",\n            \"createdAt\": \"2025-07-02T14:57:02.508627Z\",\n            \"updatedAt\": \"2025-07-02T14:57:02.508627Z\"\n        },\n        {\n            \"ownerFirstName\": \"Petrúcio\",\n            \"ownerLastName\": \"Amorim\",\n            \"ownerEmail\": \"amorimpetrucio3@gmail.com\",\n            \"balance\": 100,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"3157128317\",\n            \"createdAt\": \"2025-07-02T14:56:51.287652Z\",\n            \"updatedAt\": \"2025-07-02T14:56:51.287652Z\"\n        },\n        {\n            \"ownerFirstName\": \"Andre\",\n            \"ownerLastName\": \"Munhoz\",\n            \"ownerEmail\": \"munhozandre30@gmail.com\",\n            \"balance\": 200,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"1184473176\",\n            \"createdAt\": \"2025-07-02T14:54:51.198099Z\",\n            \"updatedAt\": \"2025-07-02T14:54:51.198099Z\"\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalPages\": 1,\n    \"totalElements\": 3,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"first\": true,\n    \"numberOfElements\": 3,\n    \"empty\": false\n}"
 								}
 							]
 						},
@@ -1945,19 +2316,89 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/accounts/6607146849",
+									"raw": "{{base_url}}/api/accounts/1184473176",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"accounts",
-										"6607146849"
+										"1184473176"
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 							},
-							"response": []
+							"response": [
+								{
+									"name": "get account by account number",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/accounts/1184473176",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"1184473176"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 15:12:19 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"ownerFirstName\": \"Andre\",\n    \"ownerLastName\": \"Munhoz\",\n    \"ownerEmail\": \"munhozandre30@gmail.com\",\n    \"balance\": 200,\n    \"status\": \"ACTIVE\",\n    \"accountNumber\": \"1184473176\",\n    \"createdAt\": \"2025-07-02T14:54:51.198099Z\",\n    \"updatedAt\": \"2025-07-02T14:54:51.198099Z\"\n}"
+								}
+							]
 						},
 						{
 							"name": "suspend account",
@@ -2100,14 +2541,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/accounts/3771215989/budget",
+									"raw": "{{base_url}}/api/accounts/1184473176/budget",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"accounts",
-										"3771215989",
+										"1184473176",
 										"budget"
 									]
 								}
@@ -2154,7 +2595,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/transactions?page=0&size=10&sort=amount,asc",
+									"raw": "{{base_url}}/api/transactions?page=0&size=10&sort=amount,asc&accountNumbers=6899564294,3157128317,1184473176&startDate=2025-01-01T00:00:00Z&endDate=2025-12-31T00:00:00Z&operationType=DEBIT&transactionStatus=APPROVED&minValue=0&maxValue=100",
 									"host": [
 										"{{base_url}}"
 									],
@@ -2177,8 +2618,31 @@
 										},
 										{
 											"key": "accountNumbers",
-											"value": "2121459963,9553667860",
-											"disabled": true
+											"value": "6899564294,3157128317,1184473176"
+										},
+										{
+											"key": "startDate",
+											"value": "2025-01-01T00:00:00Z"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-12-31T00:00:00Z"
+										},
+										{
+											"key": "operationType",
+											"value": "DEBIT"
+										},
+										{
+											"key": "transactionStatus",
+											"value": "APPROVED"
+										},
+										{
+											"key": "minValue",
+											"value": "0"
+										},
+										{
+											"key": "maxValue",
+											"value": "100"
 										}
 									]
 								},
@@ -2191,7 +2655,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/api/transactions?page=0&size=10&sort=amount,asc",
+											"raw": "{{base_url}}/api/transactions?page=0&size=10&sort=amount,asc&accountNumbers=6899564294,3157128317,1184473176&startDate=2025-01-01T00:00:00Z&endDate=2025-12-31T00:00:00Z&operationType=DEBIT&transactionStatus=APPROVED&minValue=0&maxValue=100",
 											"host": [
 												"{{base_url}}"
 											],
@@ -2214,8 +2678,31 @@
 												},
 												{
 													"key": "accountNumbers",
-													"value": "2121459963,9553667860",
-													"disabled": true
+													"value": "6899564294,3157128317,1184473176"
+												},
+												{
+													"key": "startDate",
+													"value": "2025-01-01T00:00:00Z"
+												},
+												{
+													"key": "endDate",
+													"value": "2025-12-31T00:00:00Z"
+												},
+												{
+													"key": "operationType",
+													"value": "DEBIT"
+												},
+												{
+													"key": "transactionStatus",
+													"value": "APPROVED"
+												},
+												{
+													"key": "minValue",
+													"value": "0"
+												},
+												{
+													"key": "maxValue",
+													"value": "100"
 												}
 											]
 										}
@@ -2258,7 +2745,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:32:06 GMT"
+											"value": "Wed, 02 Jul 2025 15:34:31 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2270,7 +2757,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n            \"createdAt\": \"2025-07-01T21:17:03.948076Z\",\n            \"operationType\": \"TRANSFER_DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.02,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"ba39bf12-b701-4fe6-a118-65e45bd257c1\",\n            \"createdAt\": \"2025-07-01T21:17:03.949097Z\",\n            \"operationType\": \"TRANSFER_CREDIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.02\n        },\n        {\n            \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n            \"createdAt\": \"2025-07-01T21:14:06.024652Z\",\n            \"operationType\": \"CREDIT\",\n            \"status\": \"PENDING\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.17,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"feb4212d-b223-4c40-97f9-ee68df71ca91\",\n            \"createdAt\": \"2025-07-01T21:13:30.930144Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 4,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 4,\n    \"first\": true,\n    \"empty\": false\n}"
+									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"4071e2c3-212b-4bd1-9328-7dcab44047b6\",\n            \"createdAt\": \"2025-07-02T15:16:18.335646Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"bf3c990c-0f4c-4dba-bfa0-6b8276b84485\",\n            \"createdAt\": \"2025-07-02T15:19:18.399034Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalPages\": 1,\n    \"totalElements\": 2,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"first\": true,\n    \"numberOfElements\": 2,\n    \"empty\": false\n}"
 								}
 							]
 						}
@@ -2387,7 +2874,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 01 Jul 2025 21:14:06 GMT"
+											"value": "Wed, 02 Jul 2025 15:19:25 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2399,7 +2886,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n    \"createdAt\": \"2025-07-01T18:14:06.024652-03:00\",\n    \"operationType\": \"CREDIT\",\n    \"status\": \"PENDING\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.17,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+									"body": "{\n    \"transactionNumber\": \"45447fe4-4876-47f7-bc54-7ff9352fd37e\",\n    \"createdAt\": \"2025-07-02T12:19:25.5167192-03:00\",\n    \"operationType\": \"CREDIT\",\n    \"status\": \"PENDING\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.17,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
 								}
 							]
 						},
@@ -2511,7 +2998,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 01 Jul 2025 16:59:55 GMT"
+											"value": "Wed, 02 Jul 2025 15:19:18 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2523,7 +3010,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"transactionNumber\": \"f9474d26-5adb-42a7-b31e-f33ff2a578cd\",\n    \"createdAt\": \"2025-07-01T13:59:54.5414892-03:00\",\n    \"operationType\": \"DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test withdraw\",\n    \"amount\": 1.35,\n    \"rejectionMessage\": null\n}"
+									"body": "{\n    \"transactionNumber\": \"bf3c990c-0f4c-4dba-bfa0-6b8276b84485\",\n    \"createdAt\": \"2025-07-02T12:19:18.399034-03:00\",\n    \"operationType\": \"DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test withdraw\",\n    \"amount\": 1.35,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
 								}
 							]
 						},
@@ -2548,7 +3035,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"5089233861\"\r\n}",
+									"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"3157128317\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2577,7 +3064,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"5089233861\"\r\n}",
+											"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"3157128317\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2635,7 +3122,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 01 Jul 2025 21:17:05 GMT"
+											"value": "Wed, 02 Jul 2025 15:18:07 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2647,7 +3134,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"transaction\": {\n        \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n        \"createdAt\": \"2025-07-01T18:17:03.9480764-03:00\",\n        \"operationType\": \"TRANSFER_DEBIT\",\n        \"status\": \"APPROVED\",\n        \"description\": \"test depositRequest\",\n        \"amount\": 1.02,\n        \"budgetCategory\": {\n            \"budgetCategoryName\": \"Alimentação\",\n            \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n        }\n    },\n    \"receiverInfo\": {\n        \"accountNumber\": \"5089233861\",\n        \"firstName\": \"Juliano\",\n        \"lastName\": \"Mesquita\"\n    }\n}"
+									"body": "{\n    \"transaction\": {\n        \"transactionNumber\": \"04102b0d-46f2-4437-b313-b4690206fd62\",\n        \"createdAt\": \"2025-07-02T12:18:05.842931-03:00\",\n        \"operationType\": \"TRANSFER_DEBIT\",\n        \"status\": \"APPROVED\",\n        \"description\": \"test depositRequest\",\n        \"amount\": 1.02,\n        \"budgetCategory\": {\n            \"budgetCategoryName\": \"Alimentação\",\n            \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n        }\n    },\n    \"receiverInfo\": {\n        \"accountNumber\": \"3157128317\",\n        \"firstName\": \"Petrúcio\",\n        \"lastName\": \"Amorim\"\n    }\n}"
 								}
 							]
 						},
@@ -2724,7 +3211,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc",
+									"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc&accountNumbers=6899564294,3157128317,1184473176&startDate=2025-01-01T00:00:00Z&endDate=2025-12-31T00:00:00Z&operationType=DEBIT&transactionStatus=APPROVED&minValue=0&maxValue=100",
 									"host": [
 										"{{base_url}}"
 									],
@@ -2745,6 +3232,34 @@
 										{
 											"key": "sort",
 											"value": "amount,asc"
+										},
+										{
+											"key": "accountNumbers",
+											"value": "6899564294,3157128317,1184473176"
+										},
+										{
+											"key": "startDate",
+											"value": "2025-01-01T00:00:00Z"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-12-31T00:00:00Z"
+										},
+										{
+											"key": "operationType",
+											"value": "DEBIT"
+										},
+										{
+											"key": "transactionStatus",
+											"value": "APPROVED"
+										},
+										{
+											"key": "minValue",
+											"value": "0"
+										},
+										{
+											"key": "maxValue",
+											"value": "100"
 										}
 									]
 								},
@@ -2752,12 +3267,12 @@
 							},
 							"response": [
 								{
-									"name": "get all transactions Copy",
+									"name": "get all my transactions Copy",
 									"originalRequest": {
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc",
+											"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc&accountNumbers=6899564294,3157128317,1184473176&startDate=2025-01-01T00:00:00Z&endDate=2025-12-31T00:00:00Z&operationType=DEBIT&transactionStatus=APPROVED&minValue=0&maxValue=100",
 											"host": [
 												"{{base_url}}"
 											],
@@ -2778,6 +3293,34 @@
 												{
 													"key": "sort",
 													"value": "amount,asc"
+												},
+												{
+													"key": "accountNumbers",
+													"value": "6899564294,3157128317,1184473176"
+												},
+												{
+													"key": "startDate",
+													"value": "2025-01-01T00:00:00Z"
+												},
+												{
+													"key": "endDate",
+													"value": "2025-12-31T00:00:00Z"
+												},
+												{
+													"key": "operationType",
+													"value": "DEBIT"
+												},
+												{
+													"key": "transactionStatus",
+													"value": "APPROVED"
+												},
+												{
+													"key": "minValue",
+													"value": "0"
+												},
+												{
+													"key": "maxValue",
+													"value": "100"
 												}
 											]
 										}
@@ -2820,7 +3363,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:35:18 GMT"
+											"value": "Wed, 02 Jul 2025 15:38:53 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2832,7 +3375,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n            \"createdAt\": \"2025-07-01T21:17:03.948076Z\",\n            \"operationType\": \"TRANSFER_DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.02,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n            \"createdAt\": \"2025-07-01T21:14:06.024652Z\",\n            \"operationType\": \"CREDIT\",\n            \"status\": \"PENDING\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.17,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"feb4212d-b223-4c40-97f9-ee68df71ca91\",\n            \"createdAt\": \"2025-07-01T21:13:30.930144Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 3,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 3,\n    \"first\": true,\n    \"empty\": false\n}"
+									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"4071e2c3-212b-4bd1-9328-7dcab44047b6\",\n            \"createdAt\": \"2025-07-02T15:16:18.335646Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"bf3c990c-0f4c-4dba-bfa0-6b8276b84485\",\n            \"createdAt\": \"2025-07-02T15:19:18.399034Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalPages\": 1,\n    \"totalElements\": 2,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 2,\n    \"first\": true,\n    \"empty\": false\n}"
 								}
 							]
 						},
@@ -2856,14 +3399,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/transactions/d4875691-1a89-428d-a8db-accde44a23fa",
+									"raw": "{{base_url}}/api/transactions/04102b0d-46f2-4437-b313-b4690206fd62",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"transactions",
-										"d4875691-1a89-428d-a8db-accde44a23fa"
+										"04102b0d-46f2-4437-b313-b4690206fd62"
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -2875,14 +3418,14 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/api/transactions/d4875691-1a89-428d-a8db-accde44a23fa",
+											"raw": "{{base_url}}/api/transactions/04102b0d-46f2-4437-b313-b4690206fd62",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
 												"transactions",
-												"d4875691-1a89-428d-a8db-accde44a23fa"
+												"04102b0d-46f2-4437-b313-b4690206fd62"
 											]
 										}
 									},
@@ -2924,7 +3467,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 02 Jul 2025 01:36:04 GMT"
+											"value": "Wed, 02 Jul 2025 15:20:07 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -2936,7 +3479,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n    \"createdAt\": \"2025-07-01T21:17:03.948076Z\",\n    \"operationType\": \"TRANSFER_DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.02,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+									"body": "{\n    \"transactionNumber\": \"04102b0d-46f2-4437-b313-b4690206fd62\",\n    \"createdAt\": \"2025-07-02T15:18:05.842931Z\",\n    \"operationType\": \"TRANSFER_DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.02,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
 								}
 							]
 						}
