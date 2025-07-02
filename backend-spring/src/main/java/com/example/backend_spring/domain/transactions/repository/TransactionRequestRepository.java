@@ -4,7 +4,9 @@ import com.example.backend_spring.domain.transactions.model.Transaction;
 import com.example.backend_spring.domain.transactions.model.TransactionRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface TransactionRequestRepository extends JpaRepository<TransactionRequest, UUID> {
+	Optional<TransactionRequest> findByTransaction(Transaction transaction);
 }

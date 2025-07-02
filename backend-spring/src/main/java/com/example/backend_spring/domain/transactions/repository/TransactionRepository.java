@@ -12,6 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface TransactionRepository extends JpaRepository<Transaction, UUID>, JpaSpecificationExecutor<Transaction> {
     Optional<Transaction> findByTransactionNumber(UUID transactionNumber);
-    List<Transaction> findByAccount(Account account);
     Optional<Transaction> findByTransactionNumberAndAccount(UUID transactionNumber, Account account);
 }

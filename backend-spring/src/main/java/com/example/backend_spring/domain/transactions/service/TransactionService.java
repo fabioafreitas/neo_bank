@@ -411,6 +411,105 @@ public class TransactionService {
         return this.toTransferDto(sourceTransaction, destinationAccount);
     }
 
+	public TransactionResponseDTO purchase(TransactionRequestDTO dto) {
+		TransactionOperationType operationType = TransactionOperationType.PURCHASE;
+		Account account = this.validateSourceAccount(dto, operationType);
+		BudgetCategory budgetCategory = this.getBudgetCategory(dto.budgetCategoryId());
+
+		// Transaction is approved, proceed with the operation
+		Transaction transaction = new Transaction(
+				UUID.randomUUID(),
+				account,
+				budgetCategory,
+				operationType,
+				dto.description(),
+				dto.amount(),
+				TransactionStatus.APPROVED
+		);
+		transactionRepository.save(transaction);
+
+		account.setBalance(
+				account.getBalance().subtract(dto.amount())
+		);
+		accountService.update(account);
+		return this.toDto(transaction);
+	}
+
+	private Transaction validateTransactionExists(UUID transactionNumber) {
+		return transactionRepository.findByTransactionNumber(transactionNumber)
+			.orElseThrow(() -> new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Transaction not found"
+			));
+	}
+
+	private TransactionRequest validatePendingTransactionRequest(Transaction transaction) {
+		if (transaction.getStatus() != TransactionStatus.PENDING) {
+			throw new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Transaction provided is not pending"
+			);
+		}
+		return transactionRequestRepository.findByTransaction(transaction)
+			.orElseThrow(() -> new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Transaction request not found"
+			));
+	}
+
+	private Account validateAccountByTransaction(Transaction transaction) {
+		Account account = transaction.getAccount();
+		validateAccountIsActive(account);
+		return account;
+	}
+
+	private User validateContextAdminUser() {
+		User user = jwtTokenProviderService.getContextUser();
+		if (user.getRole() != UserRole.ADMIN) {
+			throw new ResponseStatusException(
+				HttpStatus.FORBIDDEN, "Only admins can approve or reprove deposit requests"
+			);
+		}
+		return user;
+	}
+
+	public TransactionResponseDTO reviewTransactionRequest(
+			UUID transactionNumber,
+			String rejectionMessage,
+			TransactionStatus transactionStatus
+	) {
+		if(transactionStatus == TransactionStatus.PENDING) {
+			throw new ResponseStatusException(
+					HttpStatus.BAD_REQUEST, "Decision must be made, Reviewed transaction status cannot be PENDING"
+			);
+		}
+		if(	transactionStatus == TransactionStatus.REJECTED &&
+				(rejectionMessage == null || rejectionMessage.isBlank())) {
+			throw new ResponseStatusException(
+					HttpStatus.BAD_REQUEST, "Rejection message is required"
+			);
+		}
+		Transaction transaction = this.validateTransactionExists(transactionNumber);
+		Account destinationAccount = this.validateAccountByTransaction(transaction);
+		TransactionRequest transactionRequest = this.validatePendingTransactionRequest(transaction);
+		User adminUser = this.validateContextAdminUser();
+
+		transactionRequest.setReviewedAt(OffsetDateTime.now());
+		transactionRequest.setStatus(transactionStatus);
+		transactionRequest.setReviewedBy(adminUser);
+		transactionRequestRepository.save(transactionRequest);
+
+		transaction.setStatus(transactionStatus);
+		transaction.setRejectionMessage(rejectionMessage);
+		transactionRepository.save(transaction);
+
+		if(transactionStatus == TransactionStatus.APPROVED) {
+			destinationAccount.setBalance(
+					destinationAccount.getBalance().add(transaction.getAmount())
+			);
+			accountService.update(destinationAccount);
+		}
+
+		return this.toDto(transaction);
+	}
+
     private TransactionResponseDTO toDto(Transaction transaction) {
         BudgetCategory budgetCategory = transaction.getBudgetCategory();
         return new TransactionResponseDTO(

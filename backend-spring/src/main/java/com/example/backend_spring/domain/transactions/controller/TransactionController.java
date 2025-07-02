@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import com.example.backend_spring.domain.transactions.dto.TransactionTransferRequestDTO;
-import com.example.backend_spring.domain.transactions.dto.TransactionTransferResponseDTO;
+import com.example.backend_spring.domain.transactions.dto.*;
+import com.example.backend_spring.domain.transactions.utils.TransactionStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.backend_spring.domain.transactions.dto.TransactionRequestDTO;
-import com.example.backend_spring.domain.transactions.dto.TransactionResponseDTO;
 import com.example.backend_spring.domain.transactions.service.TransactionService;
 
 
@@ -111,17 +109,23 @@ public class TransactionController {
         ));
     }
 
-    // TODO: review
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/approve/{transactionNumber}")
-    public ResponseEntity<TransactionResponseDTO> approveRequestTransaction(@PathVariable("transactionNumber") UUID transactionNumber) {
-        return ResponseEntity.ok().build();
+    @PostMapping("/approve")
+    public ResponseEntity<TransactionResponseDTO> approveRequestTransaction(
+            @RequestBody @Valid TransactionReviewRequestDTO dto
+    ) {
+        return ResponseEntity.ok(transactionService.reviewTransactionRequest(
+                dto.transactionNumber(), dto.rejectionMessage(), TransactionStatus.APPROVED
+        ));
     }
 
-    // TODO: review
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/reject/{transactionNumber}")
-    public ResponseEntity<TransactionResponseDTO> rejectRequestTransaction(@PathVariable("transactionNumber") UUID transactionNumber) {
-        return ResponseEntity.ok().build();
+    @PostMapping("/reject")
+    public ResponseEntity<TransactionResponseDTO> rejectRequestTransaction(
+        @RequestBody @Valid TransactionReviewRequestDTO dto
+    ) {
+        return ResponseEntity.ok(transactionService.reviewTransactionRequest(
+                dto.transactionNumber(), dto.rejectionMessage(), TransactionStatus.REJECTED
+        ));
     }
 }
