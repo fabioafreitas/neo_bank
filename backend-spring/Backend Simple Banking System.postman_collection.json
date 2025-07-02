@@ -147,7 +147,87 @@
 											]
 										}
 									},
-									"response": []
+									"response": [
+										{
+											"name": "login client andre-munhoz",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"accessUsername\": \"andremunhoz\",\r\n    \"accessPassword\": \"v37Ws%G!MhV\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/users/auth/login",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"auth",
+														"login"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 02 Jul 2025 01:35:02 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZW11bmhveiIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NTE0MjAxMDIsImV4cCI6MTc1MTQyMzcwMn0.B6QmtleyGvFX-QoITgsGF46l-wwFBgM9JBFaJko3Ics\"\n}"
+										}
+									]
 								},
 								{
 									"name": "login client petrucio-amorim",
@@ -1261,7 +1341,77 @@
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 							},
-							"response": []
+							"response": [
+								{
+									"name": "get my account info",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/accounts/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:37:34 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"ownerFirstName\": \"Andre\",\n    \"ownerLastName\": \"Munhoz\",\n    \"ownerEmail\": \"munhozandre30@gmail.com\",\n    \"balance\": 7.63,\n    \"status\": \"ACTIVE\",\n    \"accountNumber\": \"2121459963\"\n}"
+								}
+							]
 						},
 						{
 							"name": "get avaliable budget categories",
@@ -1280,7 +1430,77 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "get avaliable budget categories",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/accounts/budgetCategories",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"budgetCategories"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:37:39 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    },\n    {\n        \"budgetCategoryName\": \"Saúde\",\n        \"budgetCategoryId\": \"7fb1389e-056c-4f24-8457-5be28c9b48fc\"\n    },\n    {\n        \"budgetCategoryName\": \"Educação\",\n        \"budgetCategoryId\": \"c810edcc-478d-44dc-a1bc-91fa2155672b\"\n    },\n    {\n        \"budgetCategoryName\": \"Transporte\",\n        \"budgetCategoryId\": \"949d30e1-40e6-444c-83e6-e6cee3583ee1\"\n    },\n    {\n        \"budgetCategoryName\": \"Moradia\",\n        \"budgetCategoryId\": \"4e10f8df-dd8d-456b-9344-0053060793bf\"\n    },\n    {\n        \"budgetCategoryName\": \"Lazer\",\n        \"budgetCategoryId\": \"9fb606b0-0894-4c5d-8b1b-da0a5053ab0c\"\n    },\n    {\n        \"budgetCategoryName\": \"Vestuário\",\n        \"budgetCategoryId\": \"e5e9d5bb-0866-483c-827a-7933d29a1a8a\"\n    },\n    {\n        \"budgetCategoryName\": \"Serviços\",\n        \"budgetCategoryId\": \"7329cc8c-13fa-4ace-afe4-2317df093554\"\n    },\n    {\n        \"budgetCategoryName\": \"Comunicação\",\n        \"budgetCategoryId\": \"975acb63-b302-4158-a7ae-9961ff076fcd\"\n    },\n    {\n        \"budgetCategoryName\": \"Investimentos\",\n        \"budgetCategoryId\": \"d6f67ffc-028e-4bee-8660-6aa3dba47e3c\"\n    },\n    {\n        \"budgetCategoryName\": \"Dívidas\",\n        \"budgetCategoryId\": \"8b34896c-b3ef-47ea-8009-271c203bccd8\"\n    },\n    {\n        \"budgetCategoryName\": \"Impostos\",\n        \"budgetCategoryId\": \"b49b9281-bac5-4f38-ba3b-313f543183b7\"\n    },\n    {\n        \"budgetCategoryName\": \"Doações\",\n        \"budgetCategoryId\": \"b8759dca-c5b4-47a1-b789-0fb976d26ef5\"\n    },\n    {\n        \"budgetCategoryName\": \"Outros\",\n        \"budgetCategoryId\": \"507c58ec-8563-44a9-b9a3-7bf439f5db8c\"\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "get my account budget allocations",
@@ -1300,7 +1520,78 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "get my account budget allocations",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/accounts/me/budget",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"me",
+												"budget"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:37:46 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Saúde\",\n        \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Educação\",\n        \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Transporte\",\n        \"budgetCategoryId\": \"852fa1de-c9ae-426d-82a4-2856b28bf18f\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Moradia\",\n        \"budgetCategoryId\": \"165a5d4d-065d-4433-ace2-9c6603bc00fa\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Lazer\",\n        \"budgetCategoryId\": \"54fa0fc5-9557-48c5-b016-f7130b7e33e3\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Vestuário\",\n        \"budgetCategoryId\": \"ca226975-076c-4aab-9603-c600a9932c19\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Serviços\",\n        \"budgetCategoryId\": \"670a3b0e-d854-4b40-9e05-ddb15b163e32\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Comunicação\",\n        \"budgetCategoryId\": \"5bd91c82-66b7-40e9-bde9-da0344ad653a\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Investimentos\",\n        \"budgetCategoryId\": \"fbe816ba-ac1d-4f86-9f75-0ade6c396aa9\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Dívidas\",\n        \"budgetCategoryId\": \"37a4a76e-2f9e-4336-9fbb-0c8b63da7bb8\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Impostos\",\n        \"budgetCategoryId\": \"fa154770-38a9-4e55-9200-9c2e959f6b7f\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Doações\",\n        \"budgetCategoryId\": \"39f25a5c-7fdc-45ad-a1dc-bc24d00a9c5d\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Outros\",\n        \"budgetCategoryId\": \"72ceb3ea-9b94-48e4-96f6-1dee79f14acd\",\n        \"allocationValue\": 0\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "update my account budget allocations",
@@ -1309,7 +1600,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"2e33d230-93df-4f60-aa9c-1daa50639278\",\r\n            \"allocationValue\": 250\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"b31ca6a2-ff5c-4c7d-8fb1-e7f8dbec5b27\",\r\n            \"allocationValue\": 350\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"e1129bbc-f4b4-43e7-a415-de25d049e492\",\r\n            \"allocationValue\": 300\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1329,7 +1620,87 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "update my account budget allocations",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/accounts/me/budget",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"me",
+												"budget"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:38:30 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"e30246f3-6e7c-429b-b3ea-4ef1695bf406\",\n        \"allocationValue\": 100\n    },\n    {\n        \"budgetCategoryName\": \"Saúde\",\n        \"budgetCategoryId\": \"8037b9d2-29f6-42db-b2d2-d74e55e30fba\",\n        \"allocationValue\": 200\n    },\n    {\n        \"budgetCategoryName\": \"Educação\",\n        \"budgetCategoryId\": \"34604507-7728-454e-820e-35bafae8e61a\",\n        \"allocationValue\": 150\n    },\n    {\n        \"budgetCategoryName\": \"Transporte\",\n        \"budgetCategoryId\": \"852fa1de-c9ae-426d-82a4-2856b28bf18f\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Moradia\",\n        \"budgetCategoryId\": \"165a5d4d-065d-4433-ace2-9c6603bc00fa\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Lazer\",\n        \"budgetCategoryId\": \"54fa0fc5-9557-48c5-b016-f7130b7e33e3\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Vestuário\",\n        \"budgetCategoryId\": \"ca226975-076c-4aab-9603-c600a9932c19\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Serviços\",\n        \"budgetCategoryId\": \"670a3b0e-d854-4b40-9e05-ddb15b163e32\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Comunicação\",\n        \"budgetCategoryId\": \"5bd91c82-66b7-40e9-bde9-da0344ad653a\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Investimentos\",\n        \"budgetCategoryId\": \"fbe816ba-ac1d-4f86-9f75-0ade6c396aa9\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Dívidas\",\n        \"budgetCategoryId\": \"37a4a76e-2f9e-4336-9fbb-0c8b63da7bb8\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Impostos\",\n        \"budgetCategoryId\": \"fa154770-38a9-4e55-9200-9c2e959f6b7f\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Doações\",\n        \"budgetCategoryId\": \"39f25a5c-7fdc-45ad-a1dc-bc24d00a9c5d\",\n        \"allocationValue\": 0\n    },\n    {\n        \"budgetCategoryName\": \"Outros\",\n        \"budgetCategoryId\": \"72ceb3ea-9b94-48e4-96f6-1dee79f14acd\",\n        \"allocationValue\": 0\n    }\n]"
+								}
+							]
 						}
 					]
 				},
@@ -1391,7 +1762,168 @@
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 							},
-							"response": []
+							"response": [
+								{
+									"name": "get all accounts",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/accounts?page=0&size=10&sort=balance,asc",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort",
+													"value": "balance,asc"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:36:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"timestamp\": \"2025-07-01T22:36:28.4160323\",\n    \"status\": 500,\n    \"error\": \"Internal Server Error\",\n    \"message\": \"Access Denied\",\n    \"path\": \"/api/accounts\"\n}"
+								},
+								{
+									"name": "get all accounts",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/accounts?page=0&size=10&sort=balance,asc",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"accounts"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort",
+													"value": "balance,asc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:37:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"content\": [\n        {\n            \"ownerFirstName\": \"Petrúcio\",\n            \"ownerLastName\": \"Amorim\",\n            \"ownerEmail\": \"amorimpetrucio3@gmail.com\",\n            \"balance\": 0,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"9553667860\"\n        },\n        {\n            \"ownerFirstName\": \"Juliano\",\n            \"ownerLastName\": \"Mesquita\",\n            \"ownerEmail\": \"juliano.mesquita1991@gmail.com\",\n            \"balance\": 1.02,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"5089233861\"\n        },\n        {\n            \"ownerFirstName\": \"Andre\",\n            \"ownerLastName\": \"Munhoz\",\n            \"ownerEmail\": \"munhozandre30@gmail.com\",\n            \"balance\": 7.63,\n            \"status\": \"ACTIVE\",\n            \"accountNumber\": \"2121459963\"\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 3,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 3,\n    \"first\": true,\n    \"empty\": false\n}"
+								}
+							]
 						},
 						{
 							"name": "get account by account number",
@@ -1590,17 +2122,27 @@
 			"name": "transactions",
 			"item": [
 				{
-					"name": "operations",
+					"name": "admins",
 					"item": [
 						{
-							"name": "withdraw",
+							"name": "get all transactions",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -1609,56 +2151,72 @@
 								}
 							],
 							"request": {
-								"method": "POST",
+								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{base_url}}/api/transactions/operations/withdraw",
+									"raw": "{{base_url}}/api/transactions?page=0&size=10&sort=amount,asc",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
-										"transactions",
-										"operations",
-										"withdraw"
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "amount,asc"
+										},
+										{
+											"key": "accountNumbers",
+											"value": "2121459963,9553667860",
+											"disabled": true
+										}
 									]
 								},
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 							},
 							"response": [
 								{
-									"name": "withdraw",
+									"name": "get all transactions",
 									"originalRequest": {
-										"method": "POST",
+										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
-											"raw": "{{base_url}}/api/transactions/operations/withdraw",
+											"raw": "{{base_url}}/api/transactions?page=0&size=10&sort=amount,asc",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
-												"transactions",
-												"operations",
-												"withdraw"
+												"transactions"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort",
+													"value": "amount,asc"
+												},
+												{
+													"key": "accountNumbers",
+													"value": "2121459963,9553667860",
+													"disabled": true
+												}
 											]
 										}
 									},
@@ -1700,7 +2258,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 01 Jul 2025 16:59:55 GMT"
+											"value": "Wed, 02 Jul 2025 01:32:06 GMT"
 										},
 										{
 											"key": "Keep-Alive",
@@ -1712,10 +2270,15 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"transactionNumber\": \"f9474d26-5adb-42a7-b31e-f33ff2a578cd\",\n    \"createdAt\": \"2025-07-01T13:59:54.5414892-03:00\",\n    \"operationType\": \"DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test withdraw\",\n    \"amount\": 1.35,\n    \"rejectionMessage\": null\n}"
+									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n            \"createdAt\": \"2025-07-01T21:17:03.948076Z\",\n            \"operationType\": \"TRANSFER_DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.02,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"ba39bf12-b701-4fe6-a118-65e45bd257c1\",\n            \"createdAt\": \"2025-07-01T21:17:03.949097Z\",\n            \"operationType\": \"TRANSFER_CREDIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.02\n        },\n        {\n            \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n            \"createdAt\": \"2025-07-01T21:14:06.024652Z\",\n            \"operationType\": \"CREDIT\",\n            \"status\": \"PENDING\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.17,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"feb4212d-b223-4c40-97f9-ee68df71ca91\",\n            \"createdAt\": \"2025-07-01T21:13:30.930144Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 4,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 4,\n    \"first\": true,\n    \"empty\": false\n}"
 								}
 							]
-						},
+						}
+					]
+				},
+				{
+					"name": "clients",
+					"item": [
 						{
 							"name": "depositRequest",
 							"event": [
@@ -1837,6 +2400,130 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n    \"createdAt\": \"2025-07-01T18:14:06.024652-03:00\",\n    \"operationType\": \"CREDIT\",\n    \"status\": \"PENDING\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.17,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "withdraw",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/operations/withdraw",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"operations",
+										"withdraw"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "withdraw",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/transactions/operations/withdraw",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"operations",
+												"withdraw"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 01 Jul 2025 16:59:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transactionNumber\": \"f9474d26-5adb-42a7-b31e-f33ff2a578cd\",\n    \"createdAt\": \"2025-07-01T13:59:54.5414892-03:00\",\n    \"operationType\": \"DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test withdraw\",\n    \"amount\": 1.35,\n    \"rejectionMessage\": null\n}"
 								}
 							]
 						},
@@ -2006,85 +2693,254 @@
 								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 							},
 							"response": []
+						},
+						{
+							"name": "get all my transactions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"me"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "amount,asc"
+										}
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "get all transactions Copy",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"me"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort",
+													"value": "amount,asc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:35:18 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n            \"createdAt\": \"2025-07-01T21:17:03.948076Z\",\n            \"operationType\": \"TRANSFER_DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.02,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"87f92947-10cc-4941-8802-0b1abdc0ba24\",\n            \"createdAt\": \"2025-07-01T21:14:06.024652Z\",\n            \"operationType\": \"CREDIT\",\n            \"status\": \"PENDING\",\n            \"description\": \"test depositRequest\",\n            \"amount\": 1.17,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"feb4212d-b223-4c40-97f9-ee68df71ca91\",\n            \"createdAt\": \"2025-07-01T21:13:30.930144Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 3,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 3,\n    \"first\": true,\n    \"empty\": false\n}"
+								}
+							]
+						},
+						{
+							"name": "get transaction by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/transactions/d4875691-1a89-428d-a8db-accde44a23fa",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"d4875691-1a89-428d-a8db-accde44a23fa"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "get transaction by id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/transactions/d4875691-1a89-428d-a8db-accde44a23fa",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"d4875691-1a89-428d-a8db-accde44a23fa"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 01:36:04 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transactionNumber\": \"d4875691-1a89-428d-a8db-accde44a23fa\",\n    \"createdAt\": \"2025-07-01T21:17:03.948076Z\",\n    \"operationType\": \"TRANSFER_DEBIT\",\n    \"status\": \"APPROVED\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.02,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+								}
+							]
 						}
 					]
-				},
-				{
-					"name": "get all transactions",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/transactions",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transactions"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "get transaction by id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/transactions/f9474d26-5adb-42a7-b31e-f33ff2a578cd",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transactions",
-								"f9474d26-5adb-42a7-b31e-f33ff2a578cd"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
 				}
 			]
 		},
