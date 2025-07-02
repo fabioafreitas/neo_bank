@@ -101,9 +101,10 @@ CREATE TABLE IF NOT EXISTS transaction_requests (
 
 CREATE TABLE IF NOT EXISTS merchants (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id) UNIQUE,
+    user_id UUID REFERENCES users(id) UNIQUE ON DELETE CASCADE,
     store_name TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS merchant_products (
@@ -220,10 +221,16 @@ VALUES
     ('Investimentos'),('Dívidas'),('Impostos'),
     ('Doações'), ('Outros');
 
-INSERT INTO public.users (id, username, "password", "role")
-VALUES(
-    '2c6b0fba-006a-4512-b546-1ba2b3ea65a3'::uuid,
-    'sysadmin',
-    '$2a$10$HMJ478j6zDUab79TG8SSVe8iqV3yZNf3CfA3hwsICbppJ4tKl6yo6',
-    'ADMIN'
-);
+
+INSERT INTO public.users
+(id, username, "password", "role")
+VALUES
+    ('22fc95c9-7c95-4513-86b9-3e4b004f9657'::uuid,
+     'fabiosysadmin',
+     '$2a$10$99r5XeGPLia8eGOqTCWA9uWd8IXMOVN6b0yzmNtbzTzWQpXAG7Mty',
+     'ADMIN');
+
+INSERT INTO public.user_profile
+(id, first_name, last_name, email, phone, address_line1, address_line2, city, province, postal_code, country, profile_picture_url)
+VALUES
+    ('22fc95c9-7c95-4513-86b9-3e4b004f9657'::uuid, 'Fábio', 'Alves', 'fbio.alves095@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

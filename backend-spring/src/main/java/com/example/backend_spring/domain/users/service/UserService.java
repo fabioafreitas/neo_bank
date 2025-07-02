@@ -5,6 +5,10 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.example.backend_spring.domain.merchants.dto.MerchantResponseDTO;
+import com.example.backend_spring.domain.merchants.model.Merchant;
+import com.example.backend_spring.domain.merchants.service.MerchantService;
+import com.example.backend_spring.domain.users.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,12 +22,6 @@ import com.example.backend_spring.domain.accounts.dto.AccountResponseDTO;
 import com.example.backend_spring.domain.accounts.model.Account;
 import com.example.backend_spring.domain.accounts.service.AccountService;
 import com.example.backend_spring.domain.accounts.utils.AccountStatus;
-import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserResetAccessPasswordRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserResetTransactionPasswordRequestDTO;
 import com.example.backend_spring.domain.users.model.PasswordResetRequest;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.domain.users.model.UserProfile;
@@ -54,6 +52,9 @@ public class UserService implements UserDetailsService {
     private AccountService accountService;
 
     @Autowired
+    private UserProfileService userProfileService;
+
+    @Autowired
     private JwtTokenProviderService tokenProviderService;
 
     @Autowired
@@ -61,10 +62,13 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PepperPasswordEncoder pepperPasswordEncoder;
-    
+	@Autowired
+	private MerchantService merchantService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).get();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
     public UserLoginResponseDTO authenticate(String username, String password) {
@@ -79,69 +83,61 @@ public class UserService implements UserDetailsService {
                 ));
                 
     }
-    
-    public UserCreationResponseDTO registerUserClient(UserCreationRequestDTO dto) {
-        return registerUser(dto, UserRole.CLIENT);
-    }
 
-    public UserGeneralMessageResponseDTO registerUserMerchant(UserCreationRequestDTO dto) {
-        registerUser(dto, UserRole.MERCHANT);
-        return new UserGeneralMessageResponseDTO("Merchant user registered successfully");
-    }
-
-    public void registerUserAdmin(UserCreationRequestDTO dto) {
-       registerUser(dto, UserRole.ADMIN);
-    }
-
-    private UserCreationResponseDTO registerUser(UserCreationRequestDTO dto, UserRole role) {
-        if(!accountService.isValidAccessPassword(dto.accessPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid access password, must have at leas 8 digits, one uppercase letter, one lowercase letter, one special character and one number");
-        }
-        if( UserRole.CLIENT == role &&
-            !accountService.isValidTransactionPassword(dto.transactionPassword()) ) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction password, must be 6 numeric digits");
-        }
-        if(this.userRepository.findByUsername(dto.accessUsername()).isPresent()) {
+    private void validateDuplicatedUsernameAndEmail(String username, String email) {
+        if(this.userRepository.findByUsername(username).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
-        if(this.userProfileRepository.findByEmail(dto.email()).isPresent()) {
+        if(this.userProfileRepository.findByEmail(email).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
         }
-        
+    }
+
+    private User registerUser(UserCreationBasicInfoRequestDTO dto, UserRole role) {
+        this.validateDuplicatedUsernameAndEmail(
+                dto.accessUsername(), dto.email()
+        );
         String encryptedAccessPassword = pepperPasswordEncoder.encode(dto.accessPassword());
         User user = new User(
-            dto.accessUsername(),
-            encryptedAccessPassword,
-            role
+                dto.accessUsername(),
+                encryptedAccessPassword,
+                role
         );
-
         UserProfile userProfile = new UserProfile(
-            user,
-            dto.firstName(),
-            dto.lastName(),
-            dto.email()
+                user,
+                dto.firstName(),
+                dto.lastName(),
+                dto.email()
         );
-
         // Setting userProfile in user, to tell JPA that it is a bidirectional relationship
         // and that it should persist the userProfile when saving the user
         user.setUserProfile(userProfile);
-        this.userRepository.save(user);
-        
-        // If the user is not a client, we do not create aa bank account
-        if(UserRole.CLIENT != role) {
-            return new UserCreationResponseDTO(null);
+        return userRepository.save(user);
+    }
+
+    public UserCreationResponseDTO registerUserClient(UserCreationClientRequestDTO dto) {
+        User user = registerUser(dto.userInfo(), UserRole.CLIENT);
+        Account account = accountService.create(user, dto.accountInfo().transactionPassword());
+        return this.toDto(user.getUserProfile(), account,null);
+    }
+
+    public UserCreationResponseDTO registerUserMerchant(UserCreationMerchantRequestDTO dto) {
+        User user = registerUser(dto.userInfo(), UserRole.MERCHANT);
+        Merchant merchant = merchantService.create(
+                user,
+                dto.merchantInfo().storeName(),
+                dto.merchantInfo().description()
+        );
+        return this.toDto(user.getUserProfile(), null, merchant);
+    }
+
+    public UserCreationResponseDTO registerUserAdmin(UserCreationAdminRequestDTO dto) {
+        User contextUser = tokenProviderService.getContextUser();
+        if(contextUser != null && !contextUser.isAdmin()) {
+            throw  new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized to register admin users");
         }
-        
-        AccountCreationDTO accountCreationDTO = new AccountCreationDTO(
-            user,
-            new BigDecimal(0),
-            AccountStatus.ACTIVE,
-            dto.transactionPassword()
-        );
-        AccountResponseDTO accountResponseDTO = accountService.create(accountCreationDTO);
-        return new UserCreationResponseDTO(
-            accountResponseDTO
-        );
+        User user = registerUser(dto.userInfo(), UserRole.ADMIN);
+        return this.toDto(user.getUserProfile(), null,null);
     }
 
     public UserGeneralMessageResponseDTO requestPasswordReset(String destinationEmail, PasswordResetRequestType type) {
@@ -165,12 +161,9 @@ public class UserService implements UserDetailsService {
     }
 
     public UserGeneralMessageResponseDTO resetAccessPassword(UserResetAccessPasswordRequestDTO dto) {
-        if(!accountService.isValidAccessPassword(dto.newAccessPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid access password, must have at leas 8 digits, one uppercase letter, one lowercase letter, one special character and one number");
-        }
         PasswordResetRequest resetRequest = passwordResetRequestRepository.findByToken(dto.resetRequestToken())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Password reset request not found"));
-        
+
         if(!resetRequest.getType().equals(PasswordResetRequestType.LOGIN_PASSWORD)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid password reset request type");
         }
@@ -189,9 +182,6 @@ public class UserService implements UserDetailsService {
     }
 
     public UserGeneralMessageResponseDTO resetTransactionPassword(UserResetTransactionPasswordRequestDTO dto) {
-        if(!accountService.isValidTransactionPassword(dto.newTransactionPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction password, must have at leas 8 digits, one uppercase letter, one lowercase letter, one special character and one number");
-        }
         PasswordResetRequest resetRequest = passwordResetRequestRepository.findByToken(dto.resetRequestToken())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Password reset request not found"));
         
@@ -209,9 +199,6 @@ public class UserService implements UserDetailsService {
         if(!pepperPasswordEncoder.matches(dto.accessPassword(), dbEncryptedAccessPassword)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Access password does not match the one in the database");
         }
-        if(!accountService.isValidTransactionPassword(dto.newTransactionPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid transaction password, must be 6 numeric digits");
-        }
 
         Account account = accountService.findAccountByUser(user);
         String encryptedTransactionPassword = pepperPasswordEncoder.encode(dto.newTransactionPassword());
@@ -219,5 +206,21 @@ public class UserService implements UserDetailsService {
         accountService.update(account);
         passwordResetRequestRepository.delete(resetRequest);
         return new UserGeneralMessageResponseDTO("Transaction password successfully reset");
+    }
+
+    public UserCreationResponseDTO toDto(
+            UserProfile userProfile,
+            Account account,
+            Merchant merchant
+    ) {
+        return new UserCreationResponseDTO(
+                this.userProfileService.toDto(userProfile),
+                Optional.ofNullable(account)
+                        .map(accountService::toDto)
+                        .orElse(null),
+                Optional.ofNullable(merchant)
+                        .map(merchantService::toDto)
+                        .orElse(null)
+        );
     }
 }

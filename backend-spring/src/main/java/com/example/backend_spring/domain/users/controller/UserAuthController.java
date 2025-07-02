@@ -1,6 +1,6 @@
 package com.example.backend_spring.domain.users.controller;
 
-import com.example.backend_spring.domain.users.dto.UserLoginRequestDTO;
+import com.example.backend_spring.domain.users.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,13 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend_spring.domain.users.dto.UserCreationResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserGeneralMessageResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserCreationRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserLoginResponseDTO;
-import com.example.backend_spring.domain.users.dto.UserRecoverCredentialsRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserResetAccessPasswordRequestDTO;
-import com.example.backend_spring.domain.users.dto.UserResetTransactionPasswordRequestDTO;
 import com.example.backend_spring.domain.users.service.EmailService;
 import com.example.backend_spring.domain.users.service.UserService;
 import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
@@ -39,13 +32,25 @@ public class UserAuthController {
     }
 
     @PostMapping("/registerClient")
-    public ResponseEntity<UserCreationResponseDTO> registerClient(@RequestBody @Valid UserCreationRequestDTO dto) {
+    public ResponseEntity<UserCreationResponseDTO> registerClient(
+            @RequestBody @Valid UserCreationClientRequestDTO dto
+    ) {
         return ResponseEntity.ok(userService.registerUserClient(dto));
     }
 
     @PostMapping("/registerMerchant")
-    public ResponseEntity<UserGeneralMessageResponseDTO> registerMerchant(@RequestBody @Valid UserCreationRequestDTO dto) {
+    public ResponseEntity<UserCreationResponseDTO> registerMerchant(
+            @RequestBody @Valid UserCreationMerchantRequestDTO dto
+    ) {
         return ResponseEntity.ok(userService.registerUserMerchant(dto));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/registerAdmin")
+    public ResponseEntity<UserCreationResponseDTO> registerAdmin(
+            @RequestBody @Valid UserCreationAdminRequestDTO dto
+    ) {
+        return ResponseEntity.ok(userService.registerUserAdmin(dto));
     }
 
     @PostMapping("/remindUsername")

@@ -21,35 +21,34 @@ public class MerchantController {
     @PreAuthorize("hasRole('MERCHANT')")
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentMerchantProfile() {
-        return ResponseEntity.ok(merchantService.findByJwt());
+        return ResponseEntity.ok().build();
     }
 
     // TODO review
     @PreAuthorize("hasRole('MERCHANT')")
     @PutMapping("/me")
     public ResponseEntity<?> updateCurrentMerchantProfile(@RequestBody Object dto) {
-        return ResponseEntity.ok(merchantService.updateMerchantProfile(dto));
+        return ResponseEntity.ok().build();
     }
 
     // TODO review
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<?>> getAllMerchants() {
-        return ResponseEntity.ok(merchantService.findAll());
+        return ResponseEntity.ok().build();
     }
 
     // TODO review
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{merchantId}")
     public ResponseEntity<?> getMerchantById(@PathVariable("merchantId") UUID merchantId) {
-        return ResponseEntity.ok(merchantService.findById(merchantId));
+        return ResponseEntity.ok().build();
     }
 
     // TODO review
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{merchantId}")
-    public ResponseEntity<?> deactivateMerchant(@PathVariable("merchantId") UUID merchantId) {
-        merchantService.deactivateMerchant(merchantId);
+    public ResponseEntity<?> deleteMerchant(@PathVariable("merchantId") UUID merchantId) {
         return ResponseEntity.ok().build();
     }
 }

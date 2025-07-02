@@ -58,7 +58,7 @@ public class UserProfileService {
         return toDto(profile);
     }
 
-    private UserProfileResponseDTO toDto(UserProfile profile) {
+    public UserProfileResponseDTO toDto(UserProfile profile) {
         if (profile == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found");
         }

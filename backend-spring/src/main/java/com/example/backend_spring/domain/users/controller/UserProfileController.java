@@ -22,14 +22,14 @@ public class UserProfileController {
     @Autowired
     private UserProfileService userProfileService;
 
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT', 'MERCHANT')")
     @GetMapping("/me")
     public ResponseEntity<UserProfileResponseDTO> getCurrentUserProfile() {
         return ResponseEntity.ok(userProfileService.getCurrentProfile());
     }
 
-    @PreAuthorize("hasRole('CLIENT')")
-    @PutMapping("/me")    
+    @PreAuthorize("hasAnyRole('CLIENT', 'MERCHANT')")
+    @PutMapping("/me")
     public ResponseEntity<UserProfileResponseDTO> updateCurrentUserProfile(@RequestBody @Valid UserProfileRequestDTO dto) {
         return ResponseEntity.ok(userProfileService.updateCurrentProfile(dto));
     }

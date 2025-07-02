@@ -179,24 +179,18 @@ public class AccountService {
             ));
     } 
 
-    public AccountResponseDTO create(AccountCreationDTO dto) {
-        String encryptedTransactionPassword = pepperPasswordEncoder.encode(dto.transactionPassword());
-
+    public Account create(User user, String transactionPassword) {
+        String encryptedTransactionPassword = pepperPasswordEncoder.encode(transactionPassword);
         Account account = new Account(
-            dto.user(),
-            dto.balance(),
-            dto.status(),
-            generateUniqueAccountNumber(),
-            encryptedTransactionPassword
+                user,
+                BigDecimal.ZERO,
+                AccountStatus.ACTIVE,
+                generateUniqueAccountNumber(),
+                encryptedTransactionPassword
         );
-
-        // save account in DB
         Account savedAccount = accountRepository.save(account);
-        
-        // create account budget allocations of new account
         accountBudgetAllocationService.create(account);
-
-        return toDto(savedAccount);
+        return savedAccount;
     }
 
     public AccountResponseDTO update(Account account) {
@@ -286,7 +280,7 @@ public class AccountService {
 
     
     
-    private AccountResponseDTO toDto(Account account) {
+    public AccountResponseDTO toDto(Account account) {
         if (account == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found");
         }
@@ -300,13 +294,5 @@ public class AccountService {
             account.getCreatedAt(),
             account.getUpdatedAt()
         );
-    }
-
-    public boolean isValidTransactionPassword(String transactionPassword) {
-        return transactionPassword != null && transactionPassword.matches("\\d{6}");
-    }
-
-    public boolean isValidAccessPassword(String accessPassword) {
-        return accessPassword != null && accessPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{8,}$");
     }
 }
