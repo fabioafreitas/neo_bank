@@ -74,8 +74,8 @@ public class TransactionService {
 			String accountNumbers,
 			OffsetDateTime startDate,
 			OffsetDateTime endDate,
-			String operationTypes,
-			String status,
+			String operationType,
+			String transactionStatus,
 			BigDecimal minValue,
 			BigDecimal maxValue
 	) {
@@ -95,18 +95,26 @@ public class TransactionService {
 		if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "startDate can't be after endDate");
 		}
-		if (operationTypes != null) {
+		if (operationType != null) {
 			try {
-				TransactionOperationType.valueOf(operationTypes);
+				TransactionOperationType.valueOf(operationType);
 			} catch (IllegalArgumentException e) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "operationTypes invalid");
+				String acceptableValues = String.join(", ", Arrays.stream(TransactionOperationType.values())
+						.map(Enum::name)
+						.toList());
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+						"operationType invalid. Acceptable values are: " + acceptableValues);
 			}
 		}
-		if (status != null) {
+		if (transactionStatus != null) {
 			try {
-				TransactionStatus.valueOf(status);
+				TransactionStatus.valueOf(transactionStatus);
 			} catch (IllegalArgumentException e) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "status Page");
+				String acceptableValues = String.join(", ", Arrays.stream(TransactionStatus.values())
+						.map(Enum::name)
+						.toList());
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+						"transactionStatus invalid. Acceptable values are: " + acceptableValues);
 			}
 		}
 		if (minValue != null && minValue.compareTo(BigDecimal.ZERO) < 0) {
@@ -127,8 +135,8 @@ public class TransactionService {
 			String accountNumbers,
 			OffsetDateTime startDate,
 			OffsetDateTime endDate,
-			String operationTypes,
-			String status,
+			String operationType,
+			String transactionStatus,
 			BigDecimal minValue,
 			BigDecimal maxValue) {
 
@@ -137,8 +145,8 @@ public class TransactionService {
 				accountNumbers,
 				startDate,
 				endDate,
-				operationTypes,
-				status,
+				operationType,
+				transactionStatus,
 				minValue,
 				maxValue
 		);
@@ -158,11 +166,11 @@ public class TransactionService {
 			if (endDate != null) {
 				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("createdAt"), endDate));
 			}
-			if (operationTypes != null) {
-				predicates.add(criteriaBuilder.equal(root.get("operationType"), TransactionOperationType.valueOf(operationTypes)));
+			if (operationType != null) {
+				predicates.add(criteriaBuilder.equal(root.get("operationType"), TransactionOperationType.valueOf(operationType)));
 			}
-			if (status != null) {
-				predicates.add(criteriaBuilder.equal(root.get("status"), TransactionStatus.valueOf(status)));
+			if (transactionStatus != null) {
+				predicates.add(criteriaBuilder.equal(root.get("status"), TransactionStatus.valueOf(transactionStatus)));
 			}
 			if (minValue != null) {
 				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("amount"), minValue));
