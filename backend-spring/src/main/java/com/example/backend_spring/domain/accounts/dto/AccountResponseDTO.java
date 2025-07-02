@@ -1,6 +1,7 @@
 package com.example.backend_spring.domain.accounts.dto;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
 import com.example.backend_spring.domain.accounts.utils.AccountStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,6 +16,8 @@ public record AccountResponseDTO(
     @NotBlank String ownerEmail,
     @NotBlank BigDecimal balance,
     @NotNull AccountStatus status,
-    @NotBlank String accountNumber
+    @NotBlank String accountNumber,
+	@NotBlank OffsetDateTime createdAt,
+	@NotBlank OffsetDateTime updatedAt
 ) {
 }

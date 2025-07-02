@@ -3,13 +3,12 @@ package com.example.backend_spring.domain.accounts.service;
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
 import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 
+import com.example.backend_spring.utils.PaginationUtils;
 import jakarta.persistence.criteria.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,10 +25,11 @@ import com.example.backend_spring.domain.users.repository.UserRepository;
 import com.example.backend_spring.domain.users.utils.UserRole;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
@@ -49,30 +49,89 @@ public class AccountService {
     @Autowired
     private AccountBudgetAllocationService accountBudgetAllocationService;
 
+    private final List<String> ALLOWED_SORT_FIELDS = Arrays.asList(
+            "id",
+            "balance",
+            "accountNumber",
+            "status",
+            "createdAt",
+            "updatedAt"
+    );
+
+    private void validateFindAllOptionalParams(
+            OffsetDateTime createdAtStartDate,
+            OffsetDateTime createdAtEndDate,
+            OffsetDateTime updatedAtStartDate,
+            OffsetDateTime updatedAtEndDate,
+            String accountStatus,
+            BigDecimal minValue,
+            BigDecimal maxValue
+    ) {
+        if (createdAtStartDate != null &&
+                createdAtEndDate != null &&
+                createdAtStartDate.isAfter(createdAtEndDate)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "createdAtStartDate cannot be after createdAtEndDate");
+        }
+        if (updatedAtStartDate != null &&
+                updatedAtEndDate != null &&
+                updatedAtStartDate.isAfter(updatedAtEndDate)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "updatedAtStartDate cannot be after updatedAtEndDate");
+        }
+        if (accountStatus != null) {
+            try {
+                AccountStatus.valueOf(accountStatus);
+            } catch (IllegalArgumentException e) {
+                String acceptableValues = String.join(", ", Arrays.stream(AccountStatus.values())
+                    .map(Enum::name)
+                    .toList());
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "accountStatus invalid. Acceptable values are: " + acceptableValues);
+            }
+        }
+        if (minValue != null && minValue.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "minValue can't be negative");
+        }
+        if (maxValue != null && maxValue.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "maxValue can't be negative");
+        }
+        if (minValue != null && maxValue != null && minValue.compareTo(maxValue) > 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "minValue can't be larger than maxValue");
+        }
+    }
+
     public List<Account> findAllByAccountNumberIn(List<String> accountNumberList) {
         return accountRepository.findAllByAccountNumberIn(accountNumberList);
     }
 
-    public Page<AccountResponseDTO> findAll(int page, int size, String sort, String status, BigDecimal minValue, BigDecimal maxValue) {
-         // Split the sort parameter into field and direction
-        //TODO do verification of parameters
-            // minValue and maxValue should be non-negative
-            // status should be a valid AccountStatus
-            // sort should be in the format "field,direction" where direction is optional and defaults to "asc"
+    public Page<AccountResponseDTO> findByFilters(
+            int page,
+            int size,
+            String sort,
+            OffsetDateTime createdAtStartDate,
+            OffsetDateTime createdAtEndDate,
+            OffsetDateTime updatedAtStartDate,
+            OffsetDateTime updatedAtEndDate,
+            String accountStatus,
+            BigDecimal minValue,
+            BigDecimal maxValue) {
+        PaginationUtils.validatePaginationParams(page, size, sort, ALLOWED_SORT_FIELDS);
+        validateFindAllOptionalParams(
+                createdAtStartDate,
+                createdAtEndDate,
+                updatedAtStartDate,
+                updatedAtEndDate,
+                accountStatus,
+                minValue,
+                maxValue
+        );
 
-        String[] sortParts = sort.split(",");
-        String sortField = sortParts[0];
-        Sort.Direction sortDirection = sortParts.length > 1 && sortParts[1].equalsIgnoreCase("desc") 
-            ? Sort.Direction.DESC 
-            : Sort.Direction.ASC;
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortField));
+        Pageable pageable = PaginationUtils.generatePagable(page, size, sort);
 
         Specification<Account> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (status != null) {
-                predicates.add(criteriaBuilder.equal(root.get("status"), AccountStatus.valueOf(status)));
+            if (accountStatus != null) {
+                predicates.add(criteriaBuilder.equal(root.get("status"), AccountStatus.valueOf(accountStatus)));
             }
             if (minValue != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("balance"), minValue));
@@ -162,7 +221,8 @@ public class AccountService {
         if(dto.transactionPassword() != null) {
             account.setTransactionPassword(dto.transactionPassword());
         }
-        
+
+        account.setUpdatedAt(OffsetDateTime.now());
         return toDto(accountRepository.save(account));
     }
 
@@ -236,7 +296,9 @@ public class AccountService {
             account.getUser().getUserProfile().getEmail(),
             account.getBalance(),
             account.getStatus(),
-            account.getAccountNumber()
+            account.getAccountNumber(),
+            account.getCreatedAt(),
+            account.getUpdatedAt()
         );
     }
 

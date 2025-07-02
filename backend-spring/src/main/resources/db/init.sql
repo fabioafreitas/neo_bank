@@ -46,7 +46,9 @@ CREATE TABLE IF NOT EXISTS accounts (
     balance DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
     account_number TEXT NOT NULL UNIQUE,
     transaction_password TEXT NOT NULL,
-    status TEXT NOT NULL CHECK (status IN ('ACTIVE', 'SUSPENDED', 'DEACTIVATED'))
+    status TEXT NOT NULL CHECK (status IN ('ACTIVE', 'SUSPENDED', 'DEACTIVATED')),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS account_budget_allocations (

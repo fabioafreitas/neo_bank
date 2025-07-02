@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.example.backend_spring.domain.accounts.utils.AccountStatus;
@@ -46,11 +47,21 @@ public class Account {
     @Column(name = "status", columnDefinition = "TEXT")
     private AccountStatus status;
 
+    @Column(name = "created_at", nullable = false)
+    private OffsetDateTime createdAt;
+
+    @Setter
+    @Column(name = "updated_at", nullable = false)
+    private OffsetDateTime updatedAt;
+
     public Account(User user, BigDecimal balance, AccountStatus status, String accountNumber, String transactionPassword) {
         this.user = user;
         this.balance = balance;
         this.status = status;
         this.accountNumber = accountNumber;
         this.transactionPassword = transactionPassword;
+        OffsetDateTime now = OffsetDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 }

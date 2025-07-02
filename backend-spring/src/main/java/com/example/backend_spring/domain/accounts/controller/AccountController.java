@@ -1,6 +1,7 @@
 package com.example.backend_spring.domain.accounts.controller;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,10 +32,25 @@ public class AccountController {
             @RequestParam int page,
             @RequestParam int size,
             @RequestParam String sort,
-            @RequestParam(required = false) String status,
+            @RequestParam(required = false) OffsetDateTime createdAtStartDate,
+            @RequestParam(required = false) OffsetDateTime createdAtEndDate,
+            @RequestParam(required = false) OffsetDateTime updatedAtStartDate,
+            @RequestParam(required = false) OffsetDateTime updatedAtEndDate,
+            @RequestParam(required = false) String accountStatus,
             @RequestParam(required = false) BigDecimal minValue,
             @RequestParam(required = false) BigDecimal maxValue) {
-        return ResponseEntity.ok(accountService.findAll(page, size, sort, status, minValue, maxValue));
+        return ResponseEntity.ok(accountService.findByFilters(
+                page,
+                size,
+                sort,
+                createdAtStartDate,
+                createdAtEndDate,
+                updatedAtStartDate,
+                updatedAtEndDate,
+                accountStatus,
+                minValue,
+                maxValue
+        ));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
