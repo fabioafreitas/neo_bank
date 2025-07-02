@@ -1,5 +1,6 @@
 package com.example.backend_spring.domain.accounts.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,4 +14,5 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, JpaSpec
     Optional<Account> findByAccountNumber(String accountNumber);
     Optional<Account> findByUser(User user);
     boolean existsByAccountNumber(String accountNumber);
+    List<Account> findAllByAccountNumberIn(List<String> accountNumberList);
 }

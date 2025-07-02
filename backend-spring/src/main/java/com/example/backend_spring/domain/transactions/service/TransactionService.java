@@ -13,7 +13,12 @@ import com.example.backend_spring.domain.transactions.utils.TransactionOperation
 import com.example.backend_spring.domain.transactions.utils.TransactionStatus;
 import com.example.backend_spring.domain.users.utils.UserRole;
 import com.example.backend_spring.security.encoder.PepperPasswordEncoder;
+import com.example.backend_spring.utils.PaginationUtils;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,12 +29,13 @@ import com.example.backend_spring.domain.transactions.model.Transaction;
 import com.example.backend_spring.domain.transactions.repository.TransactionRepository;
 import com.example.backend_spring.domain.users.model.User;
 import com.example.backend_spring.security.jwt.JwtTokenProviderService;
-import org.springframework.web.servlet.HandlerMapping;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -54,21 +60,155 @@ public class TransactionService {
     @Autowired
 	private TransferTransactionRepository transferTransactionRepository;
 
-    public List<TransactionResponseDTO> findAll() {
-        List<TransactionResponseDTO> transactions;
+	private final List<String> ALLOWED_SORT_FIELDS = Arrays.asList(
+			"id",
+			"transactionNumber",
+			"operationType",
+			"description",
+			"status",
+			"amount",
+			"createdAt"
+	);
 
-        User currentUser = jwtTokenProviderService.getContextUser();
-        
-        if (currentUser.isAdmin()) {
-            transactions = transactionRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
-        } else {
-            Account currentUserAccount = accountService.findAccountByUser(currentUser);
-            transactions = transactionRepository.findByAccount(currentUserAccount)
-                .stream().map(this::toDto).collect(Collectors.toList());
-        }
+	private void validateFindAllOptionalParams(
+			String accountNumbers,
+			OffsetDateTime startDate,
+			OffsetDateTime endDate,
+			String operationTypes,
+			String status,
+			BigDecimal minValue,
+			BigDecimal maxValue
+	) {
+		if (accountNumbers != null && !accountNumbers.isEmpty()) {
+			List<String> accountNumberList = List.of(accountNumbers.split(","));
+			for (String accNum : accountNumberList) {
+				if (accNum.isBlank()) {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account number Page");
+				}
+			}
+			List<String> foundAccounts = accountService.findAllByAccountNumberIn(accountNumberList)
+					.stream().map(Account::getAccountNumber).toList();
+			if (foundAccounts.size() != accountNumberList.size()) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "One or more accountNumbers invalids");
+			}
+		}
+		if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "startDate can't be after endDate");
+		}
+		if (operationTypes != null) {
+			try {
+				TransactionOperationType.valueOf(operationTypes);
+			} catch (IllegalArgumentException e) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "operationTypes invalid");
+			}
+		}
+		if (status != null) {
+			try {
+				TransactionStatus.valueOf(status);
+			} catch (IllegalArgumentException e) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "status Page");
+			}
+		}
+		if (minValue != null && minValue.compareTo(BigDecimal.ZERO) < 0) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "minValue can't be negative");
+		}
+		if (maxValue != null && maxValue.compareTo(BigDecimal.ZERO) < 0) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "maxValue can't be negative");
+		}
+		if (minValue != null && maxValue != null && minValue.compareTo(maxValue) > 0) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "minValue can't be larger than maxValue");
+		}
+	}
 
-        return transactions;
+    public Page<TransactionResponseDTO> findByFilters(
+			int page,
+			int size,
+			String sort,
+			String accountNumbers,
+			OffsetDateTime startDate,
+			OffsetDateTime endDate,
+			String operationTypes,
+			String status,
+			BigDecimal minValue,
+			BigDecimal maxValue) {
+
+		PaginationUtils.validatePaginationParams(page, size, sort, ALLOWED_SORT_FIELDS);
+		validateFindAllOptionalParams(
+				accountNumbers,
+				startDate,
+				endDate,
+				operationTypes,
+				status,
+				minValue,
+				maxValue
+		);
+
+		Pageable pageable = PaginationUtils.generatePagable(page, size, sort);
+
+		Specification<Transaction> specification = (root, query, criteriaBuilder) -> {
+			List<Predicate> predicates = new ArrayList<>();
+
+			if (accountNumbers != null && !accountNumbers.isEmpty()) {
+				List<String> accountNumberList = List.of(accountNumbers.split(","));
+				predicates.add(root.get("account").get("accountNumber").in(accountNumberList));
+			}
+			if (startDate != null) {
+				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("createdAt"), startDate));
+			}
+			if (endDate != null) {
+				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("createdAt"), endDate));
+			}
+			if (operationTypes != null) {
+				predicates.add(criteriaBuilder.equal(root.get("operationType"), TransactionOperationType.valueOf(operationTypes)));
+			}
+			if (status != null) {
+				predicates.add(criteriaBuilder.equal(root.get("status"), TransactionStatus.valueOf(status)));
+			}
+			if (minValue != null) {
+				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("amount"), minValue));
+			}
+			if (maxValue != null) {
+				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("amount"), maxValue));
+			}
+
+			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+		};
+
+        return transactionRepository.findAll(specification, pageable).map(this::toDto);
     }
+
+	public Page<TransactionResponseDTO> findByFiltersAndContextUser(
+			int page,
+			int size,
+			String sort,
+			OffsetDateTime startDate,
+			OffsetDateTime endDate,
+			String operationTypes,
+			String status,
+			BigDecimal minValue,
+			BigDecimal maxValue
+	) {
+		User currentUser = jwtTokenProviderService.getContextUser();
+		if (currentUser.getRole() != UserRole.CLIENT) {
+			throw new ResponseStatusException(
+					HttpStatus.FORBIDDEN, "Only clients can view their transactions"
+			);
+		}
+		Account contextAccount = accountService.findAccountByUser(currentUser);
+		String accountNumber = contextAccount.getAccountNumber();
+		return this.findByFilters(
+				page,
+				size,
+				sort,
+				accountNumber,
+				startDate,
+				endDate,
+				operationTypes,
+				status,
+				minValue,
+				maxValue
+		);
+	}
 
     public TransactionResponseDTO findByTransactionNumber(UUID transactionNumber) {
         User currentUser = jwtTokenProviderService.getContextUser();
@@ -147,7 +287,7 @@ public class TransactionService {
         return account;
     }
 
-    private Account validateDestinationAccount(TransactionRequestDTO dto, TransactionOperationType operationType, String accountNumber) {
+    private Account validateDestinationAccount(String accountNumber) {
         Account account = accountService.findAccountByAccountNumber(accountNumber);
         validateAccountIsActive(account);
         return account;
@@ -222,7 +362,7 @@ public class TransactionService {
         TransactionOperationType destinationOperationType =
                 TransactionOperationType.TRANSFER_CREDIT;
         Account destinationAccount = this.validateDestinationAccount(
-                dto, sourceOperationType, transferDto.transferAccountNumber());
+                transferDto.transferAccountNumber());
 
 
         Transaction sourceTransaction = new Transaction(
@@ -263,23 +403,8 @@ public class TransactionService {
         return this.toTransferDto(sourceTransaction, destinationAccount);
     }
 
-    private Account getClientAccount() {
-        User currentUser = jwtTokenProviderService.getContextUser();;
-        if (currentUser.isAdmin()) {
-            throw new ResponseStatusException(
-                HttpStatus.FORBIDDEN, "Admin cannot create transactions"
-            );
-        }
-        return accountService.findAccountByUser(currentUser);
-    }
-
     private TransactionResponseDTO toDto(Transaction transaction) {
         BudgetCategory budgetCategory = transaction.getBudgetCategory();
-        if (budgetCategory == null) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Budget category not found for transaction"
-            );
-        }
         return new TransactionResponseDTO(
                 transaction.getTransactionNumber(),
                 transaction.getCreatedAt(),
@@ -288,7 +413,7 @@ public class TransactionService {
                 transaction.getDescription(),
                 transaction.getAmount(),
                 transaction.getRejectionMessage(),
-                new BudgetCategoryDTO(
+				budgetCategory == null ? null : new BudgetCategoryDTO(
                         budgetCategory.getName(),
                         budgetCategory.getId()
                 )

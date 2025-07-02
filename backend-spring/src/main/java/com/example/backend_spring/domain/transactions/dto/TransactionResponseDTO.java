@@ -21,6 +21,6 @@ public record TransactionResponseDTO (
 	@NotNull String description,
 	@NotNull BigDecimal amount,
 	String rejectionMessage,
-	@NotNull BudgetCategoryDTO budgetCategory
+	BudgetCategoryDTO budgetCategory
 ) {
 }

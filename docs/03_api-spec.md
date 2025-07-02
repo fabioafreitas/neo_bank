@@ -59,7 +59,7 @@ The ones marked are the implemented methods
 - [X] `POST /api/transactions/operations/depositRequest` → `CLIENT ROLE` Request a money deposit (CREDIT operation). Request will be send to admin.
 - [ ] `POST /api/transactions/operations/purchase` → `CLIENT ROLE` Purchase of a single `merchant_product`. (PURCHASE operation)
 - [X] `POST /api/transactions/operations/transfer` → `CLIENT ROLE` Transfer to another account. Register two transactions, one for source account (TRANSFER_DEBIT) and another for debit account (TRANSFER_CREDIT). Also, adds these transactions relation in `transfer_relation` table.
-- [ ] `GET /api/transactions` → `ADMIN ROLE` List transactions based on combination of any of the filters below. If none provided return all:
+- [x] `GET /api/transactions` → `ADMIN ROLE` List transactions based on combination of any of the filters below. If none provided return all:
 
   - Parameters:
 
@@ -70,7 +70,7 @@ The ones marked are the implemented methods
       - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
 
     - Optional (filters):
-      - `accountNumbers` (list[string]): Filter transactions of a list of account. If not provided, filter all accounts. e.g: [123,234,...,456]
+      - `accountNumbers` (list[string]): Filter transactions of a list of account. If not provided, filter all accounts. e.g: 123,234,...,456
       - `startDate` (datetime): Filter transactions from this date/time (inclusive)
       - `endDate` (datetime): Filter transactions up to this date/time (inclusive)
       - `operationTypes` (string or array): Filter by one or more operation types (e.g. `DEPOSIT`, `WITHDRAW`, `TRANSFER_DEBIT`)
@@ -78,7 +78,7 @@ The ones marked are the implemented methods
       - `minValue` (decimal): Filter transactions with value greater than or equal to this amount
       - `maxValue` (decimal): Filter transactions with value less than or equal to this amount
 
-- [ ] `GET /api/transactions/me` → `CLIENT ROLE` List transactions of current user. Calls `/api/transactions/` giving only related jwt account number at `accountsNumbers` list. All other filters are accepted.
+- [x] `GET /api/transactions/me` → `CLIENT ROLE` List transactions of current user. Calls `/api/transactions/` giving only related jwt account number at `accountsNumbers` list. All other filters are accepted.
 - [ ] `POST /api/transactions/approve/{transactionNumber}` → `ADMIN ROLE` Approves a pending transaction
 - [ ] `POST /api/transactions/reject/{transactionNumber}` → `ADMIN ROLE` Rejects a pending transaction
 

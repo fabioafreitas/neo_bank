@@ -49,12 +49,17 @@ public class AccountService {
     @Autowired
     private AccountBudgetAllocationService accountBudgetAllocationService;
 
-    public List<AccountResponseDTO> findAll() {
-        return accountRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+    public List<Account> findAllByAccountNumberIn(List<String> accountNumberList) {
+        return accountRepository.findAllByAccountNumberIn(accountNumberList);
     }
 
     public Page<AccountResponseDTO> findAll(int page, int size, String sort, String status, BigDecimal minValue, BigDecimal maxValue) {
          // Split the sort parameter into field and direction
+        //TODO do verification of parameters
+            // minValue and maxValue should be non-negative
+            // status should be a valid AccountStatus
+            // sort should be in the format "field,direction" where direction is optional and defaults to "asc"
+
         String[] sortParts = sort.split(",");
         String sortField = sortParts[0];
         Sort.Direction sortDirection = sortParts.length > 1 && sortParts[1].equalsIgnoreCase("desc") 

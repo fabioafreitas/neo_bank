@@ -1,12 +1,17 @@
 package com.example.backend_spring.domain.transactions.controller;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import com.example.backend_spring.domain.transactions.dto.TransactionTransferRequestDTO;
 import com.example.backend_spring.domain.transactions.dto.TransactionTransferResponseDTO;
+import com.example.backend_spring.domain.transactions.utils.TransactionOperationType;
+import com.example.backend_spring.domain.transactions.utils.TransactionStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -54,18 +59,59 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.transfer(dto));
     }
 
-    // TODO: Implement pagination and sorting for the getAll method
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<List<TransactionResponseDTO>> getTransactionsByFilters() {
-        return ResponseEntity.ok(transactionService.findAll());
+    public ResponseEntity<Page<TransactionResponseDTO>> getTransactionsByFilters(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sort,
+            @RequestParam(required = false) String accountNumbers,
+            @RequestParam(required = false) OffsetDateTime startDate,
+            @RequestParam(required = false) OffsetDateTime endDate,
+            @RequestParam(required = false) String operationTypes,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) BigDecimal minValue,
+            @RequestParam(required = false) BigDecimal maxValue
+    ) {
+        return ResponseEntity.ok(transactionService.findByFilters(
+                page,
+                size,
+                sort,
+                accountNumbers,
+                startDate,
+                endDate,
+                operationTypes,
+                status,
+                minValue,
+                maxValue
+        ));
     }
 
     // TODO: implement method, calling getTransactionsByFilters service method
     @PreAuthorize("hasRole('CLIENT')")
     @GetMapping("/me")
-    public ResponseEntity<List<TransactionResponseDTO>> getMeTransactionsByFilters() {
-        return ResponseEntity.ok(transactionService.findAll());
+    public ResponseEntity<Page<TransactionResponseDTO>> getMeTransactionsByFilters(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sort,
+            @RequestParam(required = false) OffsetDateTime startDate,
+            @RequestParam(required = false) OffsetDateTime endDate,
+            @RequestParam(required = false) String operationTypes,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) BigDecimal minValue,
+            @RequestParam(required = false) BigDecimal maxValue
+    ) {
+        return ResponseEntity.ok(transactionService.findByFiltersAndContextUser(
+                page,
+                size,
+                sort,
+                startDate,
+                endDate,
+                operationTypes,
+                status,
+                minValue,
+                maxValue
+        ));
     }
 
     // TODO: review
