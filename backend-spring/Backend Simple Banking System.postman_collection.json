@@ -17,7 +17,7 @@
 							"name": "admins",
 							"item": [
 								{
-									"name": "login admin",
+									"name": "login admin fabio-alves",
 									"event": [
 										{
 											"listen": "test",
@@ -58,7 +58,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"accessUsername\": \"sysadmin\",\r\n    \"accessPassword\": \"dPCd^r8Bry*qiqPkN5bo\"\r\n}",
+											"raw": "{\r\n    \"accessUsername\": \"fabiosysadmin\",\r\n    \"accessPassword\": \"fVPUtl*kUC0g&hBtEy2X\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -562,6 +562,52 @@
 					"name": "register",
 					"item": [
 						{
+							"name": "admins",
+							"item": [
+								{
+									"name": "register admin fabio-alves",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Fábio\",\r\n        \"lastName\":\"Alves\",\r\n        \"email\":\"fbio.alves095@gmail.com\",\r\n        \"accessUsername\": \"fabiosysadmin\",\r\n        \"accessPassword\": \"fVPUtl*kUC0g&hBtEy2X\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/registerAdmin",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"registerAdmin"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "clients",
 							"item": [
 								{
@@ -586,7 +632,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"firstName\":\"Andre\",\r\n    \"lastName\":\"Munhoz\",\r\n    \"email\":\"munhozandre30@gmail.com\",\r\n    \"accessUsername\": \"andremunhoz\",\r\n    \"accessPassword\": \"v37Ws%G!MhV\",\r\n    \"transactionPassword\": \"548269\"\r\n}",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Andre\",\r\n        \"lastName\":\"Munhoz\",\r\n        \"email\":\"munhozandre30@gmail.com\",\r\n        \"accessUsername\": \"andremunhoz\",\r\n        \"accessPassword\": \"v37Ws%G!MhV\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"548269\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -614,7 +660,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"firstName\":\"Andre\",\r\n    \"lastName\":\"Munhoz\",\r\n    \"email\":\"munhozandre30@gmail.com\",\r\n    \"accessUsername\": \"andremunhoz\",\r\n    \"accessPassword\": \"v37Ws%G!MhV\",\r\n    \"transactionPassword\": \"548269\"\r\n}",
+													"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Andre\",\r\n        \"lastName\":\"Munhoz\",\r\n        \"email\":\"munhozandre30@gmail.com\",\r\n        \"accessUsername\": \"andremunhoz\",\r\n        \"accessPassword\": \"v37Ws%G!MhV\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"548269\"\r\n    }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -672,7 +718,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Wed, 02 Jul 2025 14:54:53 GMT"
+													"value": "Wed, 02 Jul 2025 20:15:13 GMT"
 												},
 												{
 													"key": "Keep-Alive",
@@ -684,7 +730,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"account\": {\n        \"ownerFirstName\": \"Andre\",\n        \"ownerLastName\": \"Munhoz\",\n        \"ownerEmail\": \"munhozandre30@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"1184473176\",\n        \"createdAt\": \"2025-07-02T11:54:51.1980989-03:00\",\n        \"updatedAt\": \"2025-07-02T11:54:51.1980989-03:00\"\n    }\n}"
+											"body": "{\n    \"userProfile\": {\n        \"firstName\": \"Andre\",\n        \"lastName\": \"Munhoz\",\n        \"email\": \"munhozandre30@gmail.com\"\n    },\n    \"account\": {\n        \"ownerFirstName\": \"Andre\",\n        \"ownerLastName\": \"Munhoz\",\n        \"ownerEmail\": \"munhozandre30@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"6733329393\",\n        \"createdAt\": \"2025-07-02T17:15:11.2541696-03:00\",\n        \"updatedAt\": \"2025-07-02T17:15:11.2541696-03:00\"\n    }\n}"
 										}
 									]
 								},
@@ -710,7 +756,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"firstName\":\"Petrúcio\",\r\n    \"lastName\":\"Amorim\",\r\n    \"email\":\"amorimpetrucio3@gmail.com\",\r\n    \"accessUsername\": \"petrucioamorim\",\r\n    \"accessPassword\": \"$MgNC53W\",\r\n    \"transactionPassword\": \"986336\"\r\n}",
+											"raw": "{\r\n    \"userInfo\": {    \r\n        \"firstName\":\"Petrúcio\",\r\n        \"lastName\":\"Amorim\",\r\n        \"email\":\"amorimpetrucio3@gmail.com\",\r\n        \"accessUsername\": \"petrucioamorim\",\r\n        \"accessPassword\": \"$MgNC53W\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"986336\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -738,7 +784,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"firstName\":\"Petrúcio\",\r\n    \"lastName\":\"Amorim\",\r\n    \"email\":\"amorimpetrucio3@gmail.com\",\r\n    \"accessUsername\": \"petrucioamorim\",\r\n    \"accessPassword\": \"$MgNC53W\",\r\n    \"transactionPassword\": \"986336\"\r\n}",
+													"raw": "{\r\n    \"userInfo\": {    \r\n        \"firstName\":\"Petrúcio\",\r\n        \"lastName\":\"Amorim\",\r\n        \"email\":\"amorimpetrucio3@gmail.com\",\r\n        \"accessUsername\": \"petrucioamorim\",\r\n        \"accessPassword\": \"$MgNC53W\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"986336\"\r\n    }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -796,7 +842,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Wed, 02 Jul 2025 14:56:53 GMT"
+													"value": "Wed, 02 Jul 2025 20:15:20 GMT"
 												},
 												{
 													"key": "Keep-Alive",
@@ -808,7 +854,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"account\": {\n        \"ownerFirstName\": \"Petrúcio\",\n        \"ownerLastName\": \"Amorim\",\n        \"ownerEmail\": \"amorimpetrucio3@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"3157128317\",\n        \"createdAt\": \"2025-07-02T11:56:51.2876518-03:00\",\n        \"updatedAt\": \"2025-07-02T11:56:51.2876518-03:00\"\n    }\n}"
+											"body": "{\n    \"userProfile\": {\n        \"firstName\": \"Petrúcio\",\n        \"lastName\": \"Amorim\",\n        \"email\": \"amorimpetrucio3@gmail.com\"\n    },\n    \"account\": {\n        \"ownerFirstName\": \"Petrúcio\",\n        \"ownerLastName\": \"Amorim\",\n        \"ownerEmail\": \"amorimpetrucio3@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"3467127189\",\n        \"createdAt\": \"2025-07-02T17:15:18.2778041-03:00\",\n        \"updatedAt\": \"2025-07-02T17:15:18.2778041-03:00\"\n    }\n}"
 										}
 									]
 								},
@@ -834,7 +880,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"firstName\":\"Juliano\",\r\n    \"lastName\":\"Mesquita\",\r\n    \"email\":\"juliano.mesquita1991@gmail.com\",\r\n    \"accessUsername\": \"julianomesquita\",\r\n    \"accessPassword\": \"a1N$MgC56P\",\r\n    \"transactionPassword\": \"102589\"\r\n}",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Juliano\",\r\n        \"lastName\":\"Mesquita\",\r\n        \"email\":\"juliano.mesquita1991@gmail.com\",\r\n        \"accessUsername\": \"julianomesquita\",\r\n        \"accessPassword\": \"a1N$MgC56P\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"102589\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -862,7 +908,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"firstName\":\"Juliano\",\r\n    \"lastName\":\"Mesquita\",\r\n    \"email\":\"juliano.mesquita1991@gmail.com\",\r\n    \"accessUsername\": \"julianomesquita\",\r\n    \"accessPassword\": \"a1N$MgC56P\",\r\n    \"transactionPassword\": \"102589\"\r\n}",
+													"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Juliano\",\r\n        \"lastName\":\"Mesquita\",\r\n        \"email\":\"juliano.mesquita1991@gmail.com\",\r\n        \"accessUsername\": \"julianomesquita\",\r\n        \"accessPassword\": \"a1N$MgC56P\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"102589\"\r\n    }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -920,7 +966,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Wed, 02 Jul 2025 14:57:04 GMT"
+													"value": "Wed, 02 Jul 2025 20:15:31 GMT"
 												},
 												{
 													"key": "Keep-Alive",
@@ -932,7 +978,131 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"account\": {\n        \"ownerFirstName\": \"Juliano\",\n        \"ownerLastName\": \"Mesquita\",\n        \"ownerEmail\": \"juliano.mesquita1991@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"6899564294\",\n        \"createdAt\": \"2025-07-02T11:57:02.5086272-03:00\",\n        \"updatedAt\": \"2025-07-02T11:57:02.5086272-03:00\"\n    }\n}"
+											"body": "{\n    \"userProfile\": {\n        \"firstName\": \"Juliano\",\n        \"lastName\": \"Mesquita\",\n        \"email\": \"juliano.mesquita1991@gmail.com\"\n    },\n    \"account\": {\n        \"ownerFirstName\": \"Juliano\",\n        \"ownerLastName\": \"Mesquita\",\n        \"ownerEmail\": \"juliano.mesquita1991@gmail.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"3435827181\",\n        \"createdAt\": \"2025-07-02T17:15:30.078826-03:00\",\n        \"updatedAt\": \"2025-07-02T17:15:30.078826-03:00\"\n    }\n}"
+										}
+									]
+								},
+								{
+									"name": "register client client-test",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Client\",\r\n        \"lastName\":\"Test\",\r\n        \"email\":\"clienttest2@email.com\",\r\n        \"accessUsername\": \"clienttest2\",\r\n        \"accessPassword\": \"P1N$Mnnnn\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"113518\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/users/auth/registerClient",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"auth",
+												"registerClient"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "register client juliano-mesquita Copy",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Client\",\r\n        \"lastName\":\"Test\",\r\n        \"email\":\"clienttest2@email.com\",\r\n        \"accessUsername\": \"clienttest2\",\r\n        \"accessPassword\": \"P1N$Mnnnn\"\r\n    },\r\n    \"accountInfo\": {\r\n        \"transactionPassword\": \"113518\"\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/users/auth/registerClient",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"auth",
+														"registerClient"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "Expires",
+													"value": "0"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "DENY"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 02 Jul 2025 20:11:30 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"userProfile\": {\n        \"firstName\": \"Client\",\n        \"lastName\": \"Test\",\n        \"email\": \"clienttest2@email.com\"\n    },\n    \"account\": {\n        \"ownerFirstName\": \"Client\",\n        \"ownerLastName\": \"Test\",\n        \"ownerEmail\": \"clienttest2@email.com\",\n        \"balance\": 0,\n        \"status\": \"ACTIVE\",\n        \"accountNumber\": \"5612182096\",\n        \"createdAt\": \"2025-07-02T17:11:28.5591189-03:00\",\n        \"updatedAt\": \"2025-07-02T17:11:28.5591189-03:00\"\n    }\n}"
 										}
 									]
 								}
@@ -963,7 +1133,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"firstName\":\"Eletro\",\r\n    \"lastName\":\"Topps\",\r\n    \"email\":\"eletro.topps@fabioafreitas.site\",\r\n    \"accessUsername\": \"eletrotopps\",\r\n    \"accessPassword\": \"cSO93#E#XgE\"\r\n}",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Eletro\",\r\n        \"lastName\":\"Topps\",\r\n        \"email\":\"eletro.topps@fabioafreitas.site\",\r\n        \"accessUsername\": \"eletrotopps\",\r\n        \"accessPassword\": \"cSO93#E#XgE\"\r\n    },\r\n    \"merchantInfo\": {\r\n        \"storeName\":\"EletroTopps\",\r\n        \"description\":\"Loja topada de eletrodomésticos e eletrônicos\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1007,7 +1177,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"firstName\":\"Roupas\",\r\n    \"lastName\":\"Toritama\",\r\n    \"email\":\"roupas.toritama@fabioafreitas.site\",\r\n    \"accessUsername\": \"roupastoritama\",\r\n    \"accessPassword\": \"Gt%8Pw#HW6j\"\r\n}",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Roupas\",\r\n        \"lastName\":\"Toritama\",\r\n        \"email\":\"roupas.toritama@fabioafreitas.site\",\r\n        \"accessUsername\": \"roupastoritama\",\r\n        \"accessPassword\": \"Gt%8Pw#HW6j\"\r\n    },\r\n    \"merchantInfo\": {\r\n        \"storeName\":\"RoupasToritama\",\r\n        \"description\":\"Loja de roupas, direto de toritama e santa cruz do capibaribe\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1051,7 +1221,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"firstName\":\"Jewelry\",\r\n    \"lastName\":\"Beauty\",\r\n    \"email\":\"jewelry.beauty@fabioafreitas.site\",\r\n    \"accessUsername\": \"jewelrybeauty\",\r\n    \"accessPassword\": \"1xWKoPn4^7&\"\r\n}",
+											"raw": "{\r\n    \"userInfo\": {\r\n        \"firstName\":\"Jewelry\",\r\n        \"lastName\":\"Beauty\",\r\n        \"email\":\"jewelry.beauty@fabioafreitas.site\",\r\n        \"accessUsername\": \"jewelrybeauty\",\r\n        \"accessPassword\": \"1xWKoPn4^7&\"\r\n    },\r\n    \"merchantInfo\": {\r\n        \"storeName\":\"JewelryBeauty\",\r\n        \"description\":\"Boutique de artigos de beleza e joias\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"

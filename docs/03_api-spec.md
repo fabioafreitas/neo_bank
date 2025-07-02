@@ -8,6 +8,7 @@ The ones marked are the implemented methods
 
 - [x] `POST /api/users/auth/registerClient` → Register new client
 - [x] `POST /api/users/auth/registerMerchant` → Register new merchant
+- [x] `POST /api/users/auth/registerAdmin` → `ADMIN ROLE` Register new admin
 - [x] `POST /api/users/auth/login` → Authenticate user and return JWT
 - [x] `POST /api/users/auth/remindUsername` → Receives e-mail and sends username associated to given address if exists in it exists
 - [x] `POST /api/users/auth/requestAccessPasswordReset` → Records a access password reset request in DB
@@ -79,8 +80,8 @@ The ones marked are the implemented methods
       - `maxValue` (decimal): Filter transactions with value less than or equal to this amount
 
 - [x] `GET /api/transactions/me` → `CLIENT ROLE` List transactions of current user. Calls `/api/transactions/` giving only related jwt account number at `accountsNumbers` list. All other filters are accepted.
-- [ ] `POST /api/transactions/approve/{transactionNumber}` → `ADMIN ROLE` Approves a pending transaction
-- [ ] `POST /api/transactions/reject/{transactionNumber}` → `ADMIN ROLE` Rejects a pending transaction
+- [x] `POST /api/transactions/approve/{transactionNumber}` → `ADMIN ROLE` Approves a pending transaction
+- [x] `POST /api/transactions/reject/{transactionNumber}` → `ADMIN ROLE` Rejects a pending transaction
 
 ## Merchants
 
