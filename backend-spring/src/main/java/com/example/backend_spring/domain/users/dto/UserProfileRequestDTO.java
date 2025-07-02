@@ -28,8 +28,8 @@ public record UserProfileRequestDTO(
     String country,
 
     @Pattern(
-        regexp = "^(http|https)://.*\\.(png|jpg|jpeg|webp|gif)$",
-        message = "URL da foto de perfil deve ser uma URL válida para imagem"
+            regexp = "^(http|https)://.*\\.(png|jpg|jpeg|webp|gif)(\\?.*)?$",
+            message = "URL da foto de perfil deve ser uma URL válida para imagem"
     )
     String profilePictureUrl
 ) {
