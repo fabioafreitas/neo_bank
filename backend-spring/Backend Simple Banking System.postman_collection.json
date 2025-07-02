@@ -2760,6 +2760,252 @@
 									"body": "{\n    \"content\": [\n        {\n            \"transactionNumber\": \"4071e2c3-212b-4bd1-9328-7dcab44047b6\",\n            \"createdAt\": \"2025-07-02T15:16:18.335646Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        },\n        {\n            \"transactionNumber\": \"bf3c990c-0f4c-4dba-bfa0-6b8276b84485\",\n            \"createdAt\": \"2025-07-02T15:19:18.399034Z\",\n            \"operationType\": \"DEBIT\",\n            \"status\": \"APPROVED\",\n            \"description\": \"test withdraw\",\n            \"amount\": 1.35,\n            \"budgetCategory\": {\n                \"budgetCategoryName\": \"Alimentação\",\n                \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n            }\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalPages\": 1,\n    \"totalElements\": 2,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"first\": true,\n    \"numberOfElements\": 2,\n    \"empty\": false\n}"
 								}
 							]
+						},
+						{
+							"name": "approve depositRequest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"transactionNumber\": \"19f358d8-bdaa-4a1e-b460-8d4f653e8641\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/approve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"approve"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "depositRequest",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\":1.17,\r\n    \"description\":\"test depositRequest\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/transactions/operations/depositRequest",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"operations",
+												"depositRequest"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 15:19:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transactionNumber\": \"45447fe4-4876-47f7-bc54-7ff9352fd37e\",\n    \"createdAt\": \"2025-07-02T12:19:25.5167192-03:00\",\n    \"operationType\": \"CREDIT\",\n    \"status\": \"PENDING\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.17,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "reject depositRequest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"transactionNumber\": \"45447fe4-4876-47f7-bc54-7ff9352fd37e\",\r\n    \"rejectionMessage\":\"possível fraude\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/transactions/reject",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transactions",
+										"reject"
+									]
+								},
+								"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+							},
+							"response": [
+								{
+									"name": "depositRequest",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\":1.17,\r\n    \"description\":\"test depositRequest\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/transactions/operations/depositRequest",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"transactions",
+												"operations",
+												"depositRequest"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 15:19:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"transactionNumber\": \"45447fe4-4876-47f7-bc54-7ff9352fd37e\",\n    \"createdAt\": \"2025-07-02T12:19:25.5167192-03:00\",\n    \"operationType\": \"CREDIT\",\n    \"status\": \"PENDING\",\n    \"description\": \"test depositRequest\",\n    \"amount\": 1.17,\n    \"budgetCategory\": {\n        \"budgetCategoryName\": \"Alimentação\",\n        \"budgetCategoryId\": \"54b9e0b0-63b8-444d-9bda-81a350130473\"\n    }\n}"
+								}
+							]
 						}
 					]
 				},
