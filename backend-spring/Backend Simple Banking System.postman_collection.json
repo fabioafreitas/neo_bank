@@ -2782,7 +2782,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"transactionNumber\": \"19f358d8-bdaa-4a1e-b460-8d4f653e8641\"\r\n}",
+									"raw": "{\r\n    \"transactionNumber\": \"e1d483f7-be93-4601-89ac-6fc81a3a96ce\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2905,7 +2905,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"transactionNumber\": \"45447fe4-4876-47f7-bc54-7ff9352fd37e\",\r\n    \"rejectionMessage\":\"possível fraude\"\r\n}",
+									"raw": "{\r\n    \"transactionNumber\": \"c983d964-4d32-400e-b56b-a8d1832d392a\",\r\n    \"rejectionMessage\":\"possível fraude\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
