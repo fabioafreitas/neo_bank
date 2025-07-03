@@ -1856,7 +1856,7 @@
 			"name": "accounts",
 			"item": [
 				{
-					"name": "user",
+					"name": "client",
 					"item": [
 						{
 							"name": "get my account info",
@@ -2149,7 +2149,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"allocations\": [\r\n        {\r\n            \"budgetCategoryName\": \"Alimentação\",\r\n            \"budgetCategoryId\": \"c8ca0e9e-d96a-4892-8950-538eb3770c20\",\r\n            \"allocationValue\": 100\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Saúde\",\r\n            \"budgetCategoryId\": \"2f244527-dae9-45d6-86b3-08d1fdc10c8f\",\r\n            \"allocationValue\": 200\r\n        },\r\n        {\r\n            \"budgetCategoryName\": \"Educação\",\r\n            \"budgetCategoryId\": \"39bd8db9-9ac4-44aa-8661-fc5de6e5112b\",\r\n            \"allocationValue\": 150\r\n        }\r\n    ]\r\n}",
+									"raw": "[\r\n    {\r\n        \"budgetCategoryName\": \"Alimentação\",\r\n        \"budgetCategoryId\": \"30757145-19d2-4b3c-9e50-e15289729b23\",\r\n        \"allocationValue\": 500.00\r\n    },\r\n    {\r\n        \"budgetCategoryName\": \"Saúde\",\r\n        \"budgetCategoryId\": \"97b58cb7-e908-410f-a030-e16c4fb3a780\",\r\n        \"allocationValue\": 400.00\r\n    },\r\n    {\r\n        \"budgetCategoryName\": \"Educação\",\r\n        \"budgetCategoryId\": \"f7506c4c-4ad4-4d9d-8086-0306e75b78c4\",\r\n        \"allocationValue\": 200.00\r\n    }\r\n]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2952,7 +2952,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"transactionNumber\": \"e1d483f7-be93-4601-89ac-6fc81a3a96ce\"\r\n}",
+									"raw": "{\r\n    \"transactionNumber\": \"4e5108b0-69a7-4a73-8674-c6aeca4e5af8\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3203,7 +3203,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"amount\":1.17,\r\n    \"description\":\"test depositRequest\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+									"raw": "{\r\n    \"amount\":500,\r\n    \"description\":\"test depositRequest\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"30757145-19d2-4b3c-9e50-e15289729b23\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3327,7 +3327,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n}",
+									"raw": "{\r\n    \"amount\":1.35,\r\n    \"description\":\"test withdraw\",\r\n    \"transactionPassword\": \"548269\",\r\n    \"budgetCategoryId\":\"30757145-19d2-4b3c-9e50-e15289729b23\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3451,7 +3451,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":1.02,\r\n        \"description\":\"test depositRequest\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"54b9e0b0-63b8-444d-9bda-81a350130473\"\r\n    },\r\n    \"transferAccountNumber\":\"3157128317\"\r\n}",
+									"raw": "{\r\n    \"sourceTransaction\": {\r\n        \"amount\":35.25,\r\n        \"description\":\"test transfer\",\r\n        \"transactionPassword\": \"548269\",\r\n        \"budgetCategoryId\":\"30757145-19d2-4b3c-9e50-e15289729b23\"\r\n    },\r\n    \"transferAccountNumber\":\"4214931725\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3627,7 +3627,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc&accountNumbers=6899564294,3157128317,1184473176&startDate=2025-01-01T00:00:00Z&endDate=2025-12-31T00:00:00Z&operationType=DEBIT&transactionStatus=APPROVED&minValue=0&maxValue=100",
+									"raw": "{{base_url}}/api/transactions/me?page=0&size=10&sort=amount,asc&startDate=2025-01-01T00:00:00Z&endDate=2025-12-31T00:00:00Z&operationType=DEBIT&transactionStatus=APPROVED&minValue=0&maxValue=100",
 									"host": [
 										"{{base_url}}"
 									],
@@ -3648,10 +3648,6 @@
 										{
 											"key": "sort",
 											"value": "amount,asc"
-										},
-										{
-											"key": "accountNumbers",
-											"value": "6899564294,3157128317,1184473176"
 										},
 										{
 											"key": "startDate",
@@ -3905,7 +3901,395 @@
 		},
 		{
 			"name": "merchants",
-			"item": []
+			"item": [
+				{
+					"name": "merchant",
+					"item": [
+						{
+							"name": "get my merchant info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/merchants/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"merchants",
+										"me"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/merchants/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"merchants",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 22:38:50 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"storeName\": \"EletroTopps\",\n    \"description\": \"Loja topada de eletrodomésticos e eletrônicos\"\n}"
+								}
+							]
+						},
+						{
+							"name": "update my merchant info",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"storeName\":\"Eletro Topps\",\r\n    \"description\":\"Loja topada de eletrodomésticos e eletrônicos!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/merchants/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"merchants",
+										"me"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "get my merchant info Copy",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"storeName\":\"Eletro Topps\",\r\n    \"description\":\"Loja topada de eletrodomésticos e eletrônicos!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/merchants/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"merchants",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 22:40:30 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"storeName\": \"Eletro Topps\",\n    \"description\": \"Loja topada de eletrodomésticos e eletrônicos!\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get all merchants",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/merchants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"merchants"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/merchants/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"merchants",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 22:38:50 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"storeName\": \"EletroTopps\",\n    \"description\": \"Loja topada de eletrodomésticos e eletrônicos\"\n}"
+								}
+							]
+						},
+						{
+							"name": "get merchant by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/merchants/52da93d4-6be9-46fe-8fbb-ae97599da9eb",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"merchants",
+										"52da93d4-6be9-46fe-8fbb-ae97599da9eb"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/merchants/me",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"merchants",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 02 Jul 2025 22:38:50 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"storeName\": \"EletroTopps\",\n    \"description\": \"Loja topada de eletrodomésticos e eletrônicos\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "client",
+					"item": []
+				}
+			]
 		}
 	],
 	"auth": {

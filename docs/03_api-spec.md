@@ -100,6 +100,7 @@ The ones marked are the implemented methods
 - [ ] `PUT /api/merchants/me/products/{productId}` → `MERCHANT ROLE` Update product
 - [ ] `DELETE /api/merchants/me/products/{productId}` → `MERCHANT ROLE` Delete product
 - [ ] `GET /api/merchants/{merchantId}/products` → `ADMIN ROLE` Get merchant's products by merchant ID
+- [ ] `GET /api/merchants/{merchantId}/products/{productId}` → `ADMIN ROLE` Browser merchant's products by merchant ID
 
 ## Marketplace
 
@@ -113,9 +114,14 @@ The ones marked are the implemented methods
       - `size` (integer): Number of items per page
       - `sort` (string): Sorting field and direction, e.g. `name,asc` or `price,desc`
     - Optional (filters):
-      - `merchantId` (UUID): Filter by specific merchant
-      - `minPrice` (decimal): Minimum price filter
-      - `maxPrice` (decimal): Maximum price filter
+      - `merchantIds` (String): Filter by list of merchantIds e.g. 123,123,123
+      - `productCategoryIds` (String): Filter by list of merchantIds e.g. 123,123,123
+      - `minOriginalPrice` (decimal): Minimum original price filter
+      - `maxOriginalPrice` (decimal): Maximum original price filter
+      - `minCashbackRate` (decimal): Minimum cashback rate filter (decimal value between 0 and 1)
+      - `maxCashbackRate` (decimal): Maximum cashback rate filter (decimal value between 0 and 1)
+      - `minDiscountRate` (decimal): Minimum discount rate filter (decimal value between 0 and 1)
+      - `maxDiscountRate` (decimal): Maximum discount rate filter (decimal value between 0 and 1)
       - `search` (string): Search in product name/description
 
 - [ ] `GET /api/marketplace/products/{productId}` → `CLIENT ROLE` Get specific product details
