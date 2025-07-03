@@ -38,11 +38,11 @@ CREATE TABLE IF NOT EXISTS budget_categories (
     name TEXT NOT NULL UNIQUE
 );
 
--- FK (null and without on delete cascade) is on porpose
+-- FK (null and without on delete cascade) is on porpouse
 -- to allow deletion of users without deleting accounts 
 CREATE TABLE IF NOT EXISTS accounts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id),
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE SET NULL,
     balance DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
     account_number TEXT NOT NULL UNIQUE,
     transaction_password TEXT NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS accounts (
 CREATE TABLE IF NOT EXISTS account_budget_allocations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     account_id UUID NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
-    budget_category_id UUID NOT NULL REFERENCES budget_categories(id),
+    budget_category_id UUID NOT NULL REFERENCES budget_categories(id) ON DELETE RESTRICT,
     allocation_value DECIMAL(15, 2) NOT NULL CHECK (allocation_value >= 0),
     UNIQUE (account_id, budget_category_id) -- Ensure unique allocation per account and category
 );
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     transaction_number UUID NOT NULL DEFAULT gen_random_uuid() UNIQUE,
     account_id UUID NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
-    budget_category_id UUID REFERENCES budget_categories(id),
+    budget_category_id UUID REFERENCES budget_categories(id) ON DELETE RESTRICT,
     operation_type TEXT NOT NULL CHECK (
         operation_type IN (
             'TRANSFER_DEBIT', 'TRANSFER_CREDIT', 
@@ -101,31 +101,41 @@ CREATE TABLE IF NOT EXISTS transaction_requests (
 
 CREATE TABLE IF NOT EXISTS merchants (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id) UNIQUE ON DELETE CASCADE,
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE CASCADE,
     store_name TEXT NOT NULL,
     description TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS product_categories (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS merchant_products (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     merchant_id UUID NOT NULL REFERENCES merchants(id) ON DELETE CASCADE,
-    name TEXT NOT NULL,
-    description TEXT NOT NULL,
+    product_category_id UUID NOT NULL REFERENCES product_categories(id) ON DELETE RESTRICT,
     original_price DECIMAL(15, 2) NOT NULL,
     cashback_rate DECIMAL(5, 4) NOT NULL DEFAULT 0 CHECK (
         cashback_rate >= 0 AND cashback_rate <= 1),
     discount_rate DECIMAL(5, 4) NOT NULL DEFAULT 0 CHECK (
         discount_rate >= 0 AND discount_rate <= 1),
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
     image_urls TEXT[] NOT NULL, -- array of URLs
     features JSONB NOT NULL -- key/value + description
 );
 
-
+-- copy info of merchant_products
+-- since merchant_products can be deleted and I need
+-- to display the purchased products regardless
 CREATE TABLE IF NOT EXISTS purchased_products (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE,
-    merchant_product_id UUID NOT NULL REFERENCES merchant_products(id) ON DELETE CASCADE,
+    merchant_product_id UUID REFERENCES merchant_products(id) ON DELETE SET NULL,
+    product_category_id UUID NOT NULL REFERENCES product_categories(id) ON DELETE RESTRICT,
+    name TEXT NOT NULL,
     purchased_price DECIMAL(15, 2) NOT NULL,
     received_cashback_rate DECIMAL(5, 4) NOT NULL DEFAULT 0 CHECK
         (received_cashback_rate >= 0 AND received_cashback_rate <= 1),
@@ -140,17 +150,21 @@ CREATE TABLE IF NOT EXISTS purchased_products (
 --              Indexes               --
 ----------------------------------------
 
-CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
-CREATE INDEX IF NOT EXISTS idx_accounts_user_id ON accounts(user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_accounts_user_id ON accounts(user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_merchants_user_id ON merchants(user_id);
+
 CREATE INDEX IF NOT EXISTS idx_transactions_account_id ON transactions(account_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_budget_category_id ON transactions(budget_category_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_status ON transactions(status);
 CREATE INDEX IF NOT EXISTS idx_allocations_account_id ON account_budget_allocations(account_id);
 CREATE INDEX IF NOT EXISTS idx_allocations_budget_category_id ON account_budget_allocations(budget_category_id);
 CREATE INDEX IF NOT EXISTS idx_merchant_products_merchant_id ON merchant_products(merchant_id);
+CREATE INDEX IF NOT EXISTS idx_merchant_products_category_id ON merchant_products(product_category_id);
+CREATE INDEX IF NOT EXISTS idx_merchant_products_name ON merchant_products(name);
 CREATE INDEX IF NOT EXISTS idx_purchased_products_transaction_id ON purchased_products(transaction_id);
 CREATE INDEX IF NOT EXISTS idx_purchased_products_merchant_product_id ON purchased_products(merchant_product_id);
-
+CREATE INDEX IF NOT EXISTS idx_password_reset_user_id ON password_reset_requests(user_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_created_at ON transactions(created_at);
 
 
 
@@ -166,22 +180,22 @@ CREATE VIEW pending_transactions AS SELECT * FROM transactions WHERE status = 'P
 
 -- Budget Category Summary per Account
 -- TODO test view
-CREATE VIEW account_budget_category_summary AS
+CREATE OR REPLACE VIEW account_budget_category_summary AS
 SELECT
     a.id AS account_id,
     bc.id AS budget_category_id,
     bc.name AS budget_category_name,
-    SUM(CASE WHEN t.amount < 0 THEN t.amount ELSE 0 END) AS total_spent,
-    SUM(CASE WHEN t.amount > 0 THEN t.amount ELSE 0 END) AS total_received,
+    COALESCE(SUM(CASE WHEN t.amount < 0 THEN t.amount ELSE 0 END), 0) AS total_spent,
+    COALESCE(SUM(CASE WHEN t.amount > 0 THEN t.amount ELSE 0 END), 0) AS total_received,
     COUNT(t.id) AS transaction_count
 FROM accounts a
-JOIN transactions t ON t.account_id = a.id
-JOIN budget_categories bc ON t.budget_category_id = bc.id
+         LEFT JOIN transactions t ON t.account_id = a.id
+         LEFT JOIN budget_categories bc ON t.budget_category_id = bc.id
 GROUP BY a.id, bc.id, bc.name;
 
 -- All Budget Allocations and Transactions for an Account
 -- TODO test view
-CREATE VIEW account_budget_overview AS
+CREATE OR REPLACE VIEW account_budget_overview AS
 SELECT
     a.id AS account_id,
     bc.id AS budget_category_id,
@@ -189,21 +203,21 @@ SELECT
     aba.allocation_value,
     COALESCE(SUM(t.amount), 0) AS total_transactions
 FROM accounts a
-JOIN account_budget_allocations aba ON aba.account_id = a.id
-JOIN budget_categories bc ON aba.budget_category_id = bc.id
-LEFT JOIN transactions t ON t.account_id = a.id AND t.budget_category_id = bc.id
+         JOIN account_budget_allocations aba ON aba.account_id = a.id
+         JOIN budget_categories bc ON aba.budget_category_id = bc.id
+         LEFT JOIN transactions t ON t.account_id = a.id AND t.budget_category_id = bc.id
 GROUP BY a.id, bc.id, bc.name, aba.allocation_value;
 
 -- Transaction Summary by Budget Category
 -- TODO test view
-CREATE VIEW budget_category_transaction_summary AS
+CREATE OR REPLACE VIEW budget_category_transaction_summary AS
 SELECT
     bc.id AS budget_category_id,
     bc.name AS budget_category_name,
     COUNT(t.id) AS transaction_count,
-    SUM(t.amount) AS total_amount
+    COALESCE(SUM(t.amount), 0) AS total_amount
 FROM budget_categories bc
-LEFT JOIN transactions t ON t.budget_category_id = bc.id
+         LEFT JOIN transactions t ON t.budget_category_id = bc.id
 GROUP BY bc.id, bc.name;
 
 
@@ -221,6 +235,19 @@ VALUES
     ('Investimentos'),('Dívidas'),('Impostos'),
     ('Doações'), ('Outros');
 
+INSERT INTO product_categories (name)
+VALUES
+    ('Alimentos e Bebidas'),('Higiene Pessoal'),('Limpeza Doméstica'),
+    ('Cuidados com Pets'),('Eletrônicos'),('Eletrodomésticos'),
+    ('Moda Feminina'),('Moda Masculina'),('Moda Infantil'),
+    ('Calçados'),('Acessórios'),('Papelaria'),
+    ('Brinquedos'),('Móveis'),('Decoração'),
+    ('Cama, Mesa e Banho'),('Material de Construção'),('Ferramentas'),
+    ('Autopeças'),('Esporte e Lazer'),('Suplementos e Vitaminas'),
+    ('Informática'),('Celulares e Telefonia'),('Perfumaria'),
+    ('Beleza e Cosméticos'),('Bebês'),('Jardinagem'),
+    ('Livros'),('Instrumentos Musicais'),('Outros');
+
 
 INSERT INTO public.users
 (id, username, "password", "role")
@@ -233,4 +260,6 @@ VALUES
 INSERT INTO public.user_profile
 (id, first_name, last_name, email, phone, address_line1, address_line2, city, province, postal_code, country, profile_picture_url)
 VALUES
-    ('22fc95c9-7c95-4513-86b9-3e4b004f9657'::uuid, 'Fábio', 'Alves', 'fbio.alves095@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    ('22fc95c9-7c95-4513-86b9-3e4b004f9657'::uuid, 'Fábio', 'Alves',
+     'fbio.alves095@gmail.com', NULL, NULL, NULL,
+     NULL, NULL, NULL, NULL, NULL);

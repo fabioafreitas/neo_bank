@@ -18,8 +18,8 @@ The ones marked are the implemented methods
 
 ### User Profile
 
-- [x] `GET /api/users/profile/me`
-- [x] `PUT /api/users/profile/me`
+- [x] `GET /api/users/profile/me` → `CLIENT/MERCHANT ROLE` Get current user's account
+- [x] `PUT /api/users/profile/me` → `CLIENT/MERCHANT ROLE` Update current user's account
 
 ## Accounts
 
@@ -37,7 +37,7 @@ The ones marked are the implemented methods
       - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
 
     - Optional (filters):
-      - `status` (string): Filter by transaction status (e.g. `ACTIVE`, `SUSPENDED`, `DEACTIVATED`)
+      - `accountStatus` (string): Filter by one transaction status (e.g. `ACTIVE`, `SUSPENDED`, `DEACTIVATED`)
       - `minValue` (decimal): Filter accounts with balance greater than or equal to this amount
       - `maxValue` (decimal): Filter accounts with balance less than or equal to this amount
 
@@ -74,8 +74,8 @@ The ones marked are the implemented methods
       - `accountNumbers` (list[string]): Filter transactions of a list of account. If not provided, filter all accounts. e.g: 123,234,...,456
       - `startDate` (datetime): Filter transactions from this date/time (inclusive)
       - `endDate` (datetime): Filter transactions up to this date/time (inclusive)
-      - `operationTypes` (string or array): Filter by one or more operation types (e.g. `DEPOSIT`, `WITHDRAW`, `TRANSFER_DEBIT`)
-      - `status` (string): Filter by transaction status (e.g. `PENDING`, `APPROVED`, `REJECTED`)
+      - `operationType` (string or array): Filter by one operation type (e.g. `DEPOSIT`, `WITHDRAW`, `TRANSFER_DEBIT`)
+      - `transactionStatus` (string): Filter by transaction status (e.g. `PENDING`, `APPROVED`, `REJECTED`)
       - `minValue` (decimal): Filter transactions with value greater than or equal to this amount
       - `maxValue` (decimal): Filter transactions with value less than or equal to this amount
 
@@ -87,11 +87,10 @@ The ones marked are the implemented methods
 
 ### Merchant Management
 
-- [ ] `GET /api/merchants/me` → `MERCHANT ROLE` Get current merchant's profile
-- [ ] `PUT /api/merchants/me` → `MERCHANT ROLE` Update current merchant's profile
-- [ ] `GET /api/merchants` → `ADMIN ROLE` List all merchants
-- [ ] `GET /api/merchants/{merchantId}` → `ADMIN ROLE` Get merchant by ID
-- [ ] `DELETE /api/merchants/{merchantId}` → `ADMIN ROLE` Deactivate merchant
+- [x] `GET /api/merchants/me` → `MERCHANT ROLE` Get current merchant table info
+- [x] `PUT /api/merchants/me` → `MERCHANT ROLE` Update current merchant table info
+- [x] `GET /api/merchants` → `ADMIN ROLE` List all merchants
+- [x] `GET /api/merchants/{merchantId}` → `ADMIN ROLE` Get merchant by ID
 
 ### Merchant Product Management
 
@@ -102,9 +101,11 @@ The ones marked are the implemented methods
 - [ ] `DELETE /api/merchants/me/products/{productId}` → `MERCHANT ROLE` Delete product
 - [ ] `GET /api/merchants/{merchantId}/products` → `ADMIN ROLE` Get merchant's products by merchant ID
 
-### Public Product Catalog
+## Marketplace
 
-- [ ] `GET /api/products` → `CLIENT ROLE` Browse all available products (with pagination/filters)
+- [ ] `GET /api/marketplace/merchants` → `CLIENT ROLE` Get all merchants details
+- [ ] `GET /api/marketplace/merchants/{merchantId}` → `CLIENT ROLE` Get specific merchant details
+- [ ] `GET /api/marketplace/products` → `CLIENT ROLE` Browse all available products (with pagination/filters)
 
   - Parameters:
     - Required (pagination):
@@ -117,7 +118,7 @@ The ones marked are the implemented methods
       - `maxPrice` (decimal): Maximum price filter
       - `search` (string): Search in product name/description
 
-- [ ] `GET /api/products/{productId}` → `CLIENT ROLE` Get specific product details
+- [ ] `GET /api/marketplace/products/{productId}` → `CLIENT ROLE` Get specific product details
 
 ## Management
 
