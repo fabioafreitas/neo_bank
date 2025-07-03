@@ -55,6 +55,10 @@ dependencies {
     // Dotenv (.env support)
     implementation("me.paulschwarz:spring-dotenv:3.0.0")
 
+    // Swagger (OpenAPI)
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
+    implementation("org.springdoc:springdoc-openapi-starter-common:2.7.0")
+
     // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.5")
     testImplementation("org.springframework.security:spring-security-test:6.2.3")
