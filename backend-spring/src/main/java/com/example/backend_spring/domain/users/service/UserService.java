@@ -36,34 +36,37 @@ import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private JwtTokenProviderService tokenService;
+    private final JwtTokenProviderService tokenService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
 
-    @Autowired
-    private PasswordResetRequestRepository passwordResetRequestRepository;
+    private final PasswordResetRequestRepository passwordResetRequestRepository;
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    @Autowired
-    private UserProfileService userProfileService;
+    private final UserProfileService userProfileService;
 
-    @Autowired
-    private JwtTokenProviderService tokenProviderService;
+    private final JwtTokenProviderService tokenProviderService;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    @Autowired
-    private PepperPasswordEncoder pepperPasswordEncoder;
-	@Autowired
-	private MerchantService merchantService;
+    private final PepperPasswordEncoder pepperPasswordEncoder;
+	private final MerchantService merchantService;
+
+    public UserService(JwtTokenProviderService tokenService, UserRepository userRepository, UserProfileRepository userProfileRepository, PasswordResetRequestRepository passwordResetRequestRepository, AccountService accountService, UserProfileService userProfileService, JwtTokenProviderService tokenProviderService, EmailService emailService, PepperPasswordEncoder pepperPasswordEncoder, MerchantService merchantService) {
+        this.tokenService = tokenService;
+        this.userRepository = userRepository;
+        this.userProfileRepository = userProfileRepository;
+        this.passwordResetRequestRepository = passwordResetRequestRepository;
+        this.accountService = accountService;
+        this.userProfileService = userProfileService;
+        this.tokenProviderService = tokenProviderService;
+        this.emailService = emailService;
+        this.pepperPasswordEncoder = pepperPasswordEncoder;
+        this.merchantService = merchantService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

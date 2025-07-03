@@ -15,28 +15,30 @@ import com.example.backend_spring.security.jwt.JwtTokenProviderService;
 @Service
 public class UserProfileService {
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
 
-    @Autowired
-    private JwtTokenProviderService jwtTokenProviderService;
+    private final JwtTokenProviderService jwtTokenProviderService;
 
-    public UserProfileResponseDTO getCurrentProfile() {
+    public UserProfileService(UserProfileRepository userProfileRepository, JwtTokenProviderService jwtTokenProviderService) {
+        this.userProfileRepository = userProfileRepository;
+        this.jwtTokenProviderService = jwtTokenProviderService;
+    }
+
+    private UserProfile findCurrentUserProfile() {
         User user = jwtTokenProviderService.getContextUser();
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-        return userProfileRepository.findByUserId(user.getId()).map(this::toDto)
+        return userProfileRepository.findByUserId(user.getId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
     }
 
+    public UserProfileResponseDTO getCurrentProfile() {
+        return this.toDto(this.findCurrentUserProfile());
+    }
+
     public UserProfileResponseDTO updateCurrentProfile(UserProfileRequestDTO dto) {
-        User user = jwtTokenProviderService.getContextUser();
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        UserProfile profile = userProfileRepository.findByUserId(user.getId())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
+        UserProfile profile = this.findCurrentUserProfile();
 
         // Update fields only if they are not null
         // firstName is not allowed to be changed

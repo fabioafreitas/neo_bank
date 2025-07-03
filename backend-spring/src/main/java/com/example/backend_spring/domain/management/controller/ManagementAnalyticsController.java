@@ -13,8 +13,11 @@ import com.example.backend_spring.domain.management.service.ManagementAnalyticsS
 @RequestMapping("/api/management/analytics")
 public class ManagementAnalyticsController {
 
-    @Autowired
-    private ManagementAnalyticsService managementAnalyticsService;
+    private final ManagementAnalyticsService managementAnalyticsService;
+
+    public ManagementAnalyticsController(ManagementAnalyticsService managementAnalyticsService) {
+        this.managementAnalyticsService = managementAnalyticsService;
+    }
 
     // TODO review
     @PreAuthorize("hasRole('ADMIN')")

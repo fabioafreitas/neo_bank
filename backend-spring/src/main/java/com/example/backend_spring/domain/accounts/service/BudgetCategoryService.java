@@ -15,8 +15,11 @@ import com.example.backend_spring.domain.accounts.repository.BudgetCategoryRepos
 @Service
 public class BudgetCategoryService {
 
-    @Autowired
-    private BudgetCategoryRepository budgetCategoryRepository;
+    private final BudgetCategoryRepository budgetCategoryRepository;
+
+    public BudgetCategoryService(BudgetCategoryRepository budgetCategoryRepository) {
+        this.budgetCategoryRepository = budgetCategoryRepository;
+    }
 
     public List<BudgetCategory> findAllBudgetCategories() {
         return budgetCategoryRepository.findAll();

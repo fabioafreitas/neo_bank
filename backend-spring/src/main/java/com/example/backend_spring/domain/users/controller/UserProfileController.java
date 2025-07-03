@@ -19,8 +19,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/users/profile")
 public class UserProfileController {
 
-    @Autowired
-    private UserProfileService userProfileService;
+    private final UserProfileService userProfileService;
+
+    public UserProfileController(UserProfileService userProfileService) {
+        this.userProfileService = userProfileService;
+    }
 
     @PreAuthorize("hasAnyRole('CLIENT', 'MERCHANT')")
     @GetMapping("/me")

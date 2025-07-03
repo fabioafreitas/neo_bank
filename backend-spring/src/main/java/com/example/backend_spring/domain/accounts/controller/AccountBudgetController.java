@@ -17,11 +17,14 @@ import com.example.backend_spring.domain.accounts.service.BudgetCategoryService;
 @RequestMapping("/api/accounts")
 public class AccountBudgetController {
 
-    @Autowired
-    private AccountBudgetAllocationService accountBudgetAllocationService;
+    private final AccountBudgetAllocationService accountBudgetAllocationService;
 
-    @Autowired
-    private BudgetCategoryService budgetCategoryService;
+    private final BudgetCategoryService budgetCategoryService;
+
+    public AccountBudgetController(AccountBudgetAllocationService accountBudgetAllocationService, BudgetCategoryService budgetCategoryService) {
+        this.accountBudgetAllocationService = accountBudgetAllocationService;
+        this.budgetCategoryService = budgetCategoryService;
+    }
 
 
     @GetMapping("/budgetCategories")

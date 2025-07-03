@@ -20,8 +20,11 @@ import com.example.backend_spring.domain.transactions.service.TransactionService
 @RequestMapping("/api/transactions")
 public class TransactionController {
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @PreAuthorize("hasRole('CLIENT')")
     @GetMapping("/{transactionNumber}")

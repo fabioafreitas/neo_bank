@@ -14,8 +14,11 @@ import com.example.backend_spring.domain.management.service.ManagementService;
 @RequestMapping("/api/management")
 public class ManagementController {
 
-    @Autowired
-    private ManagementService managementService;
+    private final ManagementService managementService;
+
+    public ManagementController(ManagementService managementService) {
+        this.managementService = managementService;
+    }
 
     // TODO review
     @PreAuthorize("hasRole('ADMIN')")

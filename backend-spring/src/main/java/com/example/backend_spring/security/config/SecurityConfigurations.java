@@ -25,8 +25,7 @@ import com.example.backend_spring.security.jwt.JwtAuthenticationFilter;
 @EnableMethodSecurity
 public class SecurityConfigurations {
 
-    @Autowired
-    private JwtAuthenticationFilter securityFilter;
+    private final JwtAuthenticationFilter securityFilter;
 
     SecurityConfigurations(JwtAuthenticationFilter securityFilter) {
         this.securityFilter = securityFilter;

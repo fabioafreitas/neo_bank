@@ -14,17 +14,20 @@ import com.example.backend_spring.domain.users.utils.PasswordResetRequestType;
 @Service
 public class EmailService {
 
-    @Autowired
-    private EmailAsyncService emailAsyncService;
+    private final EmailAsyncService emailAsyncService;
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
 
     @Value("${frontend.url}")
     private String frontendUrl;
     
     @Value("${frontend.reset-password-endpoint}")
     private String frontendResetPasswordEndpoint;
+
+    public EmailService(EmailAsyncService emailAsyncService, UserProfileRepository userProfileRepository) {
+        this.emailAsyncService = emailAsyncService;
+        this.userProfileRepository = userProfileRepository;
+    }
 
     public UserGeneralMessageResponseDTO sendUsernameReminder(String destinationEmail) {
         Optional<UserProfile> userProfileOpt = userProfileRepository.findByEmail(destinationEmail);

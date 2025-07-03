@@ -39,26 +39,19 @@ import java.util.UUID;
 
 @Service
 public class TransactionService {
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    @Autowired
-    private JwtTokenProviderService jwtTokenProviderService;
+    private final JwtTokenProviderService jwtTokenProviderService;
 
-    @Autowired
-    private PepperPasswordEncoder pepperPasswordEncoder;
+    private final PepperPasswordEncoder pepperPasswordEncoder;
 
-    @Autowired
-    private BudgetCategoryRepository budgetCategoryRepository;
+    private final BudgetCategoryRepository budgetCategoryRepository;
 
-    @Autowired
-    private TransactionRequestRepository transactionRequestRepository;
+    private final TransactionRequestRepository transactionRequestRepository;
 
-    @Autowired
-	private TransferTransactionRepository transferTransactionRepository;
+    private final TransferTransactionRepository transferTransactionRepository;
 
 	private final List<String> ALLOWED_SORT_FIELDS = Arrays.asList(
 			"id",
@@ -69,6 +62,16 @@ public class TransactionService {
 			"amount",
 			"createdAt"
 	);
+
+	public TransactionService(TransactionRepository transactionRepository, AccountService accountService, JwtTokenProviderService jwtTokenProviderService, PepperPasswordEncoder pepperPasswordEncoder, BudgetCategoryRepository budgetCategoryRepository, TransactionRequestRepository transactionRequestRepository, TransferTransactionRepository transferTransactionRepository) {
+		this.transactionRepository = transactionRepository;
+		this.accountService = accountService;
+		this.jwtTokenProviderService = jwtTokenProviderService;
+		this.pepperPasswordEncoder = pepperPasswordEncoder;
+		this.budgetCategoryRepository = budgetCategoryRepository;
+		this.transactionRequestRepository = transactionRequestRepository;
+		this.transferTransactionRepository = transferTransactionRepository;
+	}
 
 	private void validateFindAllOptionalParams(
 			String accountNumbers,

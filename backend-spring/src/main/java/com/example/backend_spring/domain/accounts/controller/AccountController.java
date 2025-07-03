@@ -17,8 +17,11 @@ import com.example.backend_spring.domain.accounts.service.AccountService;
 @RequestMapping("/api/accounts")
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
+
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @PreAuthorize("hasRole('CLIENT')")
     @GetMapping("/me")

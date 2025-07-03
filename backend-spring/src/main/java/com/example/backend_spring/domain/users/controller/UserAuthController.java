@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/users/auth")
 public class UserAuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    @PostMapping("/login")    
+	public UserAuthController(UserService userService, EmailService emailService) {
+		this.userService = userService;
+		this.emailService = emailService;
+	}
+
+	@PostMapping("/login")
     public ResponseEntity<UserLoginResponseDTO> login(@RequestBody @Valid UserLoginRequestDTO dto) {
         return ResponseEntity.ok(userService.authenticate(dto.accessUsername(), dto.accessPassword()));
     }

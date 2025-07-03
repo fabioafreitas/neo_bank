@@ -20,11 +20,14 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
-    @Autowired
-    private JwtTokenProviderService tokenService;
+    private final JwtTokenProviderService tokenService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public JwtAuthenticationFilter(JwtTokenProviderService tokenService, UserService userService) {
+        this.tokenService = tokenService;
+        this.userService = userService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

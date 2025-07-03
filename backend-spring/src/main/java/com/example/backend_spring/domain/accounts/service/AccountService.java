@@ -34,20 +34,15 @@ import java.util.UUID;
 @Service
 public class AccountService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private JwtTokenProviderService jwtTokenProviderService;
+    private final JwtTokenProviderService jwtTokenProviderService;
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    @Autowired
-    private PepperPasswordEncoder pepperPasswordEncoder;
+    private final PepperPasswordEncoder pepperPasswordEncoder;
 
-    @Autowired
-    private AccountBudgetAllocationService accountBudgetAllocationService;
+    private final AccountBudgetAllocationService accountBudgetAllocationService;
 
     private final List<String> ALLOWED_SORT_FIELDS = Arrays.asList(
             "id",
@@ -57,6 +52,14 @@ public class AccountService {
             "createdAt",
             "updatedAt"
     );
+
+    public AccountService(UserRepository userRepository, JwtTokenProviderService jwtTokenProviderService, AccountRepository accountRepository, PepperPasswordEncoder pepperPasswordEncoder, AccountBudgetAllocationService accountBudgetAllocationService) {
+        this.userRepository = userRepository;
+        this.jwtTokenProviderService = jwtTokenProviderService;
+        this.accountRepository = accountRepository;
+        this.pepperPasswordEncoder = pepperPasswordEncoder;
+        this.accountBudgetAllocationService = accountBudgetAllocationService;
+    }
 
     private void validateFindAllOptionalParams(
             OffsetDateTime createdAtStartDate,

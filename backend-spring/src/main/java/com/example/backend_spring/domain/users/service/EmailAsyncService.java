@@ -15,11 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailAsyncService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
     private String fromAddress;
+
+    public EmailAsyncService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Async
     public void sendSimpleEmail(String to, String subject, String body) {

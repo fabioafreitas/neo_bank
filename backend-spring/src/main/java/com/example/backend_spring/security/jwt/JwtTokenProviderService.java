@@ -21,7 +21,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtTokenProviderService {
     // Constructor set key format to be used, based on jwt.secret  
-    private Key key;
+    private final Key key;
 
     @Value("${jwt.token-validity}")
     private long jwtTokenValidity;
