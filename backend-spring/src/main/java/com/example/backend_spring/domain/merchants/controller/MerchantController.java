@@ -3,6 +3,10 @@ package com.example.backend_spring.domain.merchants.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.backend_spring.domain.merchants.dto.MerchantProfileResponseDTO;
+import com.example.backend_spring.domain.merchants.dto.MerchantRequestDTO;
+import com.example.backend_spring.domain.merchants.dto.MerchantResponseDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,41 +18,35 @@ import com.example.backend_spring.domain.merchants.service.MerchantService;
 @RequestMapping("/api/merchants")
 public class MerchantController {
 
-    @Autowired
-    private MerchantService merchantService;
+    private final MerchantService merchantService;
 
-    // TODO review
+    public MerchantController(MerchantService merchantService) {
+        this.merchantService = merchantService;
+    }
+
     @PreAuthorize("hasRole('MERCHANT')")
     @GetMapping("/me")
-    public ResponseEntity<?> getCurrentMerchantProfile() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MerchantProfileResponseDTO> getCurrentMerchantProfile() {
+        return ResponseEntity.ok(merchantService.getCurrentMerchantProfile());
     }
 
-    // TODO review
     @PreAuthorize("hasRole('MERCHANT')")
     @PutMapping("/me")
-    public ResponseEntity<?> updateCurrentMerchantProfile(@RequestBody Object dto) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MerchantProfileResponseDTO> updateCurrentMerchantProfile(@RequestBody @Valid MerchantRequestDTO dto) {
+        return ResponseEntity.ok(merchantService.updateCurrentMerchantProfile(
+                dto
+        ));
     }
 
-    // TODO review
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<List<?>> getAllMerchants() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<MerchantProfileResponseDTO>> getAllMerchants() {
+        return ResponseEntity.ok(merchantService.getAllMerchants());
     }
 
-    // TODO review
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{merchantId}")
-    public ResponseEntity<?> getMerchantById(@PathVariable("merchantId") UUID merchantId) {
-        return ResponseEntity.ok().build();
-    }
-
-    // TODO review
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{merchantId}")
-    public ResponseEntity<?> deleteMerchant(@PathVariable("merchantId") UUID merchantId) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MerchantProfileResponseDTO> getMerchantById(@PathVariable("merchantId") UUID merchantId) {
+        return ResponseEntity.ok(merchantService.getMerchantById(merchantId));
     }
 }

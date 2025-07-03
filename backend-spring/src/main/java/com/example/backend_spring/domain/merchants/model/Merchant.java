@@ -25,6 +25,7 @@ public class Merchant {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@Setter
 	@Column(name = "store_name", nullable = false, unique = true)
 	private String storeName;
 
