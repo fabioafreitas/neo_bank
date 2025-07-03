@@ -1,6 +1,8 @@
-# API Specification (Overview)
+# NeoBank API Documentation
 
-The ones marked are the implemented methods
+## API Specification (Overview)
+
+This documentation describes the REST API endpoints for NeoBank's banking system. The endpoints marked with [x] are currently implemented.
 
 ## Users
 
@@ -28,18 +30,18 @@ The ones marked are the implemented methods
 - [x] `GET /api/accounts/me` → `CLIENT ROLE` Get current user's account
 - [x] `GET /api/accounts` → `ADMIN ROLE` Get all user accounts
 
-  - Parameters:
+    - Parameters:
 
-    - Required (pagination):
+        - Required (pagination):
 
-      - `page` (integer): Page number (starting from 0 or 1, as per convention)
-      - `size` (integer): Number of items per page
-      - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
+            - `page` (integer): Page number (starting from 0 or 1, as per convention)
+            - `size` (integer): Number of items per page
+            - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
 
-    - Optional (filters):
-      - `accountStatus` (string): Filter by one transaction status (e.g. `ACTIVE`, `SUSPENDED`, `DEACTIVATED`)
-      - `minValue` (decimal): Filter accounts with balance greater than or equal to this amount
-      - `maxValue` (decimal): Filter accounts with balance less than or equal to this amount
+        - Optional (filters):
+            - `accountStatus` (string): Filter by one transaction status (e.g. `ACTIVE`, `SUSPENDED`, `DEACTIVATED`)
+            - `minValue` (decimal): Filter accounts with balance greater than or equal to this amount
+            - `maxValue` (decimal): Filter accounts with balance less than or equal to this amount
 
 - [x] `GET /api/accounts/{accountNumber}` → `ADMIN ROLE` Get user account by number
 - [x] `PUT /api/accounts/activate/{accountNumber}` → `ADMIN ROLE` Activate user account if isn't deactivated
@@ -62,22 +64,22 @@ The ones marked are the implemented methods
 - [X] `POST /api/transactions/operations/transfer` → `CLIENT ROLE` Transfer to another account. Register two transactions, one for source account (TRANSFER_DEBIT) and another for debit account (TRANSFER_CREDIT). Also, adds these transactions relation in `transfer_relation` table.
 - [x] `GET /api/transactions` → `ADMIN ROLE` List transactions based on combination of any of the filters below. If none provided return all:
 
-  - Parameters:
+    - Parameters:
 
-    - Required (pagination):
+        - Required (pagination):
 
-      - `page` (integer): Page number (starting from 0 or 1, as per convention)
-      - `size` (integer): Number of items per page
-      - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
+            - `page` (integer): Page number (starting from 0 or 1, as per convention)
+            - `size` (integer): Number of items per page
+            - `sort` (string): Sorting field and direction, e.g. `createdAt,asc` or `amount,desc`
 
-    - Optional (filters):
-      - `accountNumbers` (list[string]): Filter transactions of a list of account. If not provided, filter all accounts. e.g: 123,234,...,456
-      - `startDate` (datetime): Filter transactions from this date/time (inclusive)
-      - `endDate` (datetime): Filter transactions up to this date/time (inclusive)
-      - `operationType` (string or array): Filter by one operation type (e.g. `DEPOSIT`, `WITHDRAW`, `TRANSFER_DEBIT`)
-      - `transactionStatus` (string): Filter by transaction status (e.g. `PENDING`, `APPROVED`, `REJECTED`)
-      - `minValue` (decimal): Filter transactions with value greater than or equal to this amount
-      - `maxValue` (decimal): Filter transactions with value less than or equal to this amount
+        - Optional (filters):
+            - `accountNumbers` (list[string]): Filter transactions of a list of account. If not provided, filter all accounts. e.g: 123,234,...,456
+            - `startDate` (datetime): Filter transactions from this date/time (inclusive)
+            - `endDate` (datetime): Filter transactions up to this date/time (inclusive)
+            - `operationType` (string or array): Filter by one operation type (e.g. `DEPOSIT`, `WITHDRAW`, `TRANSFER_DEBIT`)
+            - `transactionStatus` (string): Filter by transaction status (e.g. `PENDING`, `APPROVED`, `REJECTED`)
+            - `minValue` (decimal): Filter transactions with value greater than or equal to this amount
+            - `maxValue` (decimal): Filter transactions with value less than or equal to this amount
 
 - [x] `GET /api/transactions/me` → `CLIENT ROLE` List transactions of current user. Calls `/api/transactions/` giving only related jwt account number at `accountsNumbers` list. All other filters are accepted.
 - [x] `POST /api/transactions/approve/{transactionNumber}` → `ADMIN ROLE` Approves a pending transaction
@@ -108,21 +110,21 @@ The ones marked are the implemented methods
 - [ ] `GET /api/marketplace/merchants/{merchantId}` → `CLIENT ROLE` Get specific merchant details
 - [ ] `GET /api/marketplace/products` → `CLIENT ROLE` Browse all available products (with pagination/filters)
 
-  - Parameters:
-    - Required (pagination):
-      - `page` (integer): Page number
-      - `size` (integer): Number of items per page
-      - `sort` (string): Sorting field and direction, e.g. `name,asc` or `price,desc`
-    - Optional (filters):
-      - `merchantIds` (String): Filter by list of merchantIds e.g. 123,123,123
-      - `productCategoryIds` (String): Filter by list of merchantIds e.g. 123,123,123
-      - `minOriginalPrice` (decimal): Minimum original price filter
-      - `maxOriginalPrice` (decimal): Maximum original price filter
-      - `minCashbackRate` (decimal): Minimum cashback rate filter (decimal value between 0 and 1)
-      - `maxCashbackRate` (decimal): Maximum cashback rate filter (decimal value between 0 and 1)
-      - `minDiscountRate` (decimal): Minimum discount rate filter (decimal value between 0 and 1)
-      - `maxDiscountRate` (decimal): Maximum discount rate filter (decimal value between 0 and 1)
-      - `search` (string): Search in product name/description
+    - Parameters:
+        - Required (pagination):
+            - `page` (integer): Page number
+            - `size` (integer): Number of items per page
+            - `sort` (string): Sorting field and direction, e.g. `name,asc` or `price,desc`
+        - Optional (filters):
+            - `merchantIds` (String): Filter by list of merchantIds e.g. 123,123,123
+            - `productCategoryIds` (String): Filter by list of merchantIds e.g. 123,123,123
+            - `minOriginalPrice` (decimal): Minimum original price filter
+            - `maxOriginalPrice` (decimal): Maximum original price filter
+            - `minCashbackRate` (decimal): Minimum cashback rate filter (decimal value between 0 and 1)
+            - `maxCashbackRate` (decimal): Maximum cashback rate filter (decimal value between 0 and 1)
+            - `minDiscountRate` (decimal): Minimum discount rate filter (decimal value between 0 and 1)
+            - `maxDiscountRate` (decimal): Maximum discount rate filter (decimal value between 0 and 1)
+            - `search` (string): Search in product name/description
 
 - [ ] `GET /api/marketplace/products/{productId}` → `CLIENT ROLE` Get specific product details
 
@@ -137,22 +139,22 @@ The ones marked are the implemented methods
 
 - [ ] `GET /api/management/analytics/budget/categories` → `ADMIN ROLE` Get budget category transaction summary across all accounts
 
-  - Uses view: `budget_category_transaction_summary`
-  - Shows total transactions and amounts per budget category
+    - Uses view: `budget_category_transaction_summary`
+    - Shows total transactions and amounts per budget category
 
 - [ ] `GET /api/management/analytics/accounts/{accountNumber}/budget` → `ADMIN ROLE` Get complete budget overview for specific account
 
-  - Uses view: `account_budget_overview`
-  - Shows allocations vs actual spending per category
+    - Uses view: `account_budget_overview`
+    - Shows allocations vs actual spending per category
 
 - [ ] `GET /api/management/analytics/accounts/{accountNumber}/budget/summary` → `ADMIN ROLE` Get budget category spending summary for specific account
 
-  - Uses view: `account_budget_category_summary`
-  - Shows spent/received totals and transaction counts per category
+    - Uses view: `account_budget_category_summary`
+    - Shows spent/received totals and transaction counts per category
 
 - [ ] `GET /api/management/analytics/transactions/pending` → `ADMIN ROLE` List all pending transaction requests
 - [ ] `GET /api/management/analytics/transactions/summary` → `ADMIN ROLE` Get transaction summary statistics
-  - Total volume, count by status, by operation type, etc.
+    - Total volume, count by status, by operation type, etc.
 
 ### Reports
 

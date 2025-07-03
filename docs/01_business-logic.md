@@ -1,28 +1,65 @@
-# Business Logic Specification
+# NeoBank Business Logic Specification
 
-## User
-- Can register with username and password
-- Role is always set to USER during registration
-- Cannot choose their role manually
-- Admin can promote users to ADMIN
+## User Management
+- Three types of users: CLIENT, MERCHANT, and ADMIN
+- Users register with username, password, and specific role registration endpoints
+- Access password and transaction password (for financial operations) system
+- Password reset functionality for both access and transaction passwords
+- Email-based username recovery system
 
-## Account
-- Automatically created upon user registration
-- Account types: NORMAL, CASHBACK
-- Users may have one account
+## Account Management
+- Each CLIENT automatically receives an account upon registration
+- Account statuses: ACTIVE, SUSPENDED, DEACTIVATED
+- Only ADMIN can change account status
+- Budget allocation system for better financial management
+- Account balance tracking and validation
 
-## Transactions
-- User can deposit funds → creates a transaction (`is_deposit = true`)
-- User can make purchases → creates a transaction (`is_deposit = false`)
-- CASHBACK accounts trigger a second `CASHBACK` transaction (2% reward)
-- Transfers between accounts create two `transactions` and one `transactions_in_house` record
+## Transaction System
+- Supported operation types:
+  - DEPOSIT (requires admin approval)
+  - WITHDRAW (instant with transaction password)
+  - TRANSFER (between accounts)
+  - PURCHASE (for merchant products)
+- Transaction statuses: PENDING, APPROVED, REJECTED
+- All transactions are tracked and auditable
+- Transfer operations create paired transactions (TRANSFER_DEBIT and TRANSFER_CREDIT)
 
-## Cashback
-- Applies only for CASHBACK accounts
-- Automatically triggered for eligible transactions (e.g., purchases)
-- Cashback rate is currently fixed (e.g., 2%)
+## Budget Management
+- Clients can create and manage budget allocations
+- Budget categories with spending limits
+- Budget tracking and analysis
+- Budget vs actual spending comparison
 
-## Admin
-- Can view user list and all transactions
-- Can audit failed transactions or fraud patterns
-- Can promote other users to admin (via internal tool/console)
+## Merchant System
+- Merchants can register and manage their profile
+- Product management system:
+  - Create, update, and delete products
+  - Set prices and discounts
+  - Define cashback rates
+- Sales tracking and reporting
+
+## Marketplace
+- Clients can browse all merchants and products
+- Product filtering and search capabilities
+- Product categories
+- Price range filtering
+- Cashback and discount rate filtering
+
+## Administrative Functions
+- Complete user and account management
+- Transaction approval system
+- Account status management
+- Analytics and reporting:
+  - Budget allocation usage
+  - Transaction summaries
+  - Merchant performance metrics
+  - Cashback statistics
+- System-wide monitoring and control
+
+## Security
+- JWT-based authentication
+- Role-based access control (CLIENT, MERCHANT, ADMIN)
+- Dual password system:
+  - Access password for login
+  - Transaction password for financial operations
+- Transaction validation and verification
