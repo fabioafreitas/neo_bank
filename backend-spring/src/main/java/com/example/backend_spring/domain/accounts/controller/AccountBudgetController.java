@@ -2,6 +2,7 @@ package com.example.backend_spring.domain.accounts.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,7 +42,7 @@ public class AccountBudgetController {
     @PreAuthorize("hasRole('CLIENT')")
     @PutMapping("/me/budget")
     public ResponseEntity<List<AccountBudgetAllocationDTO>> updateBudgetAllocation(
-            @RequestBody AccountBudgetAllocationUpdateRequestDTO dto) {
+            @RequestBody @Valid List<AccountBudgetAllocationDTO> dto) {
         return ResponseEntity.ok(accountBudgetAllocationService.update(dto));
     }
 

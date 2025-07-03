@@ -90,39 +90,43 @@ public class AccountBudgetAllocationService {
         accountBudgetAllocationRepository.saveAll(accountAllocations);
     }
 
-    public List<AccountBudgetAllocationDTO> update(AccountBudgetAllocationUpdateRequestDTO dto) {
+    public List<AccountBudgetAllocationDTO> update(List<AccountBudgetAllocationDTO> updateAllocations) {
         User user = jwtTokenProviderService.getContextUser();
         if (user.getRole() != UserRole.CLIENT) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access");
         }
         // check if there isn't repeated IDs in the request
-        List<AccountBudgetAllocationDTO> updateAllocations = dto.allocations();
-        List<UUID> updateAllocationIds = dto.allocations().stream()
+        List<UUID> updateAllocationIds = updateAllocations.stream()
             .map(AccountBudgetAllocationDTO::budgetCategoryId)
-            .collect(Collectors.toList());
+            .toList();
         if (updateAllocationIds.size() != updateAllocationIds.stream().distinct().count()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate budget category IDs found in the request");
         }
         
         List<AccountBudgetAllocation> allocations = this.findAccountBudgetAllocationsByJwt();
         
-        // check if all IDs in the request exist in the database
-        List<UUID> existingIds = allocations.stream()
-            .map(AccountBudgetAllocation::getId)
-            .collect(Collectors.toList());
+        // check if provided budgetCategoryIds are defined in the database
+        List<UUID> budgetCategoryIds = allocations.stream()
+            .map(AccountBudgetAllocation::getBudgetCategory)
+            .map(BudgetCategory::getId)
+            .toList();
         for (UUID updateAllocationId : updateAllocationIds) {
-            if (!existingIds.contains(updateAllocationId)) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Budget category with ID " + updateAllocationId + " not found");
+            if (!budgetCategoryIds.contains(updateAllocationId)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Budget category with ID " + updateAllocationId + " not found. Check /api/accounts/budgetCategories for the available budget categories.");
             }
         }
 
         for (AccountBudgetAllocation allocation : allocations) {
             Optional<AccountBudgetAllocationDTO> updateDto = updateAllocations.stream()
-                .filter(updateAllocation -> updateAllocation.budgetCategoryId().equals(allocation.getId()))
+                .filter(updateAllocation ->
+                        updateAllocation.budgetCategoryId().equals(
+                                allocation.getBudgetCategory().getId()
+                        )
+                )
                 .findFirst();
-            if (updateDto.isPresent()) {
-                allocation.setAllocationValue(updateDto.get().allocationValue());
-            }
+			updateDto.ifPresent(accountBudgetAllocationDTO ->
+                    allocation.setAllocationValue(accountBudgetAllocationDTO.allocationValue())
+            );
         }
         
         return accountBudgetAllocationRepository.saveAll(allocations)
@@ -140,7 +144,7 @@ public class AccountBudgetAllocationService {
         }
         return new AccountBudgetAllocationDTO(
             accountBudgetCategory.getBudgetCategory().getName(),
-            accountBudgetCategory.getId(),
+            accountBudgetCategory.getBudgetCategory().getId(),
             accountBudgetCategory.getAllocationValue()
         );
     }
